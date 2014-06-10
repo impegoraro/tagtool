@@ -1,0 +1,16 @@
+Known Bugs:
+
+- ID3v2 tags are always saved in Latin1 encoding.  (This is due to a bug 
+  in the C binding of id3lib.)
+
+- When tagging multiple files, it should be possible to clear a field by 
+  checking it and leaving it empty.  Currently this does not work for mp3 
+  files that have both v1 and v2 tags, unless other tag fields are also 
+  being set to non-empty values  (Appears to be another id3lib bug)
+
+
+Find a bug not listed here?  Send me a message (paol1976@yahoo.com). 
+Please include a reasonably detailed description of the problem.  Mention 
+at least your OS version, how you installed tagtool (from source, distro 
+package, etc.) and how to reproduce the problem.
+

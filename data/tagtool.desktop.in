@@ -1,0 +1,8 @@
+[Desktop Entry]
+_Name=Audio Tag Tool
+_Comment=MP3 and Ogg Vorbis tag editor
+Exec=tagtool
+Icon=TagTool
+Terminal=False
+Type=Application
+Categories=Audio;AudioVideo;AudioVideoEditing;

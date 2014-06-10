@@ -1,0 +1,11 @@
+<!ELEMENT preferences (attr)*>
+<!ELEMENT attr (value)*>
+<!ELEMENT value (#PCDATA)>
+
+<!ATTLIST preferences
+          app CDATA #REQUIRED
+          ver CDATA #REQUIRED>
+
+<!ATTLIST attr
+          name CDATA #REQUIRED
+          type CDATA #REQUIRED>

@@ -1,0 +1,154 @@
+0.12.3 (Feb 27 2007)
+	- New application icon.  (Jean-François Fortin Tam)
+	- Allow application icon to be themed.  (Brian Pepple)
+	- Fixed: when mass tagging, allow formats like "<track> <title>" 
+	  to work by not allowing spaces in the track number.
+	- Fixed: when mass renaming with new path, absolute paths are no 
+	  longer treated as relative.
+	- Fixed: problem with the working dir MRU list not being case-
+	  sensitive.
+	- Fixed: UI lockup with the Vorbis genre combobox.  (Brian Pepple)
+	- Other minor fixes.
+	- Added nl, pl, sv and pt_BR translations.
+
+0.12.2 (May 26 2005)
+	- Fixed libglade signal autoconnect problems due to missing linker 
+	  flag -export-dynamic (thanks to Felix Braun for pointing out the 
+	  source of the problem)
+	- Cleaned up some autoconf/automake stuff. Now using automake 1.9.
+	- Added bg, lt, ua and ru translations.
+	
+0.12.1 (Mar 7 2005)
+	- Added es, it, de and en_GB translations.
+	- Added credits to the "About" dialog
+
+0.12 (Feb 8 2005)
+	- Internationalization support.  (Nickolay V. Shmyrev, me)
+	- Added pt, fr, cs translations.
+	- Very large directory scans now pop up a progress dialog with a 
+	  stop button.
+	- Fixed: don't rename file when required tag field is missing.
+	- Fixed clearing Vorbis tags even when "Clear only ID3 v1/2" was 
+	  selected.
+	- Fixed <track> only accepting digits when tagging from file name.
+	- Other minor fixes and UI improvements.
+	
+0.11.1 (Oct 31 2004)
+	- Fixed text encoding errors with Vorbis tags in non-UTF8 locales.
+	- Fixed compilation error on FreeBSD.  (Tom Pawlowski)
+	- Removed direct access to the multi-file operations in the list 
+	  context menu, because using them was error prone.
+	- Other minor UI improvements.
+	
+0.11 (Oct 23 2004)
+	- Major UI reorganization:
+	   * File list is always visible
+	   * The operation progress now pops up in a separate window
+	   * Better GNOME HIG compliance
+	   * Lots of other small changes
+	- All multi-file operations can now optionally apply only to the 
+	  selected files. This is the default if there is a selection in 
+	  the file list.
+	- All multi-file operations can now be interrupted.
+	- The Clear Tags feature was moved to its own tab, with new 
+	  options to clear all tags, only ID3v1 or only ID3v2.
+	- Added a context menu to the file list.
+	- New feature: Manual Rename (file list context menu).
+	- New feature: Delete Selected Files (file list context menu).
+	- Added a work-around for the id3lib link bugs to configure
+
+0.10 (Aug 14 2004)
+	- Ported to GTK 2.4
+	- All internal text handling is now done in UTF-8.
+	- Resources (icons, glade file, etc.) are now installed as 
+	  separate files, not embedded in the executable.
+	- Fixed sorting playlist by tag field
+	- Removed C99-style declarations that cause syntax errors in gcc 
+	  2.9x (again!)
+
+0.9 (Mar 20 2004)
+	- Added --disable-mp3 and --disable-vorbis options to configure.
+	  Support for each format is also disabled automatically if the 
+	  required libraries are not present.
+	- Automatic tagging can now get information from the file's 
+	  location, e.g "<artist>/<album>/<track>. <title>.mp3".
+	- Added an advanced mode for editing ID3v2 tags.
+	- Made some changes to Vorbis advanced mode to make it work the 
+	  same way as ID3v2 advanced mode.
+	- Added command line switch --version and fixed a bug in --dump.
+
+0.8 (Feb 12 2004)
+	- Added ID3 v2 support through ID3Lib.
+	- New ID3 preferences dialog, controlling what ID3 versions to 
+	  write when mass tagging.
+
+0.7 (not released)
+	- New Character Converisons dialog. Includes support for case 
+	  conversions when tagging and renaming. Space conversions are 
+	  also more flexible.
+	- Added an "about" dialog.
+	- Added the menu bar.
+	- Fixed problem with gcc 3 dropping support for multiline strings.
+
+0.6.1 (Dec 1 2002)
+	- Advanced editing mode for Ogg Vorbis tags allows full control 
+	  over Vorbis comment fields.
+	- Better keyboard navigation in the browse/edit tab.
+	- UI responsiveness improvements.
+	- Keep window size between sessions
+	- Accept command line parameters.
+
+0.6 (Oct 21 2002)
+	- Renamed project to Audio Tag Tool, due to...
+	- Support for Ogg Vorbis files.
+	- New option: "Sort across directories" in playlist maker, when 
+	  sorting by tag field.
+	- New option: "Convert underscores to spaces" when tagging.
+	  (Tom Marshall)
+	- When renaming, replace "/" with "-" in the file name (slash is 
+	  not allowed in Unix file names.)
+	- Use system locale (was missing call to gtk_set_locale)
+	- Changes to autoconf stuff (now requires autoconf 2.5)
+
+0.5.2 (Apr 16 2002)
+	- Fixed the crash some people were experiencing when turning on
+	  the "Include subdirectories" option.
+
+0.5.1 (Apr 14 2002)
+	- Guard against loops in the directory structure (avoid infinite 
+	  recursion.)
+	- Removed a C99'ism in the source that was causing syntax errors 
+	  in gcc 2.9
+	- Cleanup some minor memory problems detected by valgrind.
+
+0.5 (Jan 26 2002)
+	- File names are now case insensitive. This applies to automatic 
+	  tagging and directory scanning (now you can see those files 
+	  with upper-case extensions...)
+	- The interface remembers more settings between sessions
+	  (rewrote the preferences to handle arbitrary attributes.)
+	- File move/rename will no longer overwrite existing files.  
+	  (Fredrik Estreen)
+	- Fixed a number of bugs in the playlist maker.
+
+0.4 (Dec 26 2001)
+	- New tab: Playlist maker.
+	- New option: auto-increment track number when tagging.
+	- Fixed memory corruption in dir_select.c
+
+0.3 (Nov 18 2001)
+	- The file rename operation was extended to allow directories
+	  in the file name.  This means mp3 files can now be organized 
+	  automatically into directories.
+	- Created autoconf/automake framework.  (Chris Weyl)
+	- Created spec file template for RPM packaging.  (Chris Weyl)
+	- Created desktop file for GNOME.  (Chris Weyl)
+
+0.2 (Nov 2 2001)
+	- Added most recently used (MRU) dropdown lists to some of the 
+	  fields.
+	- Use an rc file (~/.tagtoolrc) to keep program settings.
+
+0.1 (Oct 7 2001)
+	- First release
+

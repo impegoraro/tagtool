@@ -1,0 +1,1148 @@
+# Bulgarian translation of tagtool.
+# This file is distributed under the same license as the tagtool package.
+# Rostislav Raykov <zbrox@i-space.org>, 2005.
+# 
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: tagtool 0.12.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-05-26 16:50+0100\n"
+"PO-Revision-Date: 2005-03-09 11:48+0200\n"
+"Last-Translator: Rostislav Raykov <zbrox@i-space.org>\n"
+"Language-Team: Bulgarian <dict@linux.zonebg.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/tagtool.glade:8
+msgid "Audio Tag Tool"
+msgstr "Audio Tag Tool"
+
+#: src/tagtool.glade:36
+msgid "_File"
+msgstr "Файл"
+
+#: src/tagtool.glade:45
+msgid "Open Directory..."
+msgstr "Отваряне на папка..."
+
+#: src/tagtool.glade:66
+msgid "Refresh"
+msgstr "Опресняване"
+
+#: src/tagtool.glade:94
+msgid "Quit"
+msgstr "Изход"
+
+#: src/tagtool.glade:119
+msgid "_Settings"
+msgstr "Настройки"
+
+#: src/tagtool.glade:128
+msgid "Character Conversions..."
+msgstr "Преобразуване на символи..."
+
+#: src/tagtool.glade:137
+msgid "ID3 Preferences..."
+msgstr "ID3 Настройки"
+
+#: src/tagtool.glade:150
+msgid "ID_3"
+msgstr "ID_3"
+
+#: src/tagtool.glade:159 src/tagtool.glade:232
+msgid "View"
+msgstr "Преглед"
+
+#: src/tagtool.glade:168 src/tagtool.glade:241 src/tagtool.glade:2169
+#: src/tagtool.glade:3159
+msgid "Simple"
+msgstr "Прост"
+
+#: src/tagtool.glade:178 src/tagtool.glade:251 src/tagtool.glade:1936
+#: src/tagtool.glade:2926 src/mpeg_edit.c:279 src/vorbis_edit.c:204
+msgid "Advanced"
+msgstr "Подробен"
+
+#: src/tagtool.glade:199
+msgid "Copy v1 to v2"
+msgstr "Копиране на v1 към v2"
+
+#: src/tagtool.glade:209
+msgid "Copy v2 to v1"
+msgstr "Копиране на v2 към v1"
+
+#: src/tagtool.glade:223
+msgid "_Vorbis"
+msgstr "_Vorbis"
+
+#: src/tagtool.glade:270
+msgid "_Help"
+msgstr "_Помощ"
+
+#: src/tagtool.glade:279
+msgid "Contents..."
+msgstr "Потребителско ръководство"
+
+#: src/tagtool.glade:300
+msgid "About..."
+msgstr "Относно..."
+
+#: src/tagtool.glade:355
+msgid "Include subdirectories"
+msgstr "Включително в съдържащите се папки"
+
+#: src/tagtool.glade:440
+msgid "Select Working Directory"
+msgstr "Избор на работна папка"
+
+#: src/tagtool.glade:471
+msgid "<b>Working Directory</b>"
+msgstr "<b>Работна папка</b>"
+
+#: src/tagtool.glade:559
+msgid "<b>Files</b>"
+msgstr "<b>Файлове</b>"
+
+#: src/tagtool.glade:614
+msgid "Refresh file list"
+msgstr "Опресняване на списъка с файлове"
+
+#: src/tagtool.glade:706
+msgid "<span size=\"large\" weight=\"bold\">Edit Tag</span>"
+msgstr "<span size=\"large\" weight=\"bold\">Редактиране на етикет</span>"
+
+#: src/tagtool.glade:740
+msgid "Select a file to edit"
+msgstr "Избор на файл за редакция"
+
+#: src/tagtool.glade:795 src/tagtool.glade:3945
+msgid "<b>Tag</b>"
+msgstr "<b>Етикет</b>"
+
+#: src/tagtool.glade:898
+msgid "File has no ID3v1 Tag"
+msgstr "Файлът няма ID3v1 етикет"
+
+#: src/tagtool.glade:920 src/tagtool.glade:1478
+msgid "Create"
+msgstr "Създаване"
+
+#: src/tagtool.glade:972 src/tagtool.glade:1530 src/tagtool.glade:2535
+#: src/tagtool.glade:3970
+msgid "Title:"
+msgstr "Заглавие:"
+
+#: src/tagtool.glade:996 src/tagtool.glade:1874 src/tagtool.glade:2559
+#: src/tagtool.glade:4062
+msgid "Comnt.:"
+msgstr "Коментар:"
+
+#: src/tagtool.glade:1020 src/tagtool.glade:1898 src/tagtool.glade:2583
+#: src/tagtool.glade:4039
+msgid "Year:"
+msgstr "Година:"
+
+#: src/tagtool.glade:1044 src/tagtool.glade:1554 src/tagtool.glade:2607
+#: src/tagtool.glade:4016
+msgid "Album:"
+msgstr "Албум:"
+
+#: src/tagtool.glade:1068 src/tagtool.glade:1578 src/tagtool.glade:2655
+#: src/tagtool.glade:4197
+msgid "Genre:"
+msgstr "Жанр:"
+
+#: src/tagtool.glade:1277 src/tagtool.glade:1763 src/tagtool.glade:2864
+#: src/tagtool.glade:4085
+msgid "Track:"
+msgstr "Номер в албума:"
+
+#: src/tagtool.glade:1324 src/tagtool.glade:1787 src/tagtool.glade:2631
+#: src/tagtool.glade:3993
+msgid "Artist:"
+msgstr "Изпълнител:"
+
+#: src/tagtool.glade:1456
+msgid "File has no ID3v2 Tag"
+msgstr "Файлът няма ID3v2 етикет"
+
+#: src/tagtool.glade:2051 src/tagtool.glade:3041
+msgid "Add"
+msgstr "Добавяне"
+
+#: src/tagtool.glade:2079 src/tagtool.glade:3069
+msgid "Remove"
+msgstr "Премахване"
+
+#: src/tagtool.glade:2107 src/tagtool.glade:3097
+msgid "Edit (double-click)"
+msgstr "Редакция (двойно-натискане)"
+
+#: src/tagtool.glade:2370
+msgid "Remove Tag"
+msgstr "Премахване на етикет"
+
+#: src/tagtool.glade:2446 src/tagtool.glade:3380 src/mpeg_edit.c:673
+#: src/vorbis_edit.c:454
+msgid "Save Changes"
+msgstr "Запазване на промените"
+
+#: src/tagtool.glade:3305
+msgid "Clear Tag"
+msgstr "Изчистване на етикета"
+
+#: src/tagtool.glade:3468
+msgid "<b>File Info</b>"
+msgstr "<b>Информация за файла</b>"
+
+#: src/tagtool.glade:3658
+msgid "<span size=\"large\" weight=\"bold\">Tag Multiple Files</span>"
+msgstr ""
+"<span size=\"large\" weight=\"bold\">Поставяне на етикет на много файлове</"
+"span>"
+
+#: src/tagtool.glade:3690 src/tagtool.glade:5074
+msgid "<b>File Name Format</b>"
+msgstr "<b>Формат на файловото име</b>"
+
+#: src/tagtool.glade:3777 src/tagtool.glade:5043
+msgid "Get help on filename formats"
+msgstr "Помощ за формата на файловите имена"
+
+#: src/tagtool.glade:3872 src/tagtool.glade:5162
+msgid "<b>Character and Case Conversion</b>"
+msgstr "<b>Преобразуване на големи/малки букви и символи</b>"
+
+#: src/tagtool.glade:3909 src/tagtool.glade:5199
+msgid "Configure"
+msgstr "Настройки"
+
+#: src/tagtool.glade:4328
+msgid "Auto-increment"
+msgstr "Автоматично увеличаване"
+
+#: src/tagtool.glade:4388
+msgid "Set tags based on file names"
+msgstr "Поставяне етикети на база файловите имена"
+
+#: src/tagtool.glade:4435 src/tagtool.glade:4777 src/tagtool.glade:5244
+#: src/tagtool.glade:5951
+msgid "Apply to "
+msgstr "Прилагане към "
+
+#: src/tagtool.glade:4456 src/tagtool.glade:4798 src/tagtool.glade:5265
+#: src/tagtool.glade:5972
+msgid ""
+"All files\n"
+"Selected files"
+msgstr ""
+"Всички файлове\n"
+"Избраните файлове"
+
+#: src/tagtool.glade:4533 src/tagtool.glade:4875 src/tagtool.glade:5342
+#: src/tagtool.glade:6049
+msgid "Go!"
+msgstr "Изпълнение"
+
+#: src/tagtool.glade:4607
+msgid "<span size=\"large\" weight=\"bold\">Clear Tags</span>"
+msgstr "<span size=\"large\" weight=\"bold\">Изчистване на етикетите</span>"
+
+#: src/tagtool.glade:4663
+msgid "<b>Tags to Clear</b>"
+msgstr "<b>Етикетите, който да се изчистят</b>"
+
+#: src/tagtool.glade:4688
+msgid "All"
+msgstr "Всички"
+
+#: src/tagtool.glade:4709
+msgid "Only ID3 v1 tags"
+msgstr "Само ID3v1 етикетите"
+
+#: src/tagtool.glade:4731
+msgid "Only ID3 v2 tags"
+msgstr "Само ID3v2 етикетите"
+
+#: src/tagtool.glade:4949
+msgid "<span size=\"large\" weight=\"bold\">Rename Multiple Files</span>"
+msgstr ""
+"<span size=\"large\" weight=\"bold\">Преименуване на много файлове</span>"
+
+#: src/tagtool.glade:5416
+msgid "<span size=\"large\" weight=\"bold\">Create Playlists</span>"
+msgstr "<span size=\"large\" weight=\"bold\">Създаване на плейлисти</span>"
+
+#: src/tagtool.glade:5449
+msgid "Every directory"
+msgstr "Всяка папка"
+
+#: src/tagtool.glade:5471
+msgid "Top-level directory"
+msgstr "Най-горната папка"
+
+#: src/tagtool.glade:5494 src/tagtool.glade:7489
+msgid "Both"
+msgstr "И двете"
+
+#: src/tagtool.glade:5516
+msgid "<b>Create In</b>"
+msgstr "<b>Създаване в</b>"
+
+#: src/tagtool.glade:5580
+msgid "<b>Playlist File Name</b>"
+msgstr "<b>Файлово име на плейлиста</b>"
+
+#: src/tagtool.glade:5605
+msgid "Set to:"
+msgstr "Друго име:"
+
+#: src/tagtool.glade:5631
+msgid "playlist"
+msgstr "плейлист"
+
+#: src/tagtool.glade:5649
+msgid "Same as directory name"
+msgstr "Същото като името на папката"
+
+#: src/tagtool.glade:5671
+msgid "Extension:"
+msgstr "Разширение:"
+
+#: src/tagtool.glade:5756
+msgid "<b>Sort Entries</b>"
+msgstr "<b>Подреждане на записите</b>"
+
+#: src/tagtool.glade:5805
+msgid "By tag field (if available):"
+msgstr "По поле от етикета (ако е наличен):"
+
+#: src/tagtool.glade:5827
+msgid ""
+"Title\n"
+"Artist\n"
+"Album\n"
+"Year\n"
+"Genre\n"
+"Comment\n"
+"Track #"
+msgstr ""
+"Заглавие\n"
+"Изпълнител\n"
+"Албум\n"
+"Година\n"
+"Жанр\n"
+"Коментар\n"
+"Номер в албума"
+
+#: src/tagtool.glade:5876
+msgid "Sort across directories"
+msgstr "Сортиране във всички папки"
+
+#: src/tagtool.glade:5904
+msgid "By file name"
+msgstr "По файлово име"
+
+#: src/tagtool.glade:6222
+msgid "Character Conversions"
+msgstr "Преобразуване на символи"
+
+#: src/tagtool.glade:6340 src/tagtool.glade:6586
+msgid "No conversion"
+msgstr "Без преобразуване"
+
+#: src/tagtool.glade:6363
+msgid "Convert this character to space:"
+msgstr "Преобразуване на този символ към интервал:"
+
+#: src/tagtool.glade:6385 src/tagtool.glade:6654
+msgid "<b>Space Conversion</b>"
+msgstr "<b>Преобразуване на интервалите</b>"
+
+#: src/tagtool.glade:6447 src/tagtool.glade:6694
+msgid "<b>Case Conversion</b>"
+msgstr "<b>Преобразуване на малки/големи букви</b>"
+
+#: src/tagtool.glade:6471 src/tagtool.glade:6742
+msgid ""
+"(no conversion)\n"
+"lower case\n"
+"UPPER CASE\n"
+"Sentence case\n"
+"Title Case"
+msgstr ""
+"(без преобразуване)\n"
+"само малки букви\n"
+"САМО ГОЛЕМИ БУКВИ\n"
+"Като в изречение\n"
+"Всяка Първа Буква Голяма"
+
+#: src/tagtool.glade:6526
+msgid "When Tagging"
+msgstr "При поставянето на етикети"
+
+#: src/tagtool.glade:6609
+msgid "Convert spaces to:"
+msgstr "Преобразуване на интервалите в:"
+
+#: src/tagtool.glade:6801
+msgid "Omit"
+msgstr "Пропускане"
+
+#: src/tagtool.glade:6824
+msgid "Convert to:"
+msgstr "Преобразуване в:"
+
+#: src/tagtool.glade:6869
+msgid "<b>Invalid File Name Characters</b>"
+msgstr "<b>Невалидни символи за файловото име</b>"
+
+#: src/tagtool.glade:6929
+msgid "When Renaming"
+msgstr "При преименуването"
+
+#: src/tagtool.glade:6956
+msgid "About Audio Tag Tool"
+msgstr "Относно Audio Tag Tool"
+
+#: src/tagtool.glade:7029
+msgid "C_redits"
+msgstr "Заслуги"
+
+#: src/tagtool.glade:7125
+msgid "<span size=\"xx-large\" weight=\"bold\">Audio Tag Tool</span>"
+msgstr "<span size=\"xx-large\" weight=\"bold\">Audio Tag Tool</span>"
+
+#: src/tagtool.glade:7146
+msgid "<b>version %s</b>"
+msgstr "<b>версия %s</b>"
+
+#: src/tagtool.glade:7212
+msgid "Supported audio formats:"
+msgstr "Поддържани аудио формати:"
+
+#: src/tagtool.glade:7261
+msgid ""
+"This software is made available under the GNU General Public Licence.\n"
+"See the file COPYING for the full license terms."
+msgstr ""
+"Този софтуер е пуснат под лиценза GNU General Public Licence.\n"
+"Вижте файлът COPYING за пълните условия на лиценза."
+
+#: src/tagtool.glade:7291
+msgid "ID3 Preferences"
+msgstr "ID3 предпочитания"
+
+#: src/tagtool.glade:7373
+msgid "<b>When tagging multiple files</b>"
+msgstr "<b>При поставяне на етикети на много файлове</b>"
+
+#: src/tagtool.glade:7428
+msgid "ID3 tag versions to create:"
+msgstr "Версия на ID3 етикета, която да се създава:"
+
+#: src/tagtool.glade:7450
+msgid "Only v1"
+msgstr "Само v1"
+
+#: src/tagtool.glade:7469
+msgid "Only v2"
+msgstr "Само v2"
+
+#: src/tagtool.glade:7509
+msgid "Default to v1, add v2 only when necessary"
+msgstr "Стандартното да е v1, но да се добавя v2, когато е необходимо"
+
+#: src/tagtool.glade:7540
+msgid "Preserve existing tag versions"
+msgstr "Запазване на текущите версии на етикетите"
+
+#: src/tagtool.glade:7655
+msgid "Text:"
+msgstr "Текст:"
+
+#: src/tagtool.glade:7701
+msgid "Field:"
+msgstr "Поле:"
+
+#: src/tagtool.glade:7735 src/progress_dlg.c:114
+msgid "Progress"
+msgstr "Прогрес"
+
+#: src/tagtool.glade:7833
+msgid "Manually rename a file"
+msgstr "Ръчно преименуване на файл"
+
+#: src/tagtool.glade:7834
+msgid "Manual Rename..."
+msgstr "Ръчно преименуване..."
+
+#: src/tagtool.glade:7849
+msgid "Delete selected files from disk"
+msgstr "Изтриване на избраните файлове от диска"
+
+#: src/tagtool.glade:7850
+msgid "Delete Selected Files"
+msgstr "Изтриване на избраните файлове"
+
+#: src/tagtool.glade:7865
+msgid "Unselect all files"
+msgstr "Отизбиране на всички файлове"
+
+#: src/tagtool.glade:7866
+msgid "Unselect All"
+msgstr "Отизбиране на всичко"
+
+#: src/tagtool.glade:7874
+msgid "Rename File"
+msgstr "Преименуване на файл"
+
+#: src/tagtool.glade:7943
+msgid "File Name:"
+msgstr "Файлово име:"
+
+#: src/tagtool.glade:7992
+msgid "Scan Progress"
+msgstr "Прогрес на обхождането"
+
+#: src/tagtool.glade:8048
+msgid "<b>Scanning...</b>"
+msgstr "<b>Обхождане...</b>"
+
+#: src/tagtool.glade:8075
+msgid ""
+"Directories scanned:\n"
+"Files found:"
+msgstr ""
+"Обходени папки:\n"
+"Намерени файлове:"
+
+#: src/tagtool.glade:8134
+msgid "Credits"
+msgstr "Заслуги"
+
+#: src/tagtool.glade:8215
+msgid "Written by"
+msgstr "Написано от"
+
+#: src/tagtool.glade:8268
+msgid "Translated by"
+msgstr "Преведено от"
+
+#: src/clear_tab.c:110 src/clear_tab.c:205
+msgid "Clearing Tags"
+msgstr "Изчистване на етикети"
+
+#: src/clear_tab.c:111 src/playlist_tab.c:300 src/rename_tab.c:186
+#: src/tag_tab.c:330
+#, c-format
+msgid "Starting in directory \"%s\""
+msgstr "Започва в папката \"%s\""
+
+#: src/clear_tab.c:120 src/file_list.c:219 src/playlist_tab.c:329
+#: src/rename_tab.c:195 src/tag_tab.c:351
+msgid "Operation stopped at user's request"
+msgstr "Операцията е прекъсната по искане на потребителя"
+
+#: src/clear_tab.c:130 src/clear_tab.c:138 src/edit_tab.c:97
+#: src/edit_tab.c:113 src/file_list.c:223 src/playlist_tab.c:150
+#: src/playlist_tab.c:262 src/playlist_tab.c:346 src/rename_tab.c:203
+#: src/rename_tab.c:212 src/rename_tab.c:255 src/rename_tab.c:269
+#: src/rename_tab.c:292 src/rename_tab.c:296 src/tag_tab.c:361
+#: src/tag_tab.c:371
+msgid "(UTF8 conversion error)"
+msgstr "(грешка при конвертиране на UTF-8)"
+
+#: src/clear_tab.c:133 src/rename_tab.c:205 src/tag_tab.c:363
+#, c-format
+msgid "Entering directory \"%.*s\""
+msgstr "Влизане в папката \"%. *s\""
+
+#: src/clear_tab.c:142 src/clear_tab.c:162
+#, c-format
+msgid "Error in file \"%s\""
+msgstr "Грешка във файла \"%s\""
+
+#: src/clear_tab.c:144 src/tag_tab.c:378
+msgid "Couldn't open file for writing"
+msgstr "Не може да се пише по файла"
+
+#: src/clear_tab.c:146 src/playlist_tab.c:156 src/rename_tab.c:221
+#: src/tag_tab.c:380
+msgid "Audio format not recognized"
+msgstr "Аудио формата не е разпознат"
+
+#: src/clear_tab.c:148 src/playlist_tab.c:158 src/tag_tab.c:382
+#: src/tag_tab.c:436
+#, c-format
+msgid "Unknown error (%d)"
+msgstr "Непозната грешка (%d)"
+
+#: src/clear_tab.c:155
+#, c-format
+msgid "Skipped \"%s\""
+msgstr "Пропускане на \"%s\""
+
+#: src/clear_tab.c:168
+#, c-format
+msgid "Cleared tag from \"%s\""
+msgstr "Изчистен етикет от \"%s\""
+
+#: src/clear_tab.c:180
+#, c-format
+msgid "Done (Cleared %d of %d files)"
+msgstr "Готово (Изчистени %d от %d файлове)"
+
+#: src/clear_tab.c:206 src/playlist_tab.c:441 src/rename_tab.c:337
+#: src/tag_tab.c:471
+msgid "No files selected"
+msgstr "Няма избрани файлове"
+
+#: src/edit_tab.c:100
+#, c-format
+msgid "Couldn't open file %s"
+msgstr "Не може да се отвори файла %s"
+
+#: src/edit_tab.c:102
+#, c-format
+msgid "Audio file format not recognized: %s"
+msgstr "Аудио формата не е разпознат: %s"
+
+#: src/edit_tab.c:104
+#, c-format
+msgid "Unknow error when opening file %s"
+msgstr "Непозната грешка при отваряне на файла %s"
+
+#: src/edit_tab.c:114
+#, c-format
+msgid "File is read-only: %s"
+msgstr "Файлът е само за четене: %s"
+
+#: src/edit_tab.c:123
+msgid "File Type:"
+msgstr "Вид на файла:"
+
+#: src/file_list.c:116
+msgid "No files found"
+msgstr "Няма открити файлове"
+
+#: src/file_list.c:118
+msgid "1 file found"
+msgstr "1 открит файл"
+
+#: src/file_list.c:120
+#, c-format
+msgid "%i files found"
+msgstr "%i открити файла"
+
+#: src/file_list.c:123
+msgid " (1 selected)"
+msgstr " (1 избран)"
+
+#: src/file_list.c:125
+#, c-format
+msgid " (%i selected)"
+msgstr " (%i избрани)"
+
+#: src/file_list.c:154
+msgid "(dir name could not be converted to UTF8)"
+msgstr "(името на папката не може да бъде преобразувано в UTF-8)"
+
+#: src/file_list.c:167
+msgid "(file name could not be converted to UTF8)"
+msgstr "(името на файла не може да бъде преобразувано в UTF-8)"
+
+#: src/file_list.c:212
+msgid "Deleting Files"
+msgstr "Изтриване на файлове"
+
+#: src/file_list.c:227
+#, c-format
+msgid "Deleted file \"%s\""
+msgstr "Изтрит е файлът \"%s\""
+
+#: src/file_list.c:231
+#, c-format
+msgid "Error deleting file \"%s\""
+msgstr "Грешка при изтриване на файла \"%s\""
+
+#: src/file_list.c:238
+#, c-format
+msgid "Done (deleted %d of %d files)"
+msgstr "Готово (изтритиа са %d от %d файла)"
+
+#: src/file_list.c:258
+msgid "File Exists"
+msgstr "Файлът съществува"
+
+#: src/file_list.c:259
+msgid ""
+"A file with this name already exists.\n"
+"Do you want to overwrite it?"
+msgstr ""
+"Файл с такова име вече съществува.\n"
+"Искате ли да го презапишете?"
+
+#: src/file_list.c:272
+#, c-format
+msgid ""
+"Error renaming file:\n"
+"%s (%d)"
+msgstr ""
+"Грешка при преименуване на файла:\n"
+"%s (%d)"
+
+#: src/file_list.c:273
+msgid "Error Renaming File"
+msgstr "Грешка при преименуване на файл"
+
+#: src/file_list.c:309
+#, c-format
+msgid "Error: Can't open directory \"%s\"."
+msgstr "Грешка: Не може да се отвори папката \"%s\""
+
+#: src/file_list.c:313
+#, c-format
+msgid "Error: \"%s\" is not a directory."
+msgstr "Грешка: \"%s\" не е папка."
+
+#: src/file_list.c:317
+#, c-format
+msgid "Error: Permission denied for \"%s\"."
+msgstr "Грешка: Няма достатъчно права за \"%s\""
+
+#: src/file_list.c:374
+msgid "Scanning..."
+msgstr "Обхождане..."
+
+#: src/file_list.c:397
+msgid "No files found."
+msgstr "Няма открити файлове."
+
+#: src/file_list.c:400
+msgid "1 file found."
+msgstr "1 открит файл."
+
+#: src/file_list.c:403
+#, c-format
+msgid "%d files found."
+msgstr "%d открити файла"
+
+#: src/file_list.c:451
+msgid "Delete selected files"
+msgstr "Изтриване на избраните файлове"
+
+#: src/file_list.c:452
+msgid "This will delete the selected files from disk. Proceed?"
+msgstr ""
+"Това ще изтрие избраните файлове от твърдия диск. Сигурни ли сте, че го "
+"искате?"
+
+#: src/file_list.c:623
+msgid "Select Directory"
+msgstr "Избор на папка"
+
+#. HELP_TAG_FORMAT
+#. HELP_RENAME_FORMAT
+#: src/help.c:14 src/help.c:17
+msgid "Help - File Name Format"
+msgstr "Помощ - Формат на файловите имена"
+
+#. HELP_TAG_FORMAT
+#: src/help.c:22
+msgid ""
+"This field describes the expected format of the file name \n"
+"(not including the extension).  Audio Tag Tool uses this \n"
+"information to automatically fill in the tags based on the \n"
+"file's name. \n"
+"\n"
+"Each tag field has a corresponding symbol, as listed below: \n"
+"\n"
+"  <title>\n"
+"  <artist>\n"
+"  <album>\n"
+"  <year>\n"
+"  <comment>\n"
+"  <track>\n"
+"  <genre>\n"
+"\n"
+"Examples: \n"
+"\n"
+"The format \"<artist> - <album> - <title>\" will match a \n"
+"file named \"Pink Floyd - The Wall - Hey You.mp3\". In this \n"
+"example the Artist, Album and Title fields of the tag will \n"
+"be set to \"Pink Floyd\", \"The Wall\" and \"Hey You\", \n"
+"respectively.\n"
+"\n"
+"The format \"<artist> - <*> - <title>\" could also be used \n"
+"in the previous example if we did not want to fill in the \n"
+"album name (the special symbol <*> causes a part of the \n"
+"file name to be ignored.) \n"
+msgstr ""
+"Това поле описва очаквания формат на файловото име. (без в това да се\n"
+"включва разширението).  Audio Tag Tool използва тази информация, за\n"
+"да попълни автоматично полетата от етикета, за които има информация в\n"
+"файловото име.\n"
+"\n"
+"Всяко поле от етикета има кореспондиращ символ, както са изписани долу:\n"
+"\n"
+"  <title>\n"
+"  <artist>\n"
+"  <album>\n"
+"  <year>\n"
+"  <comment>\n"
+"  <track>\n"
+"  <genre>\n"
+"\n"
+"Примери:\n"
+"\n"
+"Форматът \"<artist> - <album> - <title>\" ще отговаря за файлови имена\n"
+"като това да речем \"Pink Floyd - The Wall - Hey You.mp3\". В този\n"
+"пример полетата на етикета за изпълнител, албум и заглавие ще бъдат\n"
+"попълнени както следва \"Pink Floyd\", \"The Wall\" и \"Hey You\".\n"
+"\n"
+"Форматът \"<artist> - <*> - <title>\" също може да бъде използван в "
+"предишния\n"
+"пример, ако не искахме да записваме в етикета името на албума. Специалният\n"
+"символ <*> указва някаква чест от файловото име да се пропусне.\n"
+
+#. HELP_RENAME_FORMAT
+#: src/help.c:51
+msgid ""
+"This field describes the desired format of the file name. \n"
+"Audio Tag Tool can use this information to rename files or \n"
+"organize them into subdirectories, based on the content of \n"
+"their tags. \n"
+"\n"
+"Each ID3 field has a corresponding symbol, as listed below: \n"
+"\n"
+"  <title>\n"
+"  <artist>\n"
+"  <album>\n"
+"  <year>\n"
+"  <comment>\n"
+"  <track>\n"
+"  <genre>\n"
+"\n"
+"Renaming example: \n"
+"\n"
+"To have all file names consist of the track number followed \n"
+"by the track title, a format such as \"<track> - <title>\" can \n"
+"be used. \n"
+"\n"
+"Moving example: \n"
+"\n"
+"The file name format can include sub-directories. If in the \n"
+"previous example we had wanted the files to be placed in \n"
+"a directory with the album name, we would have used the \n"
+"format \"<album>/<track> - <title>\". \n"
+msgstr ""
+"Това поле описва желания формат за файловото име. Audio Tag Tool\n"
+"може да използва тази информация, за да преименува файлове, да ги\n"
+"организира в подпапки, в зависимост от съдържанието на етикетите им.\n"
+"\n"
+"Всяко ID3 поле има кореспондиращ символ, както са изброени долу: \n"
+"\n"
+"  <title>\n"
+"  <artist>\n"
+"  <album>\n"
+"  <year>\n"
+"  <comment>\n"
+"  <track>\n"
+"  <genre>\n"
+"\n"
+"Примери за преименуване: \n"
+"\n"
+"За да направите всички имена да се състоят от номера на песента в албума\n"
+"следвана от името на песента, можете примерно да използвате \"<track> - "
+"<title>\".\n"
+"\n"
+"Примери за преместване: \n"
+"\n"
+"Формата на файловото име може да съдържа и подпапки. Ако в предния пример\n"
+"искахме файловете да бъдат поставени в отделна папка с името на албума, "
+"щяхме\n"
+"да използваме подобен формат - \"<album>/<track> - <title>\". \n"
+
+#: src/main.c:43
+#, c-format
+msgid "Supported audio formats:  "
+msgstr "Поддържани аудио формати:  "
+
+#: src/main.c:61
+#, c-format
+msgid ""
+"Usage:\n"
+"  tagtool [DIR]\t\tStart in directory DIR\n"
+"  tagtool --dump FILE\tDump all known information about FILE and exit\n"
+"  tagtool --help\tPrint this help message\n"
+"  tagtool --version\tPrint program version\n"
+"\n"
+msgstr ""
+"Употреба:\n"
+"  tagtool [ПАПКА]\t\tСтартиране в папката ПАПКА\n"
+"  tagtool --dump ФАЙЛ\tИзчистване на всичката информация относно ФАЙЛ и "
+"излизане\n"
+"  tagtool --help\tПоказване на това помощно съобщение\n"
+"  tagtool --version\tПоказване версията на програмата\n"
+"\n"
+
+#: src/main.c:78
+#, c-format
+msgid ""
+"Couldn't open file: %s\n"
+"\n"
+msgstr ""
+"Не може да се отвори файлът: %s\n"
+"\n"
+
+#: src/main.c:80
+#, c-format
+msgid ""
+"File audio format not recognized: %s\n"
+"\n"
+msgstr ""
+"Аудио форматът на файла не е разпознат: %s\n"
+"\n"
+
+#: src/mpeg_edit.c:118 src/vorbis_edit.c:88
+msgid "Field"
+msgstr "Поле"
+
+#: src/mpeg_edit.c:127 src/vorbis_edit.c:97
+msgid "Text"
+msgstr "Текст"
+
+#: src/mpeg_edit.c:275 src/vorbis_edit.c:200
+#, c-format
+msgid "Advanced (%i)"
+msgstr "Подробни"
+
+#: src/mpeg_edit.c:419 src/vorbis_edit.c:287
+#, c-format
+msgid ""
+"Error saving file \"%s\":\n"
+"%s (%d)"
+msgstr ""
+"Грешка при запазване на файла \"%s\":\n"
+"%s (%d)"
+
+#: src/mpeg_edit.c:421 src/vorbis_edit.c:291
+msgid "Error Saving File"
+msgstr "Грешка при запазване на файла"
+
+#: src/mpeg_edit.c:674
+msgid "ID3 Tag has been modified. Save changes?"
+msgstr "ID3 етикета е бил променен. Запазване на промените?"
+
+#: src/mpeg_edit.c:675 src/vorbis_edit.c:456
+msgid "Discard"
+msgstr "Пренебрегване"
+
+#: src/mpeg_edit_field.c:45
+msgid "New ID3 Field"
+msgstr "Ново ID3 поле"
+
+#: src/mpeg_edit_field.c:77
+msgid "Edit ID3 Field"
+msgstr "Редактиране на ID3 поле"
+
+#: src/mpeg_file.c:595
+#, c-format
+msgid ""
+"Bit Rate\n"
+"%d kbps\n"
+"Sample Rate\n"
+"%d Hz\n"
+"Channel Mode\n"
+"%s\n"
+"Copyrighted\n"
+"%s\n"
+"Original\n"
+"%s\n"
+msgstr ""
+
+#: src/mpeg_file.c:601 src/mpeg_file.c:602
+msgid "Yes"
+msgstr "Да"
+
+#: src/mpeg_file.c:601 src/mpeg_file.c:602
+msgid "No"
+msgstr "Не"
+
+#: src/playlist_tab.c:151
+#, c-format
+msgid "Skipping file \"%s\""
+msgstr "Пропускане на файла \"%s\""
+
+#: src/playlist_tab.c:154 src/rename_tab.c:219
+msgid "Couldn't open file for reading"
+msgstr "Не може да се отвори файлът за четене"
+
+#: src/playlist_tab.c:267
+#, c-format
+msgid "Error creating playlist \"%s\""
+msgstr "Грешка при създаване на плейлиста \"%s\""
+
+#: src/playlist_tab.c:273
+#, c-format
+msgid "Wrote \"%s\" (%d entries)"
+msgstr ""
+
+#: src/playlist_tab.c:299 src/playlist_tab.c:440
+msgid "Writing Playlists"
+msgstr "Записване на плейлисти"
+
+#: src/playlist_tab.c:347
+#, c-format
+msgid "Entering directory \"%s\""
+msgstr "Влизане в папката \"%s\""
+
+#: src/playlist_tab.c:367
+#, c-format
+msgid "Done (wrote %d of %d playlists)"
+msgstr "Готово (записани %d от %d плейлисти)"
+
+#: src/rename_tab.c:183
+msgid "Moving Files"
+msgstr "Преместване на файлове"
+
+#: src/rename_tab.c:185
+msgid "Renaming Files"
+msgstr "Преименуване на файлове"
+
+#: src/rename_tab.c:216 src/rename_tab.c:229 src/rename_tab.c:241
+#: src/rename_tab.c:254 src/rename_tab.c:287
+#, c-format
+msgid "Error renaming \"%s\""
+msgstr "Грешка при преименуване на \"%s\""
+
+#: src/rename_tab.c:223
+msgid "Unknown error"
+msgstr "Непозната грешка"
+
+#: src/rename_tab.c:230
+msgid "File has no tag"
+msgstr "Файлът няма етикет"
+
+#: src/rename_tab.c:242
+msgid "One of the tag fields is empty"
+msgstr "Едно от полетата на етикета е празно"
+
+#: src/rename_tab.c:246
+#, c-format
+msgid "File name \"%s\" already in desired format"
+msgstr "Файловото име на \"%s\" е вече в желания формат"
+
+#: src/rename_tab.c:252 src/rename_tab.c:285
+#, c-format
+msgid "Error moving \"%s\""
+msgstr "Грешка при преместване на \"%s\""
+
+#: src/rename_tab.c:256
+#, c-format
+msgid "File \"%s\" already exists"
+msgstr "Файлът \"%s\" вече съществува"
+
+#: src/rename_tab.c:270
+#, c-format
+msgid "Error creating directory \"%s\""
+msgstr "Грешка при създаване на папката \"%s\""
+
+#: src/rename_tab.c:276
+#, c-format
+msgid "Created directory \"%s\""
+msgstr "Създадена е папката \"%s\""
+
+#: src/rename_tab.c:293
+#, c-format
+msgid "Moved \"%s\" to \"%s\""
+msgstr "\"%s\" беше преместен в \"%s\""
+
+#: src/rename_tab.c:297
+#, c-format
+msgid "Renamed \"%s\" to \"%s\""
+msgstr "\"%s\" беше преименувано в \"%s\""
+
+#: src/rename_tab.c:316
+#, c-format
+msgid "Done (moved %d of %d files)"
+msgstr "Готово (преместени са %d от %d файла)"
+
+#: src/rename_tab.c:318
+#, c-format
+msgid "Done (renamed %d of %d files)"
+msgstr "Готово (преименувани са %d от %d файла)"
+
+#: src/tag_tab.c:322
+msgid "Tagging Files"
+msgstr "Поставяне на етикети на файлове"
+
+#: src/tag_tab.c:326
+msgid "No tag fields to set!"
+msgstr "Няма полета на етикета, който да се попълнят"
+
+#: src/tag_tab.c:375 src/tag_tab.c:421 src/tag_tab.c:431
+#, c-format
+msgid "Error tagging \"%s\""
+msgstr "Грешка при поставяне на етикет на \"%s\""
+
+#: src/tag_tab.c:422
+msgid "File name does not match expected format"
+msgstr "Файловото име на отговаря на очаквания формат"
+
+#: src/tag_tab.c:441
+#, c-format
+msgid "Tagged \"%s\""
+msgstr "Поставен етикет на \"%s\""
+
+#: src/tag_tab.c:452
+#, c-format
+msgid "Done (tagged %d of %d files)"
+msgstr "Готово (поставен етикет на %d от %d файла)"
+
+#: src/vorbis_edit.c:279
+#, c-format
+msgid ""
+"Error saving file \"%s\":\n"
+"%s (%d)\n"
+"\n"
+"Note:\n"
+"In order to save changes to an Ogg Vorbis file, you must have\n"
+"write permission for the directory where it is located."
+msgstr ""
+"Грешка при запазването на файла \"%s\":\n"
+"%s (%d)\n"
+"\n"
+"Забележка:\n"
+"За да запазите промените към един Ogg Vorbis файл, трябва да имате\n"
+"разрешение да пишете в папката, където се намира файла."
+
+#: src/vorbis_edit.c:455
+msgid "Vorbis Tag has been modified. Save changes?"
+msgstr "Vorbis етикета е бил променен. Запазване на промените?"
+
+#: src/vorbis_edit_field.c:59
+msgid "New Vorbis Field"
+msgstr "Ново Vorbis поле"
+
+#: src/vorbis_edit_field.c:62
+msgid "Edit Vorbis Field"
+msgstr "Редактиране на Vorbis поле"
+
+#: src/vorbis_file.c:228
+#, c-format
+msgid ""
+"Average Bit Rate\n"
+"%ld kbps\n"
+"Nominal Bit Rate\n"
+"%ld kbps\n"
+"Sample Rate\n"
+"%ld Hz\n"
+"Channels\n"
+"%d\n"
+"Playing Time\n"
+"%dm %ds %dms\n"
+msgstr ""

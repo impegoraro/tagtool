@@ -1,0 +1,21 @@
+
+Abandon id3lib.  It's buggy and appears to no longer be maintained.
+This will make it possible to fix th current ID3v2 encoding problems, 
+and other minor bugs.
+
+On-line help and documentation
+
+Support more formats: FLAC, Musepack
+
+Improvements of the MP3 frame header parsing. May need to parse the 
+whole file rather than just the first frame:
+ - More robust (don't confuse random data with valid frames)
+ - Display the playing time of the file
+ - Display correct info for VBR files
+
+Misc features:
+ - Option to show file list as a treeview
+ - Mass copy ID3v1 to v2 (and vice-versa)
+ - Mass case/character conversions
+ - Auto-update playlists when renaming
+ - freedb/musibrainz support (will need playing time of each file)

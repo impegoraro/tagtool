@@ -1,0 +1,1167 @@
+# Copyright (C) 2006 Lucas Mazzardo Veloso 
+# This file is distributed under the same license as the tagtool package.
+# Lucas Mazzardo Veloso <lmveloso@gmail.com>
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: tagtool 0.12\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-05-26 16:50+0100\n"
+"PO-Revision-Date: 2007-02-14 02:50+0300\n"
+"Last-Translator: Lucas Mazzardo Veloso <lmveloso@gmail.com>\n"
+"Language-Team: Brasil <pt@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/tagtool.glade:8
+msgid "Audio Tag Tool"
+msgstr "Ferramenta para Etiquetar Audio"
+
+#: src/tagtool.glade:36
+msgid "_File"
+msgstr "_Arquivo"
+
+#: src/tagtool.glade:45
+msgid "Open Directory..."
+msgstr "Abrir Diretório..."
+
+#: src/tagtool.glade:66
+msgid "Refresh"
+msgstr "Atualizar"
+
+#: src/tagtool.glade:94
+msgid "Quit"
+msgstr "Sair"
+
+#: src/tagtool.glade:119
+msgid "_Settings"
+msgstr "_Definições"
+
+#: src/tagtool.glade:128
+msgid "Character Conversions..."
+msgstr "Conversão de Caracteres..."
+
+#: src/tagtool.glade:137
+msgid "ID3 Preferences..."
+msgstr "Preferências ID3..."
+
+#: src/tagtool.glade:150
+msgid "ID_3"
+msgstr "ID_3"
+
+#: src/tagtool.glade:159 src/tagtool.glade:232
+msgid "View"
+msgstr "Ver"
+
+#: src/tagtool.glade:168 src/tagtool.glade:241 src/tagtool.glade:2169
+#: src/tagtool.glade:3159
+msgid "Simple"
+msgstr "Simples"
+
+#: src/tagtool.glade:178 src/tagtool.glade:251 src/tagtool.glade:1936
+#: src/tagtool.glade:2926 src/mpeg_edit.c:279 src/vorbis_edit.c:204
+msgid "Advanced"
+msgstr "Avançado"
+
+#: src/tagtool.glade:199
+msgid "Copy v1 to v2"
+msgstr "Copiar v1 para v2"
+
+#: src/tagtool.glade:209
+msgid "Copy v2 to v1"
+msgstr "Copiar v2 para v1"
+
+#: src/tagtool.glade:223
+msgid "_Vorbis"
+msgstr "_Vorbis"
+
+#: src/tagtool.glade:270
+msgid "_Help"
+msgstr "_Ajuda"
+
+#: src/tagtool.glade:279
+msgid "Contents..."
+msgstr "Conteúdo..."
+
+#: src/tagtool.glade:300
+msgid "About..."
+msgstr "Sobre..."
+
+#: src/tagtool.glade:355
+msgid "Include subdirectories"
+msgstr "Incluir subdiretórios"
+
+#: src/tagtool.glade:440
+msgid "Select Working Directory"
+msgstr "Selecionar diretório de trabalho"
+
+#: src/tagtool.glade:471
+msgid "<b>Working Directory</b>"
+msgstr "<b>Diretório de Trabalho</b>"
+
+#: src/tagtool.glade:559
+msgid "<b>Files</b>"
+msgstr "<b>Arquivos</b>"
+
+#: src/tagtool.glade:614
+msgid "Refresh file list"
+msgstr "Atualizar a lista de arquivos"
+
+#: src/tagtool.glade:706
+msgid "<span size=\"large\" weight=\"bold\">Edit Tag</span>"
+msgstr "<span size=\"large\" weight=\"bold\">Editar Etiqueta</span>"
+
+#: src/tagtool.glade:740
+msgid "Select a file to edit"
+msgstr "Selecione um arquivo para editar"
+
+#: src/tagtool.glade:795 src/tagtool.glade:3945
+msgid "<b>Tag</b>"
+msgstr "<b>Etiqueta</b>"
+
+#: src/tagtool.glade:898
+msgid "File has no ID3v1 Tag"
+msgstr "Arquivo não tem etiqueta ID3v1"
+
+#: src/tagtool.glade:920 src/tagtool.glade:1478
+msgid "Create"
+msgstr "Criar"
+
+#: src/tagtool.glade:972 src/tagtool.glade:1530 src/tagtool.glade:2535
+#: src/tagtool.glade:3970
+msgid "Title:"
+msgstr "Título:"
+
+#: src/tagtool.glade:996 src/tagtool.glade:1874 src/tagtool.glade:2559
+#: src/tagtool.glade:4062
+msgid "Comnt.:"
+msgstr "Coment.:"
+
+#: src/tagtool.glade:1020 src/tagtool.glade:1898 src/tagtool.glade:2583
+#: src/tagtool.glade:4039
+msgid "Year:"
+msgstr "Ano:"
+
+#: src/tagtool.glade:1044 src/tagtool.glade:1554 src/tagtool.glade:2607
+#: src/tagtool.glade:4016
+msgid "Album:"
+msgstr "Álbum:"
+
+#: src/tagtool.glade:1068 src/tagtool.glade:1578 src/tagtool.glade:2655
+#: src/tagtool.glade:4197
+msgid "Genre:"
+msgstr "Género:"
+
+#: src/tagtool.glade:1277 src/tagtool.glade:1763 src/tagtool.glade:2864
+#: src/tagtool.glade:4085
+msgid "Track:"
+msgstr "Faixa:"
+
+#: src/tagtool.glade:1324 src/tagtool.glade:1787 src/tagtool.glade:2631
+#: src/tagtool.glade:3993
+msgid "Artist:"
+msgstr "Artista:"
+
+#: src/tagtool.glade:1456
+msgid "File has no ID3v2 Tag"
+msgstr "Arquivo não tem etiqueta ID3v2"
+
+#: src/tagtool.glade:2051 src/tagtool.glade:3041
+msgid "Add"
+msgstr "Adicionar"
+
+#: src/tagtool.glade:2079 src/tagtool.glade:3069
+msgid "Remove"
+msgstr "Remover"
+
+#: src/tagtool.glade:2107 src/tagtool.glade:3097
+msgid "Edit (double-click)"
+msgstr "Editar (duplo-click)"
+
+#: src/tagtool.glade:2370
+msgid "Remove Tag"
+msgstr "Remover Etiqueta"
+
+#: src/tagtool.glade:2446 src/tagtool.glade:3380 src/mpeg_edit.c:673
+#: src/vorbis_edit.c:454
+msgid "Save Changes"
+msgstr "Gravar Alterações"
+
+#: src/tagtool.glade:3305
+msgid "Clear Tag"
+msgstr "Limpar Etiqueta"
+
+#: src/tagtool.glade:3468
+msgid "<b>File Info</b>"
+msgstr "<b>Informação Sobre o Arquivo</b>"
+
+#: src/tagtool.glade:3658
+msgid "<span size=\"large\" weight=\"bold\">Tag Multiple Files</span>"
+msgstr ""
+"<span size=\"large\" weight=\"bold\">Escrever Etiqueta de Arquivos Múltiplos</"
+"span>"
+
+#: src/tagtool.glade:3690 src/tagtool.glade:5074
+msgid "<b>File Name Format</b>"
+msgstr "<b>Formato dos Nomes de Arquivo</b>"
+
+#: src/tagtool.glade:3777 src/tagtool.glade:5043
+msgid "Get help on filename formats"
+msgstr "Ajuda sobre formato de nomes de arquivo"
+
+#: src/tagtool.glade:3872 src/tagtool.glade:5162
+msgid "<b>Character and Case Conversion</b>"
+msgstr "<b>Conversões de Caracteres</b>"
+
+#: src/tagtool.glade:3909 src/tagtool.glade:5199
+msgid "Configure"
+msgstr "Configurar"
+
+#: src/tagtool.glade:4328
+msgid "Auto-increment"
+msgstr "Auto-incremento"
+
+#: src/tagtool.glade:4388
+msgid "Set tags based on file names"
+msgstr "Preencher etiquetas a partir do nome do arquivo"
+
+#: src/tagtool.glade:4435 src/tagtool.glade:4777 src/tagtool.glade:5244
+#: src/tagtool.glade:5951
+msgid "Apply to "
+msgstr "Aplicar a "
+
+#: src/tagtool.glade:4456 src/tagtool.glade:4798 src/tagtool.glade:5265
+#: src/tagtool.glade:5972
+msgid ""
+"All files\n"
+"Selected files"
+msgstr ""
+"Todos os arquivos\n"
+"Arquivos selecionados"
+
+#: src/tagtool.glade:4533 src/tagtool.glade:4875 src/tagtool.glade:5342
+#: src/tagtool.glade:6049
+msgid "Go!"
+msgstr "Começar!"
+
+#: src/tagtool.glade:4607
+msgid "<span size=\"large\" weight=\"bold\">Clear Tags</span>"
+msgstr "<span size=\"large\" weight=\"bold\">Eliminar Etiquetas</span>"
+
+#: src/tagtool.glade:4663
+msgid "<b>Tags to Clear</b>"
+msgstr "<b>Etiquetas para Limpar</b>"
+
+#: src/tagtool.glade:4688
+msgid "All"
+msgstr "Todas"
+
+#: src/tagtool.glade:4709
+msgid "Only ID3 v1 tags"
+msgstr "Apenas etiquetas ID3 v1"
+
+#: src/tagtool.glade:4731
+msgid "Only ID3 v2 tags"
+msgstr "Apenas etiquetas ID3 v2"
+
+#: src/tagtool.glade:4949
+msgid "<span size=\"large\" weight=\"bold\">Rename Multiple Files</span>"
+msgstr ""
+"<span size=\"large\" weight=\"bold\">Renomear Arquivos Múltiplos</span>"
+
+#: src/tagtool.glade:5416
+msgid "<span size=\"large\" weight=\"bold\">Create Playlists</span>"
+msgstr "<span size=\"large\" weight=\"bold\">Criar Listas de Reprodução</span>"
+
+#: src/tagtool.glade:5449
+msgid "Every directory"
+msgstr "Todos os diretórios"
+
+#: src/tagtool.glade:5471
+msgid "Top-level directory"
+msgstr "Diretório de topo"
+
+#: src/tagtool.glade:5494 src/tagtool.glade:7489
+msgid "Both"
+msgstr "Ambos"
+
+#: src/tagtool.glade:5516
+msgid "<b>Create In</b>"
+msgstr "<b>Criar Em</b>"
+
+#: src/tagtool.glade:5580
+msgid "<b>Playlist File Name</b>"
+msgstr "<b>Nome da Lista de Reprodução</b>"
+
+#: src/tagtool.glade:5605
+msgid "Set to:"
+msgstr "Fixo:"
+
+#: src/tagtool.glade:5631
+msgid "playlist"
+msgstr "playlist"
+
+#: src/tagtool.glade:5649
+msgid "Same as directory name"
+msgstr "Mesmo nome do diretório"
+
+#: src/tagtool.glade:5671
+msgid "Extension:"
+msgstr "Extensão:"
+
+#: src/tagtool.glade:5756
+msgid "<b>Sort Entries</b>"
+msgstr "<b>Ordenar</b>"
+
+#: src/tagtool.glade:5805
+msgid "By tag field (if available):"
+msgstr "Pelo campo da etiqueta (se existir):"
+
+#: src/tagtool.glade:5827
+msgid ""
+"Title\n"
+"Artist\n"
+"Album\n"
+"Year\n"
+"Genre\n"
+"Comment\n"
+"Track #"
+msgstr ""
+"Título\n"
+"Artista\n"
+"Álbum\n"
+"Ano\n"
+"Género\n"
+"Comentário\n"
+"Faixa"
+
+#: src/tagtool.glade:5876
+msgid "Sort across directories"
+msgstr "Ordenar ignorando diretórios"
+
+#: src/tagtool.glade:5904
+msgid "By file name"
+msgstr "Pelo nome do arquivo"
+
+#: src/tagtool.glade:6222
+msgid "Character Conversions"
+msgstr "Conversão de Caracteres"
+
+#: src/tagtool.glade:6340 src/tagtool.glade:6586
+msgid "No conversion"
+msgstr "Nenhuma conversão"
+
+#: src/tagtool.glade:6363
+msgid "Convert this character to space:"
+msgstr "Converter este caracter em espaço:"
+
+#: src/tagtool.glade:6385 src/tagtool.glade:6654
+msgid "<b>Space Conversion</b>"
+msgstr "<b>Conversão de Espaços</b>"
+
+#: src/tagtool.glade:6447 src/tagtool.glade:6694
+msgid "<b>Case Conversion</b>"
+msgstr "Conversão Maiúsculas/Minúsculas"
+
+#: src/tagtool.glade:6471 src/tagtool.glade:6742
+msgid ""
+"(no conversion)\n"
+"lower case\n"
+"UPPER CASE\n"
+"Sentence case\n"
+"Title Case"
+msgstr ""
+"(sem conversão)\n"
+"minúsculas\n"
+"MAIÚSCULAS\n"
+"Como frase\n"
+"Como Título"
+
+#: src/tagtool.glade:6526
+msgid "When Tagging"
+msgstr "Ao Etiquetar"
+
+#: src/tagtool.glade:6609
+msgid "Convert spaces to:"
+msgstr "Converter espaços para:"
+
+#: src/tagtool.glade:6801
+msgid "Omit"
+msgstr "Omitir"
+
+#: src/tagtool.glade:6824
+msgid "Convert to:"
+msgstr "Converter para:"
+
+#: src/tagtool.glade:6869
+msgid "<b>Invalid File Name Characters</b>"
+msgstr "<b>Caracteres Inválidos no Nome do Arquivo</b>"
+
+#: src/tagtool.glade:6929
+msgid "When Renaming"
+msgstr "Ao Renomear Arquivos"
+
+#: src/tagtool.glade:6956
+msgid "About Audio Tag Tool"
+msgstr "Sobre o Audio Tag Tool"
+
+#: src/tagtool.glade:7029
+msgid "C_redits"
+msgstr "C_réditos"
+
+#: src/tagtool.glade:7125
+msgid "<span size=\"xx-large\" weight=\"bold\">Audio Tag Tool</span>"
+msgstr "<span size=\"xx-large\" weight=\"bold\">Ferramenta para Etiquetar Audio</span>"
+
+#: src/tagtool.glade:7146
+msgid "<b>version %s</b>"
+msgstr "<b>versão %s</b>"
+
+#: src/tagtool.glade:7212
+msgid "Supported audio formats:"
+msgstr "Formatos de áudio suportados:"
+
+#: src/tagtool.glade:7261
+msgid ""
+"This software is made available under the GNU General Public Licence.\n"
+"See the file COPYING for the full license terms."
+msgstr ""
+"Este programa é disponibilizado nos termos da <i>GNU General Public Licence</"
+"i>.\n"
+"Veja o arquivo COPYING para o texto integral da licença."
+
+#: src/tagtool.glade:7291
+msgid "ID3 Preferences"
+msgstr "Preferências ID3"
+
+#: src/tagtool.glade:7373
+msgid "<b>When tagging multiple files</b>"
+msgstr "<b>Ao Etiquetar Múltiplos Arquivos</b>"
+
+#: src/tagtool.glade:7428
+msgid "ID3 tag versions to create:"
+msgstr "Versão da etiqueta ID3 a criar:"
+
+#: src/tagtool.glade:7450
+msgid "Only v1"
+msgstr "Apenas v1"
+
+#: src/tagtool.glade:7469
+msgid "Only v2"
+msgstr "Apenas v2"
+
+#: src/tagtool.glade:7509
+msgid "Default to v1, add v2 only when necessary"
+msgstr "v1 por omissão, v2 apenas se necessário"
+
+#: src/tagtool.glade:7540
+msgid "Preserve existing tag versions"
+msgstr "Preservar versões preexistentes"
+
+#: src/tagtool.glade:7655
+msgid "Text:"
+msgstr "Texto:"
+
+#: src/tagtool.glade:7701
+msgid "Field:"
+msgstr "Campo:"
+
+#: src/tagtool.glade:7735 src/progress_dlg.c:114
+msgid "Progress"
+msgstr "Progresso"
+
+#: src/tagtool.glade:7833
+msgid "Manually rename a file"
+msgstr "Renomear um arquivo manualmente"
+
+#: src/tagtool.glade:7834
+msgid "Manual Rename..."
+msgstr "Renomear Manualmente..."
+
+#: src/tagtool.glade:7849
+msgid "Delete selected files from disk"
+msgstr "Apagar arquivos selecionados do disco"
+
+#: src/tagtool.glade:7850
+msgid "Delete Selected Files"
+msgstr "Apagar Arquivos Selecionados"
+
+#: src/tagtool.glade:7865
+msgid "Unselect all files"
+msgstr "Anular seleção"
+
+#: src/tagtool.glade:7866
+msgid "Unselect All"
+msgstr "Anular Seleção"
+
+#: src/tagtool.glade:7874
+msgid "Rename File"
+msgstr "Renomear Arquivo"
+
+#: src/tagtool.glade:7943
+msgid "File Name:"
+msgstr "Nome do Arquivo:"
+
+#: src/tagtool.glade:7992
+msgid "Scan Progress"
+msgstr "Progresso da Busca"
+
+#: src/tagtool.glade:8048
+msgid "<b>Scanning...</b>"
+msgstr "<b>Procurando...</b>"
+
+#: src/tagtool.glade:8075
+msgid ""
+"Directories scanned:\n"
+"Files found:"
+msgstr ""
+"Diretórios percorridos:\n"
+"Arquivos encontrados:"
+
+#: src/tagtool.glade:8134
+msgid "Credits"
+msgstr "Créditos"
+
+#: src/tagtool.glade:8215
+msgid "Written by"
+msgstr "Escrito por"
+
+#: src/tagtool.glade:8268
+msgid "Translated by"
+msgstr "Traduzido por"
+
+#: src/clear_tab.c:110 src/clear_tab.c:205
+msgid "Clearing Tags"
+msgstr "Limpando Etiquetas"
+
+#: src/clear_tab.c:111 src/playlist_tab.c:300 src/rename_tab.c:186
+#: src/tag_tab.c:330
+#, c-format
+msgid "Starting in directory \"%s\""
+msgstr "Iniciando no diretório \"%s\""
+
+#: src/clear_tab.c:120 src/file_list.c:219 src/playlist_tab.c:329
+#: src/rename_tab.c:195 src/tag_tab.c:351
+msgid "Operation stopped at user's request"
+msgstr "Operação interrompida pelo usuário"
+
+#: src/clear_tab.c:130 src/clear_tab.c:138 src/edit_tab.c:97
+#: src/edit_tab.c:113 src/file_list.c:223 src/playlist_tab.c:150
+#: src/playlist_tab.c:262 src/playlist_tab.c:346 src/rename_tab.c:203
+#: src/rename_tab.c:212 src/rename_tab.c:255 src/rename_tab.c:269
+#: src/rename_tab.c:292 src/rename_tab.c:296 src/tag_tab.c:361
+#: src/tag_tab.c:371
+msgid "(UTF8 conversion error)"
+msgstr "(erro de conversão UTF8)"
+
+#: src/clear_tab.c:133 src/rename_tab.c:205 src/tag_tab.c:363
+#, c-format
+msgid "Entering directory \"%.*s\""
+msgstr "Entrando no diretório \"%.*s\""
+
+#: src/clear_tab.c:142 src/clear_tab.c:162
+#, c-format
+msgid "Error in file \"%s\""
+msgstr "Erro no arquivo \"%s\""
+
+#: src/clear_tab.c:144 src/tag_tab.c:378
+msgid "Couldn't open file for writing"
+msgstr "Não foi possível abrir o arquivo para escrita"
+
+#: src/clear_tab.c:146 src/playlist_tab.c:156 src/rename_tab.c:221
+#: src/tag_tab.c:380
+msgid "Audio format not recognized"
+msgstr "Formato de áudio não reconhecido"
+
+#: src/clear_tab.c:148 src/playlist_tab.c:158 src/tag_tab.c:382
+#: src/tag_tab.c:436
+#, c-format
+msgid "Unknown error (%d)"
+msgstr "Erro desconhecido (%d)"
+
+#: src/clear_tab.c:155
+#, c-format
+msgid "Skipped \"%s\""
+msgstr "Ignorando \"%s\""
+
+#: src/clear_tab.c:168
+#, c-format
+msgid "Cleared tag from \"%s\""
+msgstr "A Etiqueta de \"%s\" foi limpada"
+
+#: src/clear_tab.c:180
+#, c-format
+msgid "Done (Cleared %d of %d files)"
+msgstr "Pronto (Etiquetas Eliminadas em %d de %d arquivos)"
+
+#: src/clear_tab.c:206 src/playlist_tab.c:441 src/rename_tab.c:337
+#: src/tag_tab.c:471
+msgid "No files selected"
+msgstr "Nenhum arquivo selecionado"
+
+#: src/edit_tab.c:100
+#, c-format
+msgid "Couldn't open file %s"
+msgstr "Não foi possível abrir o arquivo %s"
+
+#: src/edit_tab.c:102
+#, c-format
+msgid "Audio file format not recognized: %s"
+msgstr "Formato de áudio não reconhecido: %s"
+
+#: src/edit_tab.c:104
+#, c-format
+msgid "Unknow error when opening file %s"
+msgstr "Erro desconhecido ao abrir arquivo %s"
+
+#: src/edit_tab.c:114
+#, c-format
+msgid "File is read-only: %s"
+msgstr "Arquivo protegido contra escrita: %s"
+
+#: src/edit_tab.c:123
+msgid "File Type:"
+msgstr "Tipo:"
+
+#: src/file_list.c:116
+msgid "No files found"
+msgstr "Nenhum arquivo encontrado"
+
+#: src/file_list.c:118
+msgid "1 file found"
+msgstr "1 arquivo encontrado"
+
+#: src/file_list.c:120
+#, c-format
+msgid "%i files found"
+msgstr "%i arquivos encontrados"
+
+#: src/file_list.c:123
+msgid " (1 selected)"
+msgstr " (1 selecionado)"
+
+#: src/file_list.c:125
+#, c-format
+msgid " (%i selected)"
+msgstr " (%i selecionados)"
+
+#: src/file_list.c:154
+msgid "(dir name could not be converted to UTF8)"
+msgstr "(nome do diretório não pode ser convertido para UTF8)"
+
+#: src/file_list.c:167
+msgid "(file name could not be converted to UTF8)"
+msgstr "(nome do arquivo não pode ser convertido para UTF8)"
+
+#: src/file_list.c:212
+msgid "Deleting Files"
+msgstr "Apagando Arquivos"
+
+#: src/file_list.c:227
+#, c-format
+msgid "Deleted file \"%s\""
+msgstr "Arquivo \"%s\" apagado"
+
+#: src/file_list.c:231
+#, c-format
+msgid "Error deleting file \"%s\""
+msgstr "Erro ao apagar arquivo \"%s\""
+
+#: src/file_list.c:238
+#, c-format
+msgid "Done (deleted %d of %d files)"
+msgstr "Pronto (apagados %d de %d arquivos)"
+
+#: src/file_list.c:258
+msgid "File Exists"
+msgstr "Arquivo já existe"
+
+#: src/file_list.c:259
+msgid ""
+"A file with this name already exists.\n"
+"Do you want to overwrite it?"
+msgstr ""
+"Já existe um arquivo com esse nome.\n"
+"Deseja substituí-lo ?"
+
+#: src/file_list.c:272
+#, c-format
+msgid ""
+"Error renaming file:\n"
+"%s (%d)"
+msgstr ""
+"Erro ao renomear arquivo:\n"
+"%s (%d)"
+
+#: src/file_list.c:273
+msgid "Error Renaming File"
+msgstr "Erro ao Renomear Arquivo"
+
+#: src/file_list.c:309
+#, c-format
+msgid "Error: Can't open directory \"%s\"."
+msgstr "Erro: Não é possível abrir o diretório \"%s\""
+
+#: src/file_list.c:313
+#, c-format
+msgid "Error: \"%s\" is not a directory."
+msgstr "Erro: \"%s\" não é um diretório."
+
+#: src/file_list.c:317
+#, c-format
+msgid "Error: Permission denied for \"%s\"."
+msgstr "Erro: Permissão negada para \"%s\"."
+
+#: src/file_list.c:374
+msgid "Scanning..."
+msgstr "Procurando..."
+
+#: src/file_list.c:397
+msgid "No files found."
+msgstr "Nenhum arquivo encontrado."
+
+#: src/file_list.c:400
+msgid "1 file found."
+msgstr "1 arquivo encontrado."
+
+#: src/file_list.c:403
+#, c-format
+msgid "%d files found."
+msgstr "%d arquivos encontrados."
+
+#: src/file_list.c:451
+msgid "Delete selected files"
+msgstr "Apagar arquivos selecionados"
+
+#: src/file_list.c:452
+msgid "This will delete the selected files from disk. Proceed?"
+msgstr "Os arquivos selecionados serão apagados do disco. Continuar?"
+
+#: src/file_list.c:623
+msgid "Select Directory"
+msgstr "Selecionar Diretório"
+
+#. HELP_TAG_FORMAT
+#. HELP_RENAME_FORMAT
+#: src/help.c:14 src/help.c:17
+msgid "Help - File Name Format"
+msgstr "Ajuda - Formato dos Nomes de Arquivo"
+
+#. HELP_TAG_FORMAT
+#: src/help.c:22
+msgid ""
+"This field describes the expected format of the file name \n"
+"(not including the extension).  Audio Tag Tool uses this \n"
+"information to automatically fill in the tags based on the \n"
+"file's name. \n"
+"\n"
+"Each tag field has a corresponding symbol, as listed below: \n"
+"\n"
+"  <title>\n"
+"  <artist>\n"
+"  <album>\n"
+"  <year>\n"
+"  <comment>\n"
+"  <track>\n"
+"  <genre>\n"
+"\n"
+"Examples: \n"
+"\n"
+"The format \"<artist> - <album> - <title>\" will match a \n"
+"file named \"Pink Floyd - The Wall - Hey You.mp3\". In this \n"
+"example the Artist, Album and Title fields of the tag will \n"
+"be set to \"Pink Floyd\", \"The Wall\" and \"Hey You\", \n"
+"respectively.\n"
+"\n"
+"The format \"<artist> - <*> - <title>\" could also be used \n"
+"in the previous example if we did not want to fill in the \n"
+"album name (the special symbol <*> causes a part of the \n"
+"file name to be ignored.) \n"
+msgstr ""
+"Este campo descreve o formato esperado dos nomes dos arquivos \n"
+"(excluindo a extensão).  A Ferramenta para Etiquetar Audio usa \n"
+"esta informação para preencher automaticamente as etiquetas \n"
+"a partir do nome dos arquivos\n"
+"\n"
+"Cada campo da etiqueta corresponde um marcador especial:\n"
+"\n"
+"  <title>\t\t- Título\n"
+"  <artist>\t- Artista\n"
+"  <album>\t- Álbum\n"
+"  <year>\t\t- Ano\n"
+"  <comment>\t- Comentário\n"
+"  <track>\t- Faixa\n"
+"  <genre>\t- Género\n"
+"\n"
+"Exemplos: \n"
+"\n"
+"O formato \"<artist> - <album> - <title>\" condiz com um arquivo \n"
+"chamado \"Pink Floyd - The Wall - Hey You.mp3\". Neste exemplo os\n"
+"campos Artista, Álbum e Título da tag serão preenchidos com\n"
+"\"Pink Floyd\", \"The Wall\" e \"Hey You\", respectivamente.\n"
+"\n"
+"O formato \"<artist> - <*> - <title>\" também poderia ser usado \n"
+"no exemplo anterior se não quisessemos preencher o nome do \n"
+"Álbum (o marcador especial <*> faz com que essa parte do nome \n"
+"do arquivo seja ignorada.) \n"
+
+#. HELP_RENAME_FORMAT
+#: src/help.c:51
+msgid ""
+"This field describes the desired format of the file name. \n"
+"Audio Tag Tool can use this information to rename files or \n"
+"organize them into subdirectories, based on the content of \n"
+"their tags. \n"
+"\n"
+"Each ID3 field has a corresponding symbol, as listed below: \n"
+"\n"
+"  <title>\n"
+"  <artist>\n"
+"  <album>\n"
+"  <year>\n"
+"  <comment>\n"
+"  <track>\n"
+"  <genre>\n"
+"\n"
+"Renaming example: \n"
+"\n"
+"To have all file names consist of the track number followed \n"
+"by the track title, a format such as \"<track> - <title>\" can \n"
+"be used. \n"
+"\n"
+"Moving example: \n"
+"\n"
+"The file name format can include sub-directories. If in the \n"
+"previous example we had wanted the files to be placed in \n"
+"a directory with the album name, we would have used the \n"
+"format \"<album>/<track> - <title>\". \n"
+msgstr ""
+"Este campo descreve o formato desejado para os nomes dos \n"
+"arquivos (excluindo a extensão). A Ferramenta para Etiquetar Audio \n"
+"usa esta informação para renomear ou mover os arquivos, com base no \n"
+"conteúdo das suas etiquetas.\n"
+"\n"
+"A cada campo da etiqueta corresponde um marcador especial:\n"
+"\n"
+"  <title>\t\t- Título\n"
+"  <artist>\t- Artista\n"
+"  <album>\t- Álbum\n"
+"  <year>\t\t- Ano\n"
+"  <comment>\t- Comentário\n"
+"  <track>\t- Faixa\n"
+"  <genre>\t- Género\n"
+"\n"
+"Exemplo - Renomear: \n"
+"\n"
+"Para renomear os arquivos de maneira que o seu nome seja \n"
+"o número da faixa seguido do título pode ser usado o formato \n"
+"\"<track> - <title>\".\n"
+"\n"
+"Exemplo - Mover: \n"
+"\n"
+"O formato dos nomes de arquivo pode incluir subdiretórios. \n"
+"Se no exemplo anterior desejássemos colocar os arquivos num \n"
+"diretório com o nome do álbum, poderiamos usar o formato \n"
+"\"<album>/<track> - <title>\". \n"
+
+#: src/main.c:43
+#, c-format
+msgid "Supported audio formats:  "
+msgstr "Formatos de áudio suportados:  "
+
+#: src/main.c:61
+#, c-format
+msgid ""
+"Usage:\n"
+"  tagtool [DIR]\t\tStart in directory DIR\n"
+"  tagtool --dump FILE\tDump all known information about FILE and exit\n"
+"  tagtool --help\tPrint this help message\n"
+"  tagtool --version\tPrint program version\n"
+"\n"
+msgstr ""
+"Utilização:\n"
+"  tagtool [DIR]\t\tComeçar no diretório DIR\n"
+"  tagtool --dump ARQIVO\tMostrar toda a informação conhecida sobre ARQUIVO e "
+"sair\n"
+"  tagtool --help\tMostrar esta mensagem de ajuda\n"
+"  tagtool --version\tMostrar a versão do programa\n"
+"\n"
+
+#: src/main.c:78
+#, c-format
+msgid ""
+"Couldn't open file: %s\n"
+"\n"
+msgstr ""
+"Não foi possível abrir o arquivo %s\n"
+"\n"
+
+#: src/main.c:80
+#, c-format
+msgid ""
+"File audio format not recognized: %s\n"
+"\n"
+msgstr ""
+"Formato de áudio não reconhecido: %s\n"
+"\n"
+
+#: src/mpeg_edit.c:118 src/vorbis_edit.c:88
+msgid "Field"
+msgstr "Campo"
+
+#: src/mpeg_edit.c:127 src/vorbis_edit.c:97
+msgid "Text"
+msgstr "Texto"
+
+#: src/mpeg_edit.c:275 src/vorbis_edit.c:200
+#, c-format
+msgid "Advanced (%i)"
+msgstr "Avançado (%i)"
+
+#: src/mpeg_edit.c:419 src/vorbis_edit.c:287
+#, c-format
+msgid ""
+"Error saving file \"%s\":\n"
+"%s (%d)"
+msgstr ""
+"Erro ao gravar arquivo \"%s\":\n"
+"%s (%d)"
+
+#: src/mpeg_edit.c:421 src/vorbis_edit.c:291
+msgid "Error Saving File"
+msgstr "Erro ao Gravar Arquivo"
+
+#: src/mpeg_edit.c:674
+msgid "ID3 Tag has been modified. Save changes?"
+msgstr "A Etiqueta ID3 foi modificada. Gravar as alterações?"
+
+#: src/mpeg_edit.c:675 src/vorbis_edit.c:456
+msgid "Discard"
+msgstr "Não Gravar"
+
+#: src/mpeg_edit_field.c:45
+msgid "New ID3 Field"
+msgstr "Novo Campo ID3"
+
+#: src/mpeg_edit_field.c:77
+msgid "Edit ID3 Field"
+msgstr "Editar Campo ID3"
+
+#: src/mpeg_file.c:595
+#, c-format
+msgid ""
+"Bit Rate\n"
+"%d kbps\n"
+"Sample Rate\n"
+"%d Hz\n"
+"Channel Mode\n"
+"%s\n"
+"Copyrighted\n"
+"%s\n"
+"Original\n"
+"%s\n"
+msgstr ""
+"Bit Rate\n"
+"%d kbps\n"
+"Freq. Amostragem\n"
+"%d Hz\n"
+"Modo Canal\n"
+"%s\n"
+"Copyright\n"
+"%s\n"
+"Original\n"
+"%s\n"
+
+#: src/mpeg_file.c:601 src/mpeg_file.c:602
+msgid "Yes"
+msgstr "Sim"
+
+#: src/mpeg_file.c:601 src/mpeg_file.c:602
+msgid "No"
+msgstr "Não"
+
+#: src/playlist_tab.c:151
+#, c-format
+msgid "Skipping file \"%s\""
+msgstr "Arquivo \"%s\" não incluido"
+
+#: src/playlist_tab.c:154 src/rename_tab.c:219
+msgid "Couldn't open file for reading"
+msgstr "Não foi possível abrir o arquivo para leitura"
+
+#: src/playlist_tab.c:267
+#, c-format
+msgid "Error creating playlist \"%s\""
+msgstr "Erro ao criar playlist \"%s\""
+
+#: src/playlist_tab.c:273
+#, c-format
+msgid "Wrote \"%s\" (%d entries)"
+msgstr "Escrito \"%s\" (%d entradas)"
+
+#: src/playlist_tab.c:299 src/playlist_tab.c:440
+msgid "Writing Playlists"
+msgstr "Escrevendo Listas de Reprodução"
+
+#: src/playlist_tab.c:347
+#, c-format
+msgid "Entering directory \"%s\""
+msgstr "A entrar no diretório \"%s\""
+
+#: src/playlist_tab.c:367
+#, c-format
+msgid "Done (wrote %d of %d playlists)"
+msgstr "Pronto (escritas %d de %d listas de reprodução)"
+
+#: src/rename_tab.c:183
+msgid "Moving Files"
+msgstr "Movendo Arquivos"
+
+#: src/rename_tab.c:185
+msgid "Renaming Files"
+msgstr "Renomeando Arquivos"
+
+#: src/rename_tab.c:216 src/rename_tab.c:229 src/rename_tab.c:241
+#: src/rename_tab.c:254 src/rename_tab.c:287
+#, c-format
+msgid "Error renaming \"%s\""
+msgstr "Erro ao renomear \"%s\""
+
+#: src/rename_tab.c:223
+msgid "Unknown error"
+msgstr "Erro desconhecido"
+
+#: src/rename_tab.c:230
+msgid "File has no tag"
+msgstr "Arquivo não tem etiqueta"
+
+#: src/rename_tab.c:242
+msgid "One of the tag fields is empty"
+msgstr "Um dos campos da etiqueta está vazio"
+
+#: src/rename_tab.c:246
+#, c-format
+msgid "File name \"%s\" already in desired format"
+msgstr "Nome do arquivo \"%s\" já está no formato desejado"
+
+#: src/rename_tab.c:252 src/rename_tab.c:285
+#, c-format
+msgid "Error moving \"%s\""
+msgstr "Erro ao mover \"%s\""
+
+#: src/rename_tab.c:256
+#, c-format
+msgid "File \"%s\" already exists"
+msgstr "O arquivo \"%s\" já existe"
+
+#: src/rename_tab.c:270
+#, c-format
+msgid "Error creating directory \"%s\""
+msgstr "Erro ao criar diretório \"%s\""
+
+#: src/rename_tab.c:276
+#, c-format
+msgid "Created directory \"%s\""
+msgstr "Criado o diretório \"%s\""
+
+#: src/rename_tab.c:293
+#, c-format
+msgid "Moved \"%s\" to \"%s\""
+msgstr "Movido \"%s\" para \"%s\""
+
+#: src/rename_tab.c:297
+#, c-format
+msgid "Renamed \"%s\" to \"%s\""
+msgstr "Renomeado \"%s\" para \"%s\""
+
+#: src/rename_tab.c:316
+#, c-format
+msgid "Done (moved %d of %d files)"
+msgstr "Pronto (movidos %d de %d arquivos)"
+
+#: src/rename_tab.c:318
+#, c-format
+msgid "Done (renamed %d of %d files)"
+msgstr "Pronto (renomeados %d de %d arquivos)"
+
+#: src/tag_tab.c:322
+msgid "Tagging Files"
+msgstr "Etiquetando Arquivos"
+
+#: src/tag_tab.c:326
+msgid "No tag fields to set!"
+msgstr "Não há campos para definir!"
+
+#: src/tag_tab.c:375 src/tag_tab.c:421 src/tag_tab.c:431
+#, c-format
+msgid "Error tagging \"%s\""
+msgstr "Erro ao escrever etiqueta em \"%s\""
+
+#: src/tag_tab.c:422
+msgid "File name does not match expected format"
+msgstr "Nome do arquivo não corresponde ao formato esperado"
+
+#: src/tag_tab.c:441
+#, c-format
+msgid "Tagged \"%s\""
+msgstr "Etiquetado \"%s\""
+
+#: src/tag_tab.c:452
+#, c-format
+msgid "Done (tagged %d of %d files)"
+msgstr "Pronto (etiquetado %d de %d arquivos)"
+
+#: src/vorbis_edit.c:279
+#, c-format
+msgid ""
+"Error saving file \"%s\":\n"
+"%s (%d)\n"
+"\n"
+"Note:\n"
+"In order to save changes to an Ogg Vorbis file, you must have\n"
+"write permission for the directory where it is located."
+msgstr ""
+"Erro ao gravar arquivo \"%s\":\n"
+"%s (%d)\n"
+"\n"
+"Nota:\n"
+"Para gravar as alterações em um arquivo Ogg Vorbis é necessário ter\n"
+"permissão de escrita sobre o diretório onde o arquivo se encontra."
+
+#: src/vorbis_edit.c:455
+msgid "Vorbis Tag has been modified. Save changes?"
+msgstr "A Etiqueta Vorbis foi modificada. Gravar alterações?"
+
+#: src/vorbis_edit_field.c:59
+msgid "New Vorbis Field"
+msgstr "Novo Campo Vorbis"
+
+#: src/vorbis_edit_field.c:62
+msgid "Edit Vorbis Field"
+msgstr "Editar Campo Vorbis"
+
+#: src/vorbis_file.c:228
+#, c-format
+msgid ""
+"Average Bit Rate\n"
+"%ld kbps\n"
+"Nominal Bit Rate\n"
+"%ld kbps\n"
+"Sample Rate\n"
+"%ld Hz\n"
+"Channels\n"
+"%d\n"
+"Playing Time\n"
+"%dm %ds %dms\n"
+msgstr ""
+"Bit Rate Médio\n"
+"%ld kbps\n"
+"Bit Rate Nominal\n"
+"%ld kbps\n"
+"Freq. Amostragem\n"
+"%ld Hz\n"
+"Canais\n"
+"%d\n"
+"Duração\n"
+"%dm %ds %dms\n"

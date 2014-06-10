@@ -1,0 +1,24 @@
+# List of source files containing translatable strings.
+
+# data files
+data/tagtool.desktop.in
+
+# interface file
+src/tagtool.glade
+
+# source files
+src/clear_tab.c
+src/edit_tab.c
+src/file_list.c
+src/help.c
+src/main.c
+src/mpeg_edit.c
+src/mpeg_edit_field.c
+src/mpeg_file.c
+src/playlist_tab.c
+src/progress_dlg.c
+src/rename_tab.c
+src/tag_tab.c
+src/vorbis_edit.c
+src/vorbis_edit_field.c
+src/vorbis_file.c

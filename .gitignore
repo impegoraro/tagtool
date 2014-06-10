@@ -1,0 +1,14 @@
+# object/bin files
+*.o
+*.a
+*.so
+
+# backup files
+*~
+*.bak
+*.swp
+
+# autoconf
+
+# other stuff
+tagtool.sublime-workspace
