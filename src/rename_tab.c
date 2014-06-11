@@ -8,8 +8,8 @@
 #include <glib.h>
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
-#include <glade/glade.h>
 
+#include "gtk_util.h"
 #include "elist.h"
 #include "str_util.h"
 #include "str_convert.h"
@@ -33,11 +33,11 @@ enum {
 
 
 /* widgets */
-static GtkCombo *combo_rename_format = NULL;
+static GtkComboBoxText *combo_rename_format = NULL;
 static GtkEntry *ent_rename_format = NULL;
 static GtkButton *b_rename_edit_format = NULL;
 static GtkButton *b_rename_go = NULL;
-static GtkComboBox *combo_rename_apply = NULL;
+static GtkComboBoxText *combo_rename_apply = NULL;
 
 /* preferences */
 static MRUList *format_mru;
@@ -294,7 +294,7 @@ static void rename_files(GEList *file_list)
 				pd_printf(PD_ICON_OK, _("Moved \"%s\" to \"%s\""), orig_name_utf8, temp_utf8);
 			}
 			else {
-				temp_utf8 = str_filename_to_utf8(g_basename(new_full_name->str), _("(UTF8 conversion error)"));
+				temp_utf8 = str_filename_to_utf8(g_path_get_basename(new_full_name->str), _("(UTF8 conversion error)"));
 				pd_printf(PD_ICON_OK, _("Renamed \"%s\" to \"%s\""), orig_name_utf8, temp_utf8);
 			}
 			free(temp_utf8);
@@ -328,7 +328,7 @@ static void start_operation()
 {
 	GEList *file_list;
 
-	if (gtk_combo_box_get_active(combo_rename_apply) == APPLY_TO_ALL)
+	if (gtk_combo_box_get_active(GTK_COMBO_BOX(combo_rename_apply)) == APPLY_TO_ALL)
 		file_list = fl_get_all_files();
 	else
 		file_list = fl_get_selected_files();
@@ -343,8 +343,10 @@ static void start_operation()
 	}
 
 	mru_add(format_mru, gtk_entry_get_text(ent_rename_format));
-	gtk_combo_set_popdown_strings(combo_rename_format, GLIST(format_mru->list));
 	
+	//gtk_combo_set_popdown_strings(combo_rename_format, GLIST(format_mru->list));
+	g_list_foreach(GLIST(format_mru->list), glist_2_combo, combo_rename_format);
+
 	cursor_set_wait();
 	gtk_widget_set_sensitive(GTK_WIDGET(b_rename_go), FALSE);
 	rename_files(file_list);
@@ -375,50 +377,49 @@ void cb_rename_help(GtkButton *button, gpointer user_data)
 static void cb_file_selection_changed(GtkTreeSelection *selection, gpointer data)
 {
 	if (fl_count_selected() > 0)
-		gtk_combo_box_set_active(combo_rename_apply, APPLY_TO_SELECTED);
+		gtk_combo_box_set_active(GTK_COMBO_BOX(combo_rename_apply), APPLY_TO_SELECTED);
 	else
-		gtk_combo_box_set_active(combo_rename_apply, APPLY_TO_ALL);
+		gtk_combo_box_set_active(GTK_COMBO_BOX(combo_rename_apply), APPLY_TO_ALL);
 }
 
 
 /*** public functions *******************************************************/
 
-void rt_init(GladeXML *xml)
+void rt_init(GtkBuilder *builder)
 {
-	GtkStyle *style;
-	GtkWidget *w;
+	//GtkStyle *style;
 	GEList *format_list;
 
 	/*
 	 * get the widgets from glade
 	 */
 
-	combo_rename_format = GTK_COMBO(glade_xml_get_widget(xml, "combo_rename_format"));
-	ent_rename_format = GTK_ENTRY(glade_xml_get_widget(xml, "ent_rename_format"));
-	b_rename_edit_format = GTK_BUTTON(glade_xml_get_widget(xml, "b_rename_edit_format"));
-	b_rename_go = GTK_BUTTON(glade_xml_get_widget(xml, "b_rename_go"));
-	combo_rename_apply = GTK_COMBO_BOX(glade_xml_get_widget(xml, "combo_rename_apply"));
+	combo_rename_format = GTK_COMBO_BOX_TEXT(gtk_builder_get_object(builder, "combo_rename_format"));
+	ent_rename_format = GTK_ENTRY(gtk_builder_get_object(builder, "ent_rename_format"));
+	b_rename_edit_format = GTK_BUTTON(gtk_builder_get_object(builder, "b_rename_edit_format"));
+	b_rename_go = GTK_BUTTON(gtk_builder_get_object(builder, "b_rename_go"));
+	combo_rename_apply = GTK_COMBO_BOX_TEXT(gtk_builder_get_object(builder, "combo_rename_apply"));
 
 	/* initialize some widgets' state */
-	gtk_combo_box_set_active(combo_rename_apply, APPLY_TO_ALL);
+	gtk_combo_box_set_active(GTK_COMBO_BOX(combo_rename_apply), APPLY_TO_ALL);
 
 	/* connect signals */
-	g_signal_connect(gtk_tree_view_get_selection(GTK_TREE_VIEW(glade_xml_get_widget(xml, "tv_files"))),
+	g_signal_connect(gtk_tree_view_get_selection(GTK_TREE_VIEW(gtk_builder_get_object(builder, "tv_files"))),
 			 "changed", G_CALLBACK(cb_file_selection_changed), NULL);
 
 
 	/*
 	 * set the title colors
 	 */
+	 //FIXME: style
+	// w = gtk_builder_get_object(builder, "lab_rename_title");
+	// gtk_widget_ensure_style(w);
+	// style = gtk_widget_get_style(w);
 
-	w = glade_xml_get_widget(xml, "lab_rename_title");
-	gtk_widget_ensure_style(w);
-	style = gtk_widget_get_style(w);
+	// gtk_widget_modify_fg(w, GTK_STATE_NORMAL, &style->text[GTK_STATE_SELECTED]);
 
-	gtk_widget_modify_fg(w, GTK_STATE_NORMAL, &style->text[GTK_STATE_SELECTED]);
-
-	w = glade_xml_get_widget(xml, "box_rename_title");
-	gtk_widget_modify_bg(w, GTK_STATE_NORMAL, &style->base[GTK_STATE_SELECTED]);
+	// w = gtk_builder_get_object(builder, "box_rename_title");
+	// gtk_widget_modify_bg(w, GTK_STATE_NORMAL, &style->base[GTK_STATE_SELECTED]);
 
 
 	/*
@@ -434,11 +435,17 @@ void rt_init(GladeXML *xml)
 		g_elist_append(temp_list, "<artist> - <album>/<track>. <title>");
 		g_elist_append(temp_list, "<artist>/<album>/<track>. <title>");
 		g_elist_append(temp_list, "<artist>/<album> (<year>)/<track>. <title>");
+		gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(combo_rename_format), NULL, "<track>. <title>");
+		gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(combo_rename_format), NULL, "<artist> - <title>");
+		gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(combo_rename_format), NULL, "<artist> - <album>/<track>. <title>");
+		gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(combo_rename_format), NULL, "<artist>/<album>/<track>. <title>");
+		gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(combo_rename_format), NULL, "<artist>/<album> (<year>)/<track>. <title>");
 		format_list = pref_set("rt:format_mru", PREF_STRING | PREF_LIST, temp_list);
 		g_elist_free(temp_list);
 	}
 	format_mru = mru_new_from_list(10, format_list);
 
-	gtk_combo_set_popdown_strings(combo_rename_format, GLIST(format_mru->list));
+	//gtk_combo_set_popdown_strings(combo_rename_format, GLIST(format_mru->list));
+	g_list_foreach(GLIST(format_mru->list), glist_2_combo, combo_rename_format);
 }
 

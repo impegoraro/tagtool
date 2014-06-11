@@ -3,8 +3,8 @@
 #include <glib.h>
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
-#include <glade/glade.h>
 
+#include "gtk_util.h"
 #include "elist.h"
 #include "str_util.h"
 #include "vorbis_edit_field.h"
@@ -18,7 +18,7 @@ enum {
 
 /* widgets */
 static GtkDialog *dlg;
-static GtkTable *table;
+static GtkGrid *grid;
 static GtkEntry *entry;
 static GtkButton *b_ok;
 static GtkButton *b_cancel;
@@ -27,7 +27,7 @@ static GtkWidget *widget;  /* dinamically created "field" widget */
 
 /*** private functions ******************************************************/
 
-static void fill_names_combo(GtkCombo *combo)
+static void fill_names_combo(GtkComboBox *combo)
 {
 	const char **name_array;
 	GEList *name_list;
@@ -40,8 +40,8 @@ static void fill_names_combo(GtkCombo *combo)
 		g_elist_append(name_list, (void*)name_array[i]);
 
 	g_elist_sort(name_list, (GCompareFunc)strcoll);
-	gtk_combo_set_popdown_strings(combo, GLIST(name_list));
-
+	
+	g_list_foreach(GLIST(name_list), glist_2_combo, combo);
 	g_elist_free(name_list);
 }
 
@@ -51,9 +51,10 @@ static void set_ui(int mode, vorbis_file *file, const char *name)
 	const char *title;
 	const char *value;
 
-	widget = gtk_combo_new();
-	gtk_combo_set_value_in_list(GTK_COMBO(widget), FALSE, FALSE);
-	fill_names_combo(GTK_COMBO(widget));
+	widget = gtk_combo_box_text_new();
+	//FIXME: Combo
+	//gtk_combo_set_value_in_list(GTK_COMBO_BOX(widget), FALSE, FALSE);
+	fill_names_combo(GTK_COMBO_BOX(widget));
 
 	if (mode == MODE_CREATE) {
 		title = _("New Vorbis Field");
@@ -61,16 +62,14 @@ static void set_ui(int mode, vorbis_file *file, const char *name)
 	else {
 		title = _("Edit Vorbis Field");
 
-		gtk_entry_set_text(GTK_ENTRY(GTK_COMBO(widget)->entry), name);
+		gtk_entry_set_text(GTK_ENTRY(GTK_COMBO_BOX(gtk_bin_get_child(GTK_BIN(widget)))), name);
 
 		vorbis_file_get_field_by_name(file, name, &value);
 		gtk_entry_set_text(entry, value);
 	}
 
 	gtk_window_set_title(GTK_WINDOW(dlg), title);
-	gtk_table_attach(table, widget, 1, 2, 0, 1,
-			 GTK_FILL|GTK_EXPAND, GTK_SHRINK, 
-			 0, 0);
+	gtk_grid_attach(grid, widget, 1, 0, 1, 1);
 
 	gtk_widget_show_all(GTK_WIDGET(dlg));
 }
@@ -84,7 +83,7 @@ static void clear_ui()
 
 static void update_comments(int mode, vorbis_file *file, const char *orig_name)
 {
-	char *name = gtk_editable_get_chars(GTK_EDITABLE(GTK_COMBO(widget)->entry), 0, -1);
+	char *name = gtk_editable_get_chars(GTK_EDITABLE(gtk_bin_get_child(GTK_BIN(widget))), 0, -1);
 	char *value = gtk_editable_get_chars(GTK_EDITABLE(entry), 0, -1);
 
 	str_ascii_tolower(name);
@@ -142,14 +141,14 @@ gboolean vorbis_editfld_edit_comment(vorbis_file *file, const char *name)
 }
 
 
-void vorbis_editfld_init(GladeXML *xml)
+void vorbis_editfld_init(GtkBuilder *builder)
 {
-	dlg = GTK_DIALOG(glade_xml_get_widget(xml, "dlg_edit_field"));
-	table = GTK_TABLE(glade_xml_get_widget(xml, "t_edit_field"));
-	entry = GTK_ENTRY(glade_xml_get_widget(xml, "ent_edit_field_text"));
-	b_ok = GTK_BUTTON(glade_xml_get_widget(xml, "b_edit_field_ok"));
-	b_cancel = GTK_BUTTON(glade_xml_get_widget(xml, "b_edit_field_cancel"));
+	dlg = GTK_DIALOG(gtk_builder_get_object(builder, "dlg_edit_field"));
+	grid = GTK_GRID(gtk_builder_get_object(builder, "t_edit_field"));
+	entry = GTK_ENTRY(gtk_builder_get_object(builder, "ent_edit_field_text"));
+	b_ok = GTK_BUTTON(gtk_builder_get_object(builder, "b_edit_field_ok"));
+	b_cancel = GTK_BUTTON(gtk_builder_get_object(builder, "b_edit_field_cancel"));
 
-	gtk_window_set_transient_for(GTK_WINDOW(dlg), GTK_WINDOW(glade_xml_get_widget(xml, "w_main")));
+	gtk_window_set_transient_for(GTK_WINDOW(dlg), GTK_WINDOW(gtk_builder_get_object(builder, "w_main")));
 }
 

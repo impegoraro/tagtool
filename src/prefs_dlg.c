@@ -1,5 +1,4 @@
 #include <gtk/gtk.h>
-#include <glade/glade.h>
 
 #include "gtk_util.h"
 #include "prefs.h"
@@ -82,7 +81,7 @@ void prefs_display()
 }
 
 
-void prefs_init(GladeXML *xml)
+void prefs_init(GtkBuilder *builder)
 {
 	gboolean true = TRUE;
 	int write_auto = WRITE_AUTO;
@@ -91,14 +90,14 @@ void prefs_init(GladeXML *xml)
 	 * get the widgets from glade
 	 */
 
-	dlg_prefs = GTK_WINDOW(glade_xml_get_widget(xml, "dlg_prefs"));
-	rb_ver_v1 = GTK_RADIO_BUTTON(glade_xml_get_widget(xml, "rb_ver_v1"));
-	rb_ver_v2 = GTK_RADIO_BUTTON(glade_xml_get_widget(xml, "rb_ver_v2"));
-	rb_ver_both = GTK_RADIO_BUTTON(glade_xml_get_widget(xml, "rb_ver_both"));
-	rb_ver_auto = GTK_RADIO_BUTTON(glade_xml_get_widget(xml, "rb_ver_auto"));
-	cb_ver_preserve = GTK_CHECK_BUTTON(glade_xml_get_widget(xml, "cb_ver_preserve"));
+	dlg_prefs = GTK_WINDOW(gtk_builder_get_object(builder, "dlg_prefs"));
+	rb_ver_v1 = GTK_RADIO_BUTTON(gtk_builder_get_object(builder, "rb_ver_v1"));
+	rb_ver_v2 = GTK_RADIO_BUTTON(gtk_builder_get_object(builder, "rb_ver_v2"));
+	rb_ver_both = GTK_RADIO_BUTTON(gtk_builder_get_object(builder, "rb_ver_both"));
+	rb_ver_auto = GTK_RADIO_BUTTON(gtk_builder_get_object(builder, "rb_ver_auto"));
+	cb_ver_preserve = GTK_CHECK_BUTTON(gtk_builder_get_object(builder, "cb_ver_preserve"));
 
-	gtk_window_set_transient_for(dlg_prefs, GTK_WINDOW(glade_xml_get_widget(xml, "w_main")));
+	gtk_window_set_transient_for(dlg_prefs, GTK_WINDOW(gtk_builder_get_object(builder, "w_main")));
 
 
 	/*

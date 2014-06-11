@@ -52,8 +52,9 @@ fi;
 
 dnl Check for gtk and related libraries
 PKG_CHECK_MODULES(GTK, [glib-2.0 >= 2.12.0
-		       gtk+-2.0 >= 2.8.0
-		       libglade-2.0 >= 2.6.0])
+		       gtk+-3.0 >= 3.10.0
+                       libxml-2.0])
+dnl		       libglade-2.0 >= 2.6.0])
 AC_SUBST(GTK_CFLAGS)
 AC_SUBST(GTK_LIBS)
 

@@ -26,7 +26,7 @@ chconv_rename_options chconv_get_rename_options();
 
 void chconv_display(int tab);
 
-void chconv_init(GladeXML *xml);
+void chconv_init(GtkBuilder *builder);
 
 
 #endif

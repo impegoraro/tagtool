@@ -2,7 +2,7 @@
 #define VORBIS_EDIT_H
 
 
-void vorbis_edit_init(GladeXML *xml);
+void vorbis_edit_init(GtkBuilder *builder);
 
 
 #endif

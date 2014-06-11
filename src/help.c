@@ -2,7 +2,6 @@
 #include <glib.h>
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
-#include <glade/glade.h>
 
 #include "help.h"
 
@@ -85,10 +84,10 @@ static GtkLabel *lab_help = NULL;
 
 /*** public functions *******************************************************/
 
-void help_init(GladeXML *xml)
+void help_init(GtkBuilder *builder)
 {
-	dlg_help = GTK_WINDOW(glade_xml_get_widget(xml, "dlg_help"));
-	lab_help = GTK_LABEL(glade_xml_get_widget(xml, "lab_help"));
+	dlg_help = GTK_WINDOW(gtk_builder_get_object(builder, "dlg_help"));
+	lab_help = GTK_LABEL(gtk_builder_get_object(builder, "lab_help"));
 }
 
 

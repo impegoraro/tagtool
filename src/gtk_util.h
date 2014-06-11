@@ -2,6 +2,8 @@
 #define GTK_UTIL_H
 
 
+void glist_2_combo(gpointer data, gpointer widget);
+
 /*
  * Sets <iter> to the currently selected row. If there is more than one 
  * row selected returns the first one.

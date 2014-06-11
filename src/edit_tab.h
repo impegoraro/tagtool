@@ -4,7 +4,7 @@
 #include "elist.h"
 
 
-void et_init(GladeXML *xml);
+void et_init(GtkBuilder *builder);
 
 void et_load_file(const gchar *name);
 

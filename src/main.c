@@ -4,7 +4,6 @@
 #include <string.h>
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
-#include <glade/glade.h>
 
 #include "elist.h"
 #include "mru.h"
@@ -95,7 +94,7 @@ void write_preferences()
 int main(int argc, char *argv[])
 {
 	char *start_dir = NULL;
-	GladeXML *xml;
+	GtkBuilder *builder;
 	gboolean res;
 	int i;
 
@@ -126,8 +125,8 @@ int main(int argc, char *argv[])
 		start_dir = argv[1];
 
 	/* load the interface */
-	xml = glade_xml_new(DATADIR"/tagtool.glade", NULL, NULL);
-	if (xml == NULL)
+	builder = gtk_builder_new_from_file(DATADIR"/tagtool.glade");
+	if (builder == NULL)
 		g_error("Could not load the interface!");
 
 	/* loading and saving preferences */
@@ -140,37 +139,37 @@ int main(int argc, char *argv[])
 	g_set_application_name("Audio Tag Tool");
 	gtk_window_set_default_icon_name("TagTool");
 
-	/* let other modules get what they need from the GladeXML object */
-	mw_init(xml);
-	fl_init(xml);
-	sb_init(xml);
-	et_init(xml);
-	tt_init(xml);
-	ct_init(xml);
-	rt_init(xml);
-	pt_init(xml);
-	pd_init(xml);
-	spd_init(xml);
-	rename_init(xml);
-	prefs_init(xml);
-	chconv_init(xml);
-	cursor_init(xml);
-	help_init(xml);
-	about_init(xml);
+	/* let other modules get what they need from the GtkBuilder object */
+	mw_init(builder);
+	fl_init(builder);
+	sb_init(builder);
+	et_init(builder);
+	tt_init(builder);
+	ct_init(builder);
+	rt_init(builder);
+	pt_init(builder);
+	pd_init(builder);
+	spd_init(builder);
+	rename_init(builder);
+	prefs_init(builder);
+	chconv_init(builder);
+	cursor_init(builder);
+	help_init(builder);
+	about_init(builder);
 #ifdef ENABLE_MP3
-	mpeg_edit_init(xml);
-	mpeg_editfld_init(xml);
+	mpeg_edit_init(builder);
+	mpeg_editfld_init(builder);
 #endif
 #ifdef ENABLE_VORBIS
-	vorbis_edit_init(xml);
-	vorbis_editfld_init(xml);
+	vorbis_edit_init(builder);
+	vorbis_editfld_init(builder);
 #endif
 
 	/* load the initial directory */
 	fl_set_initial_dir(start_dir);
 
 	/* connect the signals */
-	glade_xml_signal_autoconnect(xml);
+	gtk_builder_connect_signals(builder, NULL);
 
 	/* start the GTK event loop */
 	gtk_main();

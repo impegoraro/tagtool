@@ -1,6 +1,5 @@
 #include <config.h>
 #include <gtk/gtk.h>
-#include <glade/glade.h>
 
 #include "gtk_util.h"
 #include "prefs.h"
@@ -27,7 +26,7 @@ static GtkNotebook *nb_char_conv = NULL;
 static GtkRadioButton *rb_t_conv_space_none = NULL;
 static GtkRadioButton *rb_t_conv_space_from = NULL;
 static GtkEntry *ent_t_conv_chars = NULL;
-static GtkComboBox *combo_t_case = NULL;
+static GtkComboBoxText *combo_t_case = NULL;
 
 static GtkRadioButton *rb_r_conv_space_none = NULL;
 static GtkRadioButton *rb_r_conv_space_to = NULL;
@@ -35,7 +34,7 @@ static GtkRadioButton *rb_r_invalid_omit = NULL;
 static GtkRadioButton *rb_r_invalid_convert = NULL;
 static GtkEntry *ent_r_conv_chars = NULL;
 static GtkEntry *ent_r_invalid_chars = NULL;
-static GtkComboBox *combo_r_case = NULL;
+static GtkComboBoxText *combo_r_case = NULL;
 
 
 /*** private functions ******************************************************/
@@ -53,7 +52,7 @@ static void from_prefs()
 	}
 	gtk_entry_set_text(ent_t_conv_chars, tag_space_conv_chars);
 
-	gtk_combo_box_set_active(combo_t_case, *tag_case_conv);
+	gtk_combo_box_set_active(GTK_COMBO_BOX(combo_t_case), *tag_case_conv);
 
 	/* rename tab */
 	if (*rename_space_conv) {
@@ -74,7 +73,7 @@ static void from_prefs()
 	}
 	gtk_entry_set_text(ent_r_invalid_chars, rename_invalid_conv_chars);
 
-	gtk_combo_box_set_active(combo_r_case, *rename_case_conv);
+	gtk_combo_box_set_active(GTK_COMBO_BOX(combo_r_case), *rename_case_conv);
 }
 
 /* sets the preferences according to the curent interface state */
@@ -151,11 +150,11 @@ void chconv_display(int tab)
 	from_prefs();
 
 	gtk_window_present(dlg_char_conv);
-	gtk_notebook_set_page(nb_char_conv, tab);
+	gtk_notebook_set_current_page(nb_char_conv, tab);
 }
 
 
-void chconv_init(GladeXML *xml)
+void chconv_init(GtkBuilder *builder)
 {
 	int nocaseconv = 0;
 	gboolean true = TRUE;
@@ -165,23 +164,23 @@ void chconv_init(GladeXML *xml)
 	 * get the widgets from glade
 	 */
 
-	dlg_char_conv = GTK_WINDOW(glade_xml_get_widget(xml, "dlg_char_conv"));
-	nb_char_conv = GTK_NOTEBOOK(glade_xml_get_widget(xml, "nb_char_conv"));
+	dlg_char_conv = GTK_WINDOW(gtk_builder_get_object(builder, "dlg_char_conv"));
+	nb_char_conv = GTK_NOTEBOOK(gtk_builder_get_object(builder, "nb_char_conv"));
 
-	rb_t_conv_space_none = GTK_RADIO_BUTTON(glade_xml_get_widget(xml, "rb_t_conv_space_none"));
-	rb_t_conv_space_from = GTK_RADIO_BUTTON(glade_xml_get_widget(xml, "rb_t_conv_space_from"));
-	ent_t_conv_chars = GTK_ENTRY(glade_xml_get_widget(xml, "ent_t_conv_chars"));
-	combo_t_case = GTK_COMBO_BOX(glade_xml_get_widget(xml, "combo_t_case"));
+	rb_t_conv_space_none = GTK_RADIO_BUTTON(gtk_builder_get_object(builder, "rb_t_conv_space_none"));
+	rb_t_conv_space_from = GTK_RADIO_BUTTON(gtk_builder_get_object(builder, "rb_t_conv_space_from"));
+	ent_t_conv_chars = GTK_ENTRY(gtk_builder_get_object(builder, "ent_t_conv_chars"));
+	combo_t_case = GTK_COMBO_BOX_TEXT(gtk_builder_get_object(builder, "combo_t_case"));
 
-	rb_r_conv_space_none = GTK_RADIO_BUTTON(glade_xml_get_widget(xml, "rb_r_conv_space_none"));
-	rb_r_conv_space_to = GTK_RADIO_BUTTON(glade_xml_get_widget(xml, "rb_r_conv_space_to"));
-	rb_r_invalid_omit = GTK_RADIO_BUTTON(glade_xml_get_widget(xml, "rb_r_invalid_omit"));
-	rb_r_invalid_convert = GTK_RADIO_BUTTON(glade_xml_get_widget(xml, "rb_r_invalid_convert"));
-	ent_r_conv_chars = GTK_ENTRY(glade_xml_get_widget(xml, "ent_r_conv_chars"));
-	ent_r_invalid_chars = GTK_ENTRY(glade_xml_get_widget(xml, "ent_r_invalid_chars"));
-	combo_r_case = GTK_COMBO_BOX(glade_xml_get_widget(xml, "combo_r_case"));
+	rb_r_conv_space_none = GTK_RADIO_BUTTON(gtk_builder_get_object(builder, "rb_r_conv_space_none"));
+	rb_r_conv_space_to = GTK_RADIO_BUTTON(gtk_builder_get_object(builder, "rb_r_conv_space_to"));
+	rb_r_invalid_omit = GTK_RADIO_BUTTON(gtk_builder_get_object(builder, "rb_r_invalid_omit"));
+	rb_r_invalid_convert = GTK_RADIO_BUTTON(gtk_builder_get_object(builder, "rb_r_invalid_convert"));
+	ent_r_conv_chars = GTK_ENTRY(gtk_builder_get_object(builder, "ent_r_conv_chars"));
+	ent_r_invalid_chars = GTK_ENTRY(gtk_builder_get_object(builder, "ent_r_invalid_chars"));
+	combo_r_case = GTK_COMBO_BOX_TEXT(gtk_builder_get_object(builder, "combo_r_case"));
 
-	gtk_window_set_transient_for(dlg_char_conv, GTK_WINDOW(glade_xml_get_widget(xml, "w_main")));
+	gtk_window_set_transient_for(dlg_char_conv, GTK_WINDOW(gtk_builder_get_object(builder, "w_main")));
 
 
 	/*

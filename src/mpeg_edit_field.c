@@ -3,8 +3,8 @@
 #include <glib.h>
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
-#include <glade/glade.h>
 
+#include "gtk_util.h"
 #include "elist.h"
 #include "glib_util.h"
 #include "mpeg_file.h"
@@ -19,7 +19,7 @@ enum {
 
 /* widgets */
 static GtkDialog *dlg;
-static GtkTable *table;
+static GtkGrid *grid;
 static GtkEntry *entry;
 static GtkButton *b_ok;
 static GtkButton *b_cancel;
@@ -43,9 +43,10 @@ static void set_ui(int mode, mpeg_file *file, int tag_version, ID3Frame *frame)
 		int i;
 
 		title = _("New ID3 Field");
-		widget = gtk_combo_new();
-		gtk_combo_set_value_in_list(GTK_COMBO(widget), TRUE, FALSE);
-		gtk_entry_set_editable(GTK_ENTRY(GTK_COMBO(widget)->entry), FALSE);
+		widget = gtk_combo_box_text_new_with_entry();
+		//gtk_combo_set_value_in_list(GTK_COMBO_BOX(widget), TRUE, FALSE);
+		//gtk_entry_set_editable(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(widget))), FALSE);
+		gtk_editable_set_editable(GTK_EDITABLE(gtk_bin_get_child(GTK_BIN(widget))), FALSE);
 
 		frame_id_table = g_hash_table_new(g_str_hash, g_str_equal);
 
@@ -63,7 +64,7 @@ static void set_ui(int mode, mpeg_file *file, int tag_version, ID3Frame *frame)
 			g_elist_append(strings, display_name);
 		}
 		g_elist_sort(strings, (GCompareFunc)strcoll);
-		gtk_combo_set_popdown_strings(GTK_COMBO(widget), GLIST(strings));
+		g_list_foreach(GLIST(strings), glist_2_combo, GTK_COMBO_BOX_TEXT(widget));
 		g_elist_free(strings);
 	}
 	else {
@@ -84,9 +85,7 @@ static void set_ui(int mode, mpeg_file *file, int tag_version, ID3Frame *frame)
 	}
 
 	gtk_window_set_title(GTK_WINDOW(dlg), title);
-	gtk_table_attach(table, widget, 1, 2, 0, 1,
-			 GTK_FILL|GTK_EXPAND, GTK_SHRINK, 
-			 0, 0);
+	gtk_grid_attach(grid, widget, 1, 0, 1, 1);
 
 	gtk_widget_show_all(GTK_WIDGET(dlg));
 }
@@ -115,7 +114,7 @@ static void create_frame(mpeg_file *file, int tag_version)
 		tag = file->v2_tag;
 
 	frame_id = (int)g_hash_table_lookup(frame_id_table, 
-					    gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(widget)->entry)));
+					    gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(widget)))));
 	new_frame = ID3Frame_NewID(frame_id);
 	ID3Tag_AttachFrame(tag, new_frame);
 
@@ -168,14 +167,14 @@ gboolean mpeg_editfld_edit_frame(mpeg_file *file, int tag_version, ID3Frame *fra
 }
 
 
-void mpeg_editfld_init(GladeXML *xml)
+void mpeg_editfld_init(GtkBuilder *builder)
 {
-	dlg = GTK_DIALOG(glade_xml_get_widget(xml, "dlg_edit_field"));
-	table = GTK_TABLE(glade_xml_get_widget(xml, "t_edit_field"));
-	entry = GTK_ENTRY(glade_xml_get_widget(xml, "ent_edit_field_text"));
-	b_ok = GTK_BUTTON(glade_xml_get_widget(xml, "b_edit_field_ok"));
-	b_cancel = GTK_BUTTON(glade_xml_get_widget(xml, "b_edit_field_cancel"));
+	dlg = GTK_DIALOG(gtk_builder_get_object(builder, "dlg_edit_field"));
+	grid = GTK_GRID(gtk_builder_get_object(builder, "t_edit_field"));
+	entry = GTK_ENTRY(gtk_builder_get_object(builder, "ent_edit_field_text"));
+	b_ok = GTK_BUTTON(gtk_builder_get_object(builder, "b_edit_field_ok"));
+	b_cancel = GTK_BUTTON(gtk_builder_get_object(builder, "b_edit_field_cancel"));
 
-	gtk_window_set_transient_for(GTK_WINDOW(dlg), GTK_WINDOW(glade_xml_get_widget(xml, "w_main")));
+	gtk_window_set_transient_for(GTK_WINDOW(dlg), GTK_WINDOW(gtk_builder_get_object(builder, "w_main")));
 }
 

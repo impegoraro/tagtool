@@ -2,6 +2,10 @@
 
 #include "gtk_util.h"
 
+void glist_2_combo(gpointer data, gpointer widget)
+{
+	gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(widget), (gchar*) data);
+}
 
 static void cb_enforce_max_chars(GtkEditable *editable, gchar *insert_text, gint insert_text_len, gint *insert_pos, gpointer data)
 {
@@ -55,15 +59,16 @@ gboolean gtk_tree_view_get_first_selected(GtkTreeView *tree, GtkTreeModel **mode
 void gtk_editable_set_max_chars(GtkEditable *editable, guint max_chars)
 {
 	if (max_chars > 0) {
-		gtk_signal_connect_after(GTK_OBJECT(editable), "insert_text",
-					 GTK_SIGNAL_FUNC(cb_enforce_max_chars),
-					 (gpointer)max_chars);
+		g_signal_connect_after(GTK_WIDGET(editable), "insert_text", G_CALLBACK(cb_enforce_max_chars), (gpointer)max_chars);
+		// gtk_signal_connect_after(GTK_WIDGET(editable), "insert_text",
+		// 			 GTK_SIGNAL_FUNC(cb_enforce_max_chars),
+		// 			 (gpointer)max_chars);
 	}
 	else {
-		gulong id = g_signal_handler_find(GTK_OBJECT(editable), G_SIGNAL_MATCH_FUNC,
-						  0, 0, 0, GTK_SIGNAL_FUNC(cb_enforce_max_chars), 0);
+		gulong id = g_signal_handler_find(GTK_WIDGET(editable), G_SIGNAL_MATCH_FUNC,
+						  0, 0, 0, G_CALLBACK(cb_enforce_max_chars), 0);
 		if (id > 0)
-			g_signal_handler_disconnect(GTK_OBJECT(editable), id);
+			g_signal_handler_disconnect(GTK_WIDGET(editable), id);
 	}
 }
 

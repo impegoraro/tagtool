@@ -37,10 +37,10 @@ char *rename_prompt_new_name(const char *old_name)
 }
 
 
-void rename_init(GladeXML *xml)
+void rename_init(GtkBuilder *builder)
 {
-	dlg_rename_file = GTK_DIALOG(glade_xml_get_widget(xml, "dlg_rename_file"));
-	ent_file_name = GTK_ENTRY(glade_xml_get_widget(xml, "ent_file_name"));
+	dlg_rename_file = GTK_DIALOG(gtk_builder_get_object(builder, "dlg_rename_file"));
+	ent_file_name = GTK_ENTRY(gtk_builder_get_object(builder, "ent_file_name"));
 
 }
 

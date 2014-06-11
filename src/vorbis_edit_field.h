@@ -8,7 +8,7 @@ gboolean vorbis_editfld_create_comment(vorbis_file *file);
 
 gboolean vorbis_editfld_edit_comment(vorbis_file *file, const char *name);
 
-void vorbis_editfld_init(GladeXML *xml);
+void vorbis_editfld_init(GtkBuilder *builder);
 
 
 #endif

@@ -2,7 +2,7 @@
 #define TAG_TAB_H
 
 
-void tt_init(GladeXML *xml);
+void tt_init(GtkBuilder *builder);
 
 
 #endif

@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <gtk/gtk.h>
-#include <glade/glade.h>
 
 #include "status_bar.h"
 
@@ -17,9 +16,9 @@ static gchar statusbar_msg[MAX_MSG_SIZE];
 static guint statusbar_ctx = 0;
 
 
-void sb_init(GladeXML *xml)
+void sb_init(GtkBuilder *builder)
 {
-	statusbar = GTK_STATUSBAR(glade_xml_get_widget(xml, "statusbar"));
+	statusbar = GTK_STATUSBAR(gtk_builder_get_object(builder, "statusbar"));
 
 	statusbar_ctx = gtk_statusbar_get_context_id(statusbar, "status_msg");
 }

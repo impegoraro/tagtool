@@ -1,0 +1,23 @@
+[Desktop Entry]
+Name=Audio Tag Tool
+Name[bg]=Audio Tag Tool
+Name[cs]=Audio Tag Tool
+Name[de]=Audio Tag Tool
+Name[en_GB]=Audio Tag Tool
+Name[es]=Audio Tag Tool
+Name[fr]=Audio Tag Tool
+Name[it]=Audio Tag Tool
+Name[lt]=Audio Tag Tool
+Name[nl]=Geluidslabel Gereedschap
+Name[pl]=Audio Tag Tool
+Name[pt]=Audio Tag Tool
+Name[pt_BR]=Ferramenta para Etiquetar Audio
+Name[ru]=Audio Tag Tool
+Name[sv]=Audio Tag Tool
+Name[ua]=Audio Tag Tool
+Comment=MP3 and Ogg Vorbis tag editor
+Exec=tagtool
+Icon=TagTool
+Terminal=False
+Type=Application
+Categories=Audio;AudioVideo;AudioVideoEditing;

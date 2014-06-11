@@ -1,8 +1,7 @@
 #ifndef PREFS_DLG_H
 #define PREFS_DLG_H
 
-#include <glade/glade.h>
-
+#include <gtk/gtk.h>
 
 enum {
 	WRITE_AUTO = 0,
@@ -21,7 +20,7 @@ id3_prefs prefs_get_id3_prefs();
 
 void prefs_display();
 
-void prefs_init(GladeXML *xml);
+void prefs_init(GtkBuilder *builder);
 
 
 #endif

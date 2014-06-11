@@ -9,7 +9,7 @@
 #define PD_ICON_NONE  4
 
 
-void pd_init(GladeXML *xml);
+void pd_init(GtkBuilder *builder);
 
 void pd_start(const char *title);
 

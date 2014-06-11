@@ -4,7 +4,6 @@
 #include <glib.h>
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
-#include <glade/glade.h>
 
 #include "elist.h"
 #include "str_convert.h"
@@ -29,9 +28,9 @@ static audio_file *af = NULL;
 
 /*** UI callbacks ***********************************************************/
 
-void cb_notebook_switch(GtkNotebook *nb, GtkNotebookPage *page, gint page_num, gpointer user_data)
+void cb_notebook_switch(GtkNotebook *nb, GtkWidget *page, guint page_num, gpointer user_data)
 {
-	static gint last = 0;
+	static guint last = 0;
 
 	if (last == 0 && page_num != 0) {
 		/* when leaving edit tab */
@@ -49,28 +48,27 @@ void cb_notebook_switch(GtkNotebook *nb, GtkNotebookPage *page, gint page_num, g
 
 /*** public functions *******************************************************/
 
-void et_init(GladeXML *xml)
+void et_init(GtkBuilder *builder)
 {
-	GtkStyle *style;
-	GtkWidget *w;
-
 	/* widgets and icons */
-	nb_file = GTK_NOTEBOOK(glade_xml_get_widget(xml, "nb_file"));
-	nb_edit = GTK_NOTEBOOK(glade_xml_get_widget(xml, "nb_edit"));
-	align_create_tag = glade_xml_get_widget(xml, "align_create_tag");
-	align_remove_tag = glade_xml_get_widget(xml, "align_remove_tag");
-	lab_info_names = GTK_LABEL(glade_xml_get_widget(xml, "lab_info_names"));
-	lab_info_values = GTK_LABEL(glade_xml_get_widget(xml, "lab_info_values"));
+	nb_file = GTK_NOTEBOOK(gtk_builder_get_object(builder, "nb_file"));
+	nb_edit = GTK_NOTEBOOK(gtk_builder_get_object(builder, "nb_edit"));
+	align_create_tag = GTK_WIDGET(gtk_builder_get_object(builder, "align_create_tag"));
+	align_remove_tag = GTK_WIDGET(gtk_builder_get_object(builder, "align_remove_tag"));
+	lab_info_names = GTK_LABEL(gtk_builder_get_object(builder, "lab_info_names"));
+	lab_info_values = GTK_LABEL(gtk_builder_get_object(builder, "lab_info_values"));
 
 	/* set the title colors */
-	w = glade_xml_get_widget(xml, "lab_edit_title");
-	gtk_widget_ensure_style(w);
-	style = gtk_widget_get_style(w);
+	// FIXME: fix the style
+	//w = GTK_WIDGET(gtk_builder_get_object(builder, "lab_edit_title"));
+	
+	// gtk_widget_ensure_style(w);
+	// style = gtk_widget_get_style(w);
 
-	gtk_widget_modify_fg(w, GTK_STATE_NORMAL, &style->text[GTK_STATE_SELECTED]);
+	// gtk_widget_modify_fg(w, GTK_STATE_NORMAL, &style->text[GTK_STATE_SELECTED]);
 
-	w = glade_xml_get_widget(xml, "box_edit_title");
-	gtk_widget_modify_bg(w, GTK_STATE_NORMAL, &style->base[GTK_STATE_SELECTED]);
+	// w = gtk_builder_get_object(builder, "box_edit_title");
+	// gtk_widget_modify_bg(w, GTK_STATE_NORMAL, &style->base[GTK_STATE_SELECTED]);
 }
 
 
@@ -147,7 +145,7 @@ void et_load_file(const gchar *name)
 	/* display the appropriate edit interface */
 	audio_file_edit_load(af);
 
-	gtk_notebook_set_page(nb_file, 1);
+	gtk_notebook_set_current_page(nb_file, 1);
 }
 
 
@@ -159,7 +157,7 @@ void et_unload_file()
 		audio_file_edit_unload(temp);
 		audio_file_delete(temp);
 
-		gtk_notebook_set_page(nb_file, 0);
+		gtk_notebook_set_current_page(nb_file, 0);
 	}
 }
 

@@ -7,7 +7,7 @@
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
-#include <glade/glade.h>
+#include <gdk/gdkkeysyms-compat.h>
 
 #include "str_util.h"
 #include "str_convert.h"
@@ -36,7 +36,7 @@
 /* widgets */
 static GtkWindow *w_main = NULL;
 
-static GtkCombo *combo_wd = NULL;
+static GtkComboBoxText *combo_wd = NULL;
 static GtkEntry *ent_wd = NULL;
 static GtkToggleButton *cb_recurse = NULL;
 static GtkDialog *dlg_wd_select = NULL;
@@ -75,7 +75,8 @@ static void setup_tree_view()
 
 	/* model */
 	store_files = gtk_list_store_new(5, GDK_TYPE_PIXBUF, G_TYPE_STRING, 
-					 GDK_TYPE_COLOR, G_TYPE_BOOLEAN, G_TYPE_POINTER);
+					 G_TYPE_STRING, G_TYPE_BOOLEAN, G_TYPE_POINTER);
+					 //GDK_TYPE_COLOR, G_TYPE_BOOLEAN, G_TYPE_POINTER);
 
 	/* columns and renderers */
 	col = gtk_tree_view_column_new();
@@ -86,19 +87,18 @@ static void setup_tree_view()
 	g_object_set(renderer, "xpad", 4, NULL);
 	gtk_tree_view_column_pack_start(col, renderer, FALSE);
 	gtk_tree_view_column_add_attribute(col, renderer, "pixbuf", 0);
-	gtk_tree_view_column_add_attribute(col, renderer, "cell-background-gdk", 2);
+	gtk_tree_view_column_add_attribute(col, renderer, "cell-background", 2);
 	gtk_tree_view_column_add_attribute(col, renderer, "cell-background-set", 3);
 
 	renderer = gtk_cell_renderer_text_new();
 	g_object_set(renderer, "ypad", 0, NULL);
 	gtk_tree_view_column_pack_start(col, renderer, FALSE);
 	gtk_tree_view_column_add_attribute(col, renderer, "text", 1);
-	gtk_tree_view_column_add_attribute(col, renderer, "cell-background-gdk", 2);
+	gtk_tree_view_column_add_attribute(col, renderer, "cell-background", 2);
 	gtk_tree_view_column_add_attribute(col, renderer, "cell-background-set", 3);
 
 	/* selection mode */
-	gtk_tree_selection_set_mode(gtk_tree_view_get_selection(tv_files),
-				    GTK_SELECTION_MULTIPLE);
+	gtk_tree_selection_set_mode(gtk_tree_view_get_selection(tv_files), GTK_SELECTION_MULTIPLE);
 }
 
 
@@ -135,13 +135,19 @@ static void update_tree_view(const GEList *file_list)
 {
 	gchar *last_file = "";
 	gchar *aux;
-	GtkStyle *style;
 	GtkTreeIter tree_iter;
 	GList *i;
+	GtkStyleContext *style;
+	GdkRGBA outColor;
+	gchar *strColor;
 
-	style = gtk_widget_get_style(GTK_WIDGET(tv_files));
+	style = gtk_widget_get_style_context(GTK_WIDGET(tv_files));
 	if (style == NULL)
-		g_error("Couldn't get style for widget tv_files");
+		g_error("Couldn't get style context for widget tv_files");
+	
+	gtk_style_context_get_background_color(style, GTK_STATE_FLAG_INSENSITIVE, &outColor);
+	strColor = gdk_rgba_to_string(&outColor);
+	
 
 	gtk_tree_view_set_model(tv_files, NULL);
 
@@ -154,10 +160,12 @@ static void update_tree_view(const GEList *file_list)
 			aux = str_filename_to_utf8(dirname,
 						   _("(dir name could not be converted to UTF8)"));
 			gtk_list_store_append(store_files, &tree_iter);
+
+
 			gtk_list_store_set(store_files, &tree_iter, 
 					   0, pix_folder,
 					   1, aux,
-					   2, &style->bg[GTK_STATE_NORMAL],
+					   2, strColor, //&style->bg[GTK_STATE_NORMAL]
 					   3, TRUE,
 					   4, NULL,
 					   -1);
@@ -179,7 +187,7 @@ static void update_tree_view(const GEList *file_list)
 		last_file = i->data;
 		i = g_list_next(i);
 	}
-
+	g_free(strColor);
 	gtk_tree_view_set_model(tv_files, GTK_TREE_MODEL(store_files));
 
 	update_file_count();
@@ -601,23 +609,23 @@ void cb_toggle_recurse(GtkToggleButton *widget, gpointer data)
 
 /*** public functions *******************************************************/
 
-void fl_init(GladeXML *xml)
+void fl_init(GtkBuilder *builder)
 {
 	GEList *dir_list;
 
 	/*
 	 * get the widgets from glade
 	 */
-	w_main = GTK_WINDOW(glade_xml_get_widget(xml, "w_main"));
-	combo_wd = GTK_COMBO(glade_xml_get_widget(xml, "combo_wd"));
-	ent_wd = GTK_ENTRY(glade_xml_get_widget(xml, "ent_wd"));
-	cb_recurse = GTK_TOGGLE_BUTTON(glade_xml_get_widget(xml, "cb_recurse"));
-	tv_files = GTK_TREE_VIEW(glade_xml_get_widget(xml, "tv_files"));
-	lab_file_count = GTK_LABEL(glade_xml_get_widget(xml, "lab_file_count"));
-	menu_file_list = GTK_MENU(glade_xml_get_widget(xml, "menu_file_list"));
-	m_ctx_manual_rename = GTK_MENU_ITEM(glade_xml_get_widget(xml, "m_ctx_manual_rename"));
-	m_ctx_delete = GTK_MENU_ITEM(glade_xml_get_widget(xml, "m_ctx_delete"));
-	m_ctx_unselect_all = GTK_MENU_ITEM(glade_xml_get_widget(xml, "m_ctx_unselect_all"));
+	w_main = GTK_WINDOW(gtk_builder_get_object(builder, "w_main"));
+	combo_wd = GTK_COMBO_BOX(gtk_builder_get_object(builder, "combo_wd"));
+	ent_wd = GTK_ENTRY(gtk_builder_get_object(builder, "ent_wd"));
+	cb_recurse = GTK_TOGGLE_BUTTON(gtk_builder_get_object(builder, "cb_recurse"));
+	tv_files = GTK_TREE_VIEW(gtk_builder_get_object(builder, "tv_files"));
+	lab_file_count = GTK_LABEL(gtk_builder_get_object(builder, "lab_file_count"));
+	menu_file_list = GTK_MENU(gtk_builder_get_object(builder, "menu_file_list"));
+	m_ctx_manual_rename = GTK_MENU_ITEM(gtk_builder_get_object(builder, "m_ctx_manual_rename"));
+	m_ctx_delete = GTK_MENU_ITEM(gtk_builder_get_object(builder, "m_ctx_delete"));
+	m_ctx_unselect_all = GTK_MENU_ITEM(gtk_builder_get_object(builder, "m_ctx_unselect_all"));
 
 	/* 
 	 * create the file chooser
@@ -691,7 +699,6 @@ void fl_set_initial_dir(const gchar *dir)
 	}
 }
 
-
 void fl_set_working_dir(const gchar *dir)
 {
 	gchar *aux;
@@ -718,8 +725,7 @@ void fl_set_working_dir(const gchar *dir)
 	
 	/* update the directory mru list */
 	mru_add(dir_mru, working_dir_utf8->str);
-	gtk_combo_set_popdown_strings(combo_wd, GLIST(dir_mru->list));
-
+	g_list_foreach(GLIST(dir_mru->list), glist_2_combo, combo_wd);
 
 	if (check_working_dir())
 		load_file_list();
@@ -761,7 +767,7 @@ void fl_set_working_dir_utf8(const gchar *dir)
 	
 	/* update the directory mru list */
 	mru_add(dir_mru, working_dir_utf8->str);
-	gtk_combo_set_popdown_strings(combo_wd, GLIST(dir_mru->list));
+	g_list_foreach(GLIST(dir_mru->list), glist_2_combo, combo_wd);
 
 
 	if (check_working_dir())
@@ -799,7 +805,7 @@ void fl_refresh(gboolean keep_scroll_pos)
 		load_file_list();
 
 	if (keep_scroll_pos) {
-		if (saved_value <= adj->upper)
+		if (saved_value <= gtk_adjustment_get_upper(adj))
 			gtk_adjustment_set_value(adj, saved_value);
 	}
 }

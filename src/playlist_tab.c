@@ -6,7 +6,6 @@
 #include <glib.h>
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
-#include <glade/glade.h>
 
 #include "elist.h"
 #include "math_util.h"
@@ -39,7 +38,7 @@ typedef struct {
 
 /* widgets */
 static GtkButton *b_playlist_go = NULL;
-static GtkComboBox *combo_playlist_apply = NULL;
+static GtkComboBoxText *combo_playlist_apply = NULL;
 static GtkToggleButton *rb_create_dir = NULL;
 static GtkToggleButton *rb_create_toplevel = NULL;
 static GtkToggleButton *rb_create_both = NULL;
@@ -50,7 +49,7 @@ static GtkToggleButton *rb_sort_field = NULL;
 static GtkCheckButton *cb_sort_across_dirs = NULL;
 static GtkEntry *ent_pl_name = NULL;
 static GtkEntry *ent_pl_extension = NULL;
-static GtkComboBox *combo_field = NULL;
+static GtkComboBoxText *combo_field = NULL;
 
 /* preferences */
 static long* create_in;
@@ -259,7 +258,7 @@ static gboolean create_playlist_in_dir(gchar *base_dir, GEList *file_list)
 	gint ret, save_errno;
 
 	pl_name = playlist_name(base_dir);
-	pl_name_display = str_filename_to_utf8(g_basename(pl_name), _("(UTF8 conversion error)"));
+	pl_name_display = str_filename_to_utf8(g_path_get_basename(pl_name), _("(UTF8 conversion error)"));
 
 	ret = write_playlist(base_dir, pl_name, file_list);
 	if (ret == 0) {
@@ -403,7 +402,7 @@ static void from_prefs()
 		gtk_widget_set_sensitive(GTK_WIDGET(cb_sort_across_dirs), TRUE);
 	}
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(cb_sort_across_dirs), *sort_across_dirs);
-	gtk_combo_box_set_active(combo_field, *sort_field);
+	gtk_combo_box_set_active(GTK_COMBO_BOX(combo_field), *sort_field);
 }
 
 /* sets the preferences according to the curent interface state */
@@ -422,7 +421,7 @@ static void to_prefs()
 
 	*sort_by_name = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(rb_sort_name));
 	*sort_across_dirs = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(cb_sort_across_dirs));
-	*sort_field = gtk_combo_box_get_active(combo_field);
+	*sort_field = gtk_combo_box_get_active(GTK_COMBO_BOX(combo_field));
 }
 
 
@@ -431,7 +430,7 @@ static void start_operation()
 {
 	GEList *file_list;
 
-	if (gtk_combo_box_get_active(combo_playlist_apply) == APPLY_TO_ALL)
+	if (gtk_combo_box_get_active(GTK_COMBO_BOX(combo_playlist_apply)) == APPLY_TO_ALL)
 		file_list = fl_get_all_files();
 	else
 		file_list = fl_get_selected_files();
@@ -481,60 +480,57 @@ void cb_sort_field(GtkToggleButton *button, gpointer user_data)
 static void cb_file_selection_changed(GtkTreeSelection *selection, gpointer data)
 {
 	if (fl_count_selected() > 0)
-		gtk_combo_box_set_active(combo_playlist_apply, APPLY_TO_SELECTED);
+		gtk_combo_box_set_active(GTK_COMBO_BOX(combo_playlist_apply), APPLY_TO_SELECTED);
 	else
-		gtk_combo_box_set_active(combo_playlist_apply, APPLY_TO_ALL);
+		gtk_combo_box_set_active(GTK_COMBO_BOX(combo_playlist_apply), APPLY_TO_ALL);
 }
 
 
 /*** public functions *******************************************************/
 
-void pt_init(GladeXML *xml)
+void pt_init(GtkBuilder *builder)
 {
-	GtkStyle *style;
-	GtkWidget *w;
-
 	/*
 	 * get the widgets from glade
 	 */
 
-	b_playlist_go = GTK_BUTTON(glade_xml_get_widget(xml, "b_playlist_go"));
-	combo_playlist_apply = GTK_COMBO_BOX(glade_xml_get_widget(xml, "combo_playlist_apply"));
+	b_playlist_go = GTK_BUTTON(gtk_builder_get_object(builder, "b_playlist_go"));
+	combo_playlist_apply = GTK_COMBO_BOX_TEXT(gtk_builder_get_object(builder, "combo_playlist_apply"));
 
-	rb_create_dir = GTK_TOGGLE_BUTTON(glade_xml_get_widget(xml, "rb_create_dir"));
-	rb_create_toplevel = GTK_TOGGLE_BUTTON(glade_xml_get_widget(xml, "rb_create_toplevel"));
-	rb_create_both = GTK_TOGGLE_BUTTON(glade_xml_get_widget(xml, "rb_create_both"));
+	rb_create_dir = GTK_TOGGLE_BUTTON(gtk_builder_get_object(builder, "rb_create_dir"));
+	rb_create_toplevel = GTK_TOGGLE_BUTTON(gtk_builder_get_object(builder, "rb_create_toplevel"));
+	rb_create_both = GTK_TOGGLE_BUTTON(gtk_builder_get_object(builder, "rb_create_both"));
 
-	rb_name_dir = GTK_TOGGLE_BUTTON(glade_xml_get_widget(xml, "rb_name_dir"));
-	rb_name_set = GTK_TOGGLE_BUTTON(glade_xml_get_widget(xml, "rb_name_set"));
-	ent_pl_name = GTK_ENTRY(glade_xml_get_widget(xml, "ent_pl_name"));
-	ent_pl_extension = GTK_ENTRY(glade_xml_get_widget(xml, "ent_pl_extension"));
+	rb_name_dir = GTK_TOGGLE_BUTTON(gtk_builder_get_object(builder, "rb_name_dir"));
+	rb_name_set = GTK_TOGGLE_BUTTON(gtk_builder_get_object(builder, "rb_name_set"));
+	ent_pl_name = GTK_ENTRY(gtk_builder_get_object(builder, "ent_pl_name"));
+	ent_pl_extension = GTK_ENTRY(gtk_builder_get_object(builder, "ent_pl_extension"));
 
-	rb_sort_name = GTK_TOGGLE_BUTTON(glade_xml_get_widget(xml, "rb_sort_name"));
-	rb_sort_field = GTK_TOGGLE_BUTTON(glade_xml_get_widget(xml, "rb_sort_field"));
-	cb_sort_across_dirs = GTK_CHECK_BUTTON(glade_xml_get_widget(xml, "cb_sort_across_dirs"));
-	combo_field = GTK_COMBO_BOX(glade_xml_get_widget(xml, "combo_field"));
+	rb_sort_name = GTK_TOGGLE_BUTTON(gtk_builder_get_object(builder, "rb_sort_name"));
+	rb_sort_field = GTK_TOGGLE_BUTTON(gtk_builder_get_object(builder, "rb_sort_field"));
+	cb_sort_across_dirs = GTK_CHECK_BUTTON(gtk_builder_get_object(builder, "cb_sort_across_dirs"));
+	combo_field = GTK_COMBO_BOX_TEXT(gtk_builder_get_object(builder, "combo_field"));
 
 	/* initialize some widgets' state */
-	gtk_combo_box_set_active(combo_playlist_apply, APPLY_TO_ALL);
+	gtk_combo_box_set_active(GTK_COMBO_BOX(combo_playlist_apply), APPLY_TO_ALL);
 
 	/* connect signals */
-	g_signal_connect(gtk_tree_view_get_selection(GTK_TREE_VIEW(glade_xml_get_widget(xml, "tv_files"))),
+	g_signal_connect(gtk_tree_view_get_selection(GTK_TREE_VIEW(gtk_builder_get_object(builder, "tv_files"))),
 			 "changed", G_CALLBACK(cb_file_selection_changed), NULL);
 
 
 	/*
 	 * set the title colors
 	 */
+	 //FIXME: styles
+	// w = gtk_builder_get_object(builder, "lab_playlist_title");
+	// gtk_widget_ensure_style(w);
+	// style = gtk_widget_get_style(w);
 
-	w = glade_xml_get_widget(xml, "lab_playlist_title");
-	gtk_widget_ensure_style(w);
-	style = gtk_widget_get_style(w);
+	// gtk_widget_modify_fg(w, GTK_STATE_NORMAL, &style->text[GTK_STATE_SELECTED]);
 
-	gtk_widget_modify_fg(w, GTK_STATE_NORMAL, &style->text[GTK_STATE_SELECTED]);
-
-	w = glade_xml_get_widget(xml, "box_playlist_title");
-	gtk_widget_modify_bg(w, GTK_STATE_NORMAL, &style->base[GTK_STATE_SELECTED]);
+	// w = gtk_builder_get_object(builder, "box_playlist_title");
+	// gtk_widget_modify_bg(w, GTK_STATE_NORMAL, &style->base[GTK_STATE_SELECTED]);
 
 
 	/*

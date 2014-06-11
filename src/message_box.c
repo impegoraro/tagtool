@@ -21,7 +21,7 @@ int message_box(GtkWindow *transientfor, char *title, char* text, int defbutton,
 	label = gtk_label_new(text);
 	gtk_label_set_justify(GTK_LABEL(label), GTK_JUSTIFY_LEFT);
 	gtk_misc_set_padding(GTK_MISC(label), 25, 25);
-	gtk_container_add(GTK_CONTAINER(dlg->vbox), label);
+	gtk_container_add(GTK_CONTAINER(gtk_dialog_get_content_area(dlg)), label);
 
 	/* add the buttons */
 	va_start(ap, defbutton);

@@ -7,7 +7,7 @@
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
-#include <glade/glade.h>
+#include <gdk/gdkkeysyms-compat.h>
 
 #include "elist.h"
 #include "gtk_util.h"
@@ -44,7 +44,7 @@ static GtkEntry *ent_id3v1_album = NULL;
 static GtkEntry *ent_id3v1_year = NULL;
 static GtkEntry *ent_id3v1_comment = NULL;
 static GtkSpinButton *spin_id3v1_track = NULL;
-static GtkCombo *combo_id3v1_genre = NULL;
+static GtkComboBoxText *combo_id3v1_genre = NULL;
 static GtkLabel *lab_id3v1_title = NULL;
 static GtkLabel *lab_id3v1_artist = NULL;
 static GtkLabel *lab_id3v1_album = NULL;
@@ -60,7 +60,7 @@ static GtkEntry *ent_id3v2_album = NULL;
 static GtkEntry *ent_id3v2_year = NULL;
 static GtkTextView *text_id3v2_comment = NULL;
 static GtkEntry *ent_id3v2_track = NULL;
-static GtkCombo *combo_id3v2_genre = NULL;
+static GtkComboBoxText *combo_id3v2_genre = NULL;
 static GtkLabel *lab_id3v2_title = NULL;
 static GtkLabel *lab_id3v2_artist = NULL;
 static GtkLabel *lab_id3v2_album = NULL;
@@ -72,9 +72,9 @@ static GtkLabel *lab_id3v2_advanced = NULL;
 
 static GtkTreeView *tv_id3v2_frames = NULL;
 static GtkListStore *store_id3v2_frames = NULL;
-static GtkButton *b_id3v2_add = NULL;
-static GtkButton *b_id3v2_edit = NULL;
-static GtkButton *b_id3v2_remove = NULL;
+static GtkToolButton *b_id3v2_add = NULL;
+static GtkToolButton *b_id3v2_edit = NULL;
+static GtkToolButton *b_id3v2_remove = NULL;
 
 static GtkImage *img_id3v1_tab = NULL;
 static GtkImage *img_id3v2_tab = NULL;
@@ -133,8 +133,7 @@ static void tree_view_setup()
 	gtk_tree_view_column_add_attribute(col, renderer, "text", 1);
 
 	/* selection mode */
-	gtk_tree_selection_set_mode(gtk_tree_view_get_selection(tv_id3v2_frames),
-				    GTK_SELECTION_SINGLE);
+	gtk_tree_selection_set_mode(gtk_tree_view_get_selection(tv_id3v2_frames), GTK_SELECTION_SINGLE);
 }
 
 static void set_changed_flag(gboolean value)
@@ -202,7 +201,7 @@ static void update_form_v1()
 	const gchar *str;
 
 	if (mpeg_file_has_tag_v(file, ID3TT_ID3V1)) {
-		gtk_notebook_set_page(nb_id3v1, TAB_ID3V1_TAG);
+		gtk_notebook_set_current_page(nb_id3v1, TAB_ID3V1_TAG);
 
 		ignore_changed_signals = TRUE;
 		mpeg_file_get_field_v(file, ID3TT_ID3V1, AF_TITLE, &str);
@@ -218,11 +217,11 @@ static void update_form_v1()
 		mpeg_file_get_field_v(file, ID3TT_ID3V1, AF_TRACK, &str);
 		gtk_spin_button_set_value(spin_id3v1_track, atoi(str));
 		mpeg_file_get_field_v(file, ID3TT_ID3V1, AF_GENRE, &str);
-		gtk_entry_set_text(GTK_ENTRY(combo_id3v1_genre->entry), str);
+		gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(combo_id3v1_genre))), str);
 		ignore_changed_signals = FALSE;
 	}
 	else {
-		gtk_notebook_set_page(nb_id3v1, TAB_ID3V1_NOTAG);
+		gtk_notebook_set_current_page(nb_id3v1, TAB_ID3V1_NOTAG);
 	}
 
 	set_editable_flag(audio_file_is_editable((audio_file *)file));
@@ -233,7 +232,7 @@ static void update_form_v2()
 	const gchar *str;
 
 	if (mpeg_file_has_tag_v(file, ID3TT_ID3V2)) {
-		gtk_notebook_set_page(nb_id3v2, *current_tab);
+		gtk_notebook_set_current_page(nb_id3v2, *current_tab);
 		
 		if (*current_tab == TAB_ID3V2_SIMPLE) {
 			int extra_fields;
@@ -242,8 +241,9 @@ static void update_form_v2()
 			int i;
 
 			ignore_changed_signals = TRUE;
+			//	gtk_combo_set_popdown_strings(combo_id3v2_genre, GLIST(genre_mru->list));
 			if (g_elist_length(genre_mru->list) > 0)
-				gtk_combo_set_popdown_strings(combo_id3v2_genre, GLIST(genre_mru->list));
+				g_list_foreach(GLIST(genre_mru->list), glist_2_combo, combo_id3v2_genre);
 			mpeg_file_get_field_v(file, ID3TT_ID3V2, AF_TITLE, &str);
 			gtk_entry_set_text(ent_id3v2_title, str);
 			mpeg_file_get_field_v(file, ID3TT_ID3V2, AF_ARTIST, &str);
@@ -257,7 +257,7 @@ static void update_form_v2()
 			mpeg_file_get_field_v(file, ID3TT_ID3V2, AF_TRACK, &str);
 			gtk_entry_set_text(ent_id3v2_track, str);
 			mpeg_file_get_field_v(file, ID3TT_ID3V2, AF_GENRE, &str);
-			gtk_entry_set_text(GTK_ENTRY(combo_id3v2_genre->entry), str);
+			gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(combo_id3v2_genre))), str);
 			ignore_changed_signals = FALSE;
 
 			/* Show in the "Advanced" button label how many fields are not visible */
@@ -322,7 +322,7 @@ static void update_form_v2()
 		}
 	}
 	else {
-		gtk_notebook_set_page(nb_id3v2, TAB_ID3V2_NOTAG);
+		gtk_notebook_set_current_page(nb_id3v2, TAB_ID3V2_NOTAG);
 	}
 
 	set_editable_flag(audio_file_is_editable((audio_file *)file));
@@ -336,7 +336,7 @@ static void update_tag_from_form_v1(int tag)
 	mpeg_file_set_field_v(file, tag, AF_YEAR, gtk_entry_get_text(ent_id3v1_year));
 	mpeg_file_set_field_v(file, tag, AF_COMMENT, gtk_entry_get_text(ent_id3v1_comment));
 	mpeg_file_set_field_v(file, tag, AF_TRACK, gtk_entry_get_text(GTK_ENTRY(spin_id3v1_track)));
-	mpeg_file_set_field_v(file, tag, AF_GENRE, gtk_entry_get_text(GTK_ENTRY(combo_id3v1_genre->entry)));
+	mpeg_file_set_field_v(file, tag, AF_GENRE, gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(combo_id3v1_genre)))));
 }
 
 static void update_tag_from_form_v2(int tag)
@@ -350,7 +350,7 @@ static void update_tag_from_form_v2(int tag)
 		mpeg_file_set_field_v(file, tag, AF_ALBUM, gtk_entry_get_text(ent_id3v2_album));
 		mpeg_file_set_field_v(file, tag, AF_YEAR, gtk_entry_get_text(ent_id3v2_year));
 		mpeg_file_set_field_v(file, tag, AF_TRACK, gtk_entry_get_text(ent_id3v2_track));
-		mpeg_file_set_field_v(file, tag, AF_GENRE, gtk_entry_get_text(GTK_ENTRY(combo_id3v2_genre->entry)));
+		mpeg_file_set_field_v(file, tag, AF_GENRE, gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(combo_id3v2_genre)))));
 
 		gtk_text_buffer_get_bounds(gtk_text_view_get_buffer(text_id3v2_comment), &start, &end);
 		temp = gtk_text_buffer_get_text(gtk_text_view_get_buffer(text_id3v2_comment), &start, &end, FALSE);
@@ -391,12 +391,12 @@ static void update_tabs(gboolean allow_change)
 		gtk_widget_set_sensitive(GTK_WIDGET(m_id3_copyv2tov1), FALSE);
 	}
 
-	gtk_notebook_set_page(nb_edit, tab_edit_id3);
+	gtk_notebook_set_current_page(nb_edit, tab_edit_id3);
 	if (allow_change) {
 		if (mpeg_file_has_tag_v(file, ID3TT_ID3V2))
-			gtk_notebook_set_page(nb_id3, TAB_ID3_V2);
+			gtk_notebook_set_current_page(nb_id3, TAB_ID3_V2);
 		else
-			gtk_notebook_set_page(nb_id3, TAB_ID3_V1);
+			gtk_notebook_set_current_page(nb_id3, TAB_ID3_V1);
 	}
 }
 
@@ -407,7 +407,7 @@ static void write_to_file()
 	cursor_set_wait();
 
 	if (mpeg_file_has_tag_v(file, ID3TT_ID3V2)) {
-		const char *genre = gtk_entry_get_text(GTK_ENTRY(combo_id3v2_genre->entry));
+		const char *genre = gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(combo_id3v2_genre))));
 		if (strcmp(genre, "") != 0)
 			mru_add(genre_mru, genre);
 	}
@@ -598,7 +598,7 @@ void cb_id3v2_view_simple(GtkWidget *widget, GdkEvent *event)
 		*current_tab = TAB_ID3V2_SIMPLE;
 		if (gtk_notebook_get_current_page(nb_id3v2) != TAB_ID3V2_NOTAG) {
 			update_form_v2();
-			gtk_notebook_set_page(nb_id3v2, TAB_ID3V2_SIMPLE);
+			gtk_notebook_set_current_page(nb_id3v2, TAB_ID3V2_SIMPLE);
 		}
 	}
 }
@@ -611,7 +611,7 @@ void cb_id3v2_view_advanced(GtkWidget *widget, GdkEvent *event)
 		*current_tab = TAB_ID3V2_ADVANCED;
 		if (gtk_notebook_get_current_page(nb_id3v2) != TAB_ID3V2_NOTAG) {
 			update_form_v2();
-			gtk_notebook_set_page(nb_id3v2, TAB_ID3V2_ADVANCED);
+			gtk_notebook_set_current_page(nb_id3v2, TAB_ID3V2_ADVANCED);
 		}
 	}
 }
@@ -687,66 +687,66 @@ void mpeg_edit_unload()
 }
 
 
-void mpeg_edit_init(GladeXML *xml)
+void mpeg_edit_init(GtkBuilder *builder)
 {
 	GEList *temp_list;
 	GEList *genre_list;
 	int default_tab = TAB_ID3V2_SIMPLE;
 
 	/* get the widgets from glade */
-	w_main = GTK_WINDOW(glade_xml_get_widget(xml, "w_main"));
-	nb_edit = GTK_NOTEBOOK(glade_xml_get_widget(xml, "nb_edit"));
-	nb_id3 = GTK_NOTEBOOK(glade_xml_get_widget(xml, "nb_id3"));
-	nb_id3v1 = GTK_NOTEBOOK(glade_xml_get_widget(xml, "nb_id3v1"));
-	nb_id3v2 = GTK_NOTEBOOK(glade_xml_get_widget(xml, "nb_id3v2"));
-	m_id3 = GTK_MENU_ITEM(glade_xml_get_widget(xml, "m_id3"));
-	m_id3v2_view_simple = GTK_CHECK_MENU_ITEM(glade_xml_get_widget(xml, "m_id3v2_view_simple"));
-	m_id3v2_view_advanced = GTK_CHECK_MENU_ITEM(glade_xml_get_widget(xml, "m_id3v2_view_advanced"));
-	m_id3_copyv1tov2 = GTK_MENU_ITEM(glade_xml_get_widget(xml, "m_id3_copyv1tov2"));
-	m_id3_copyv2tov1 = GTK_MENU_ITEM(glade_xml_get_widget(xml, "m_id3_copyv2tov1"));
-	b_write_tag = GTK_BUTTON(glade_xml_get_widget(xml, "b_id3_write_tag"));
-	b_remove_tag = GTK_BUTTON(glade_xml_get_widget(xml, "b_id3_remove_tag"));
+	w_main = GTK_WINDOW(gtk_builder_get_object(builder, "w_main"));
+	nb_edit = GTK_NOTEBOOK(gtk_builder_get_object(builder, "nb_edit"));
+	nb_id3 = GTK_NOTEBOOK(gtk_builder_get_object(builder, "nb_id3"));
+	nb_id3v1 = GTK_NOTEBOOK(gtk_builder_get_object(builder, "nb_id3v1"));
+	nb_id3v2 = GTK_NOTEBOOK(gtk_builder_get_object(builder, "nb_id3v2"));
+	m_id3 = GTK_MENU_ITEM(gtk_builder_get_object(builder, "m_id3"));
+	m_id3v2_view_simple = GTK_CHECK_MENU_ITEM(gtk_builder_get_object(builder, "m_id3v2_view_simple"));
+	m_id3v2_view_advanced = GTK_CHECK_MENU_ITEM(gtk_builder_get_object(builder, "m_id3v2_view_advanced"));
+	m_id3_copyv1tov2 = GTK_MENU_ITEM(gtk_builder_get_object(builder, "m_id3_copyv1tov2"));
+	m_id3_copyv2tov1 = GTK_MENU_ITEM(gtk_builder_get_object(builder, "m_id3_copyv2tov1"));
+	b_write_tag = GTK_BUTTON(gtk_builder_get_object(builder, "b_id3_write_tag"));
+	b_remove_tag = GTK_BUTTON(gtk_builder_get_object(builder, "b_id3_remove_tag"));
 
-	b_id3v1_create_tag = GTK_BUTTON(glade_xml_get_widget(xml, "b_id3v1_create_tag"));
-	ent_id3v1_title = GTK_ENTRY(glade_xml_get_widget(xml, "ent_id3v1_title"));
-	ent_id3v1_artist = GTK_ENTRY(glade_xml_get_widget(xml, "ent_id3v1_artist"));
-	ent_id3v1_album = GTK_ENTRY(glade_xml_get_widget(xml, "ent_id3v1_album"));
-	ent_id3v1_year = GTK_ENTRY(glade_xml_get_widget(xml, "ent_id3v1_year"));
-	ent_id3v1_comment = GTK_ENTRY(glade_xml_get_widget(xml, "ent_id3v1_comment"));
-	spin_id3v1_track = GTK_SPIN_BUTTON(glade_xml_get_widget(xml, "spin_id3v1_track"));
-	combo_id3v1_genre = GTK_COMBO(glade_xml_get_widget(xml, "combo_id3v1_genre"));
-	lab_id3v1_title = GTK_LABEL(glade_xml_get_widget(xml, "lab_id3v1_title"));
-	lab_id3v1_artist = GTK_LABEL(glade_xml_get_widget(xml, "lab_id3v1_artist"));
-	lab_id3v1_album = GTK_LABEL(glade_xml_get_widget(xml, "lab_id3v1_album"));
-	lab_id3v1_year = GTK_LABEL(glade_xml_get_widget(xml, "lab_id3v1_year"));
-	lab_id3v1_comment = GTK_LABEL(glade_xml_get_widget(xml, "lab_id3v1_comment"));
-	lab_id3v1_track = GTK_LABEL(glade_xml_get_widget(xml, "lab_id3v1_track"));
-	lab_id3v1_genre = GTK_LABEL(glade_xml_get_widget(xml, "lab_id3v1_genre"));
+	b_id3v1_create_tag = GTK_BUTTON(gtk_builder_get_object(builder, "b_id3v1_create_tag"));
+	ent_id3v1_title = GTK_ENTRY(gtk_builder_get_object(builder, "ent_id3v1_title"));
+	ent_id3v1_artist = GTK_ENTRY(gtk_builder_get_object(builder, "ent_id3v1_artist"));
+	ent_id3v1_album = GTK_ENTRY(gtk_builder_get_object(builder, "ent_id3v1_album"));
+	ent_id3v1_year = GTK_ENTRY(gtk_builder_get_object(builder, "ent_id3v1_year"));
+	ent_id3v1_comment = GTK_ENTRY(gtk_builder_get_object(builder, "ent_id3v1_comment"));
+	spin_id3v1_track = GTK_SPIN_BUTTON(gtk_builder_get_object(builder, "spin_id3v1_track"));
+	combo_id3v1_genre = GTK_COMBO_BOX_TEXT(gtk_builder_get_object(builder, "combo_id3v1_genre"));
+	lab_id3v1_title = GTK_LABEL(gtk_builder_get_object(builder, "lab_id3v1_title"));
+	lab_id3v1_artist = GTK_LABEL(gtk_builder_get_object(builder, "lab_id3v1_artist"));
+	lab_id3v1_album = GTK_LABEL(gtk_builder_get_object(builder, "lab_id3v1_album"));
+	lab_id3v1_year = GTK_LABEL(gtk_builder_get_object(builder, "lab_id3v1_year"));
+	lab_id3v1_comment = GTK_LABEL(gtk_builder_get_object(builder, "lab_id3v1_comment"));
+	lab_id3v1_track = GTK_LABEL(gtk_builder_get_object(builder, "lab_id3v1_track"));
+	lab_id3v1_genre = GTK_LABEL(gtk_builder_get_object(builder, "lab_id3v1_genre"));
 
-	b_id3v2_create_tag = GTK_BUTTON(glade_xml_get_widget(xml, "b_id3v2_create_tag"));
-	ent_id3v2_title = GTK_ENTRY(glade_xml_get_widget(xml, "ent_id3v2_title"));
-	ent_id3v2_artist = GTK_ENTRY(glade_xml_get_widget(xml, "ent_id3v2_artist"));
-	ent_id3v2_album = GTK_ENTRY(glade_xml_get_widget(xml, "ent_id3v2_album"));
-	ent_id3v2_year = GTK_ENTRY(glade_xml_get_widget(xml, "ent_id3v2_year"));
-	text_id3v2_comment = GTK_TEXT_VIEW(glade_xml_get_widget(xml, "text_id3v2_comment"));
-	ent_id3v2_track = GTK_ENTRY(glade_xml_get_widget(xml, "ent_id3v2_track"));
-	combo_id3v2_genre = GTK_COMBO(glade_xml_get_widget(xml, "combo_id3v2_genre"));
-	lab_id3v2_title = GTK_LABEL(glade_xml_get_widget(xml, "lab_id3v2_title"));
-	lab_id3v2_artist = GTK_LABEL(glade_xml_get_widget(xml, "lab_id3v2_artist"));
-	lab_id3v2_album = GTK_LABEL(glade_xml_get_widget(xml, "lab_id3v2_album"));
-	lab_id3v2_year = GTK_LABEL(glade_xml_get_widget(xml, "lab_id3v2_year"));
-	lab_id3v2_comment = GTK_LABEL(glade_xml_get_widget(xml, "lab_id3v2_comment"));
-	lab_id3v2_track = GTK_LABEL(glade_xml_get_widget(xml, "lab_id3v2_track"));
-	lab_id3v2_genre = GTK_LABEL(glade_xml_get_widget(xml, "lab_id3v2_genre"));
-	lab_id3v2_advanced = GTK_LABEL(glade_xml_get_widget(xml, "lab_id3v2_advanced"));
+	b_id3v2_create_tag = GTK_BUTTON(gtk_builder_get_object(builder, "b_id3v2_create_tag"));
+	ent_id3v2_title = GTK_ENTRY(gtk_builder_get_object(builder, "ent_id3v2_title"));
+	ent_id3v2_artist = GTK_ENTRY(gtk_builder_get_object(builder, "ent_id3v2_artist"));
+	ent_id3v2_album = GTK_ENTRY(gtk_builder_get_object(builder, "ent_id3v2_album"));
+	ent_id3v2_year = GTK_ENTRY(gtk_builder_get_object(builder, "ent_id3v2_year"));
+	text_id3v2_comment = GTK_TEXT_VIEW(gtk_builder_get_object(builder, "text_id3v2_comment"));
+	ent_id3v2_track = GTK_ENTRY(gtk_builder_get_object(builder, "ent_id3v2_track"));
+	combo_id3v2_genre = GTK_COMBO_BOX_TEXT(gtk_builder_get_object(builder, "combo_id3v2_genre"));
+	lab_id3v2_title = GTK_LABEL(gtk_builder_get_object(builder, "lab_id3v2_title"));
+	lab_id3v2_artist = GTK_LABEL(gtk_builder_get_object(builder, "lab_id3v2_artist"));
+	lab_id3v2_album = GTK_LABEL(gtk_builder_get_object(builder, "lab_id3v2_album"));
+	lab_id3v2_year = GTK_LABEL(gtk_builder_get_object(builder, "lab_id3v2_year"));
+	lab_id3v2_comment = GTK_LABEL(gtk_builder_get_object(builder, "lab_id3v2_comment"));
+	lab_id3v2_track = GTK_LABEL(gtk_builder_get_object(builder, "lab_id3v2_track"));
+	lab_id3v2_genre = GTK_LABEL(gtk_builder_get_object(builder, "lab_id3v2_genre"));
+	lab_id3v2_advanced = GTK_LABEL(gtk_builder_get_object(builder, "lab_id3v2_advanced"));
 
-	tv_id3v2_frames = GTK_TREE_VIEW(glade_xml_get_widget(xml, "tv_id3v2_frames"));
-	b_id3v2_add = GTK_BUTTON(glade_xml_get_widget(xml, "b_id3v2_add"));
-	b_id3v2_edit = GTK_BUTTON(glade_xml_get_widget(xml, "b_id3v2_edit"));
-	b_id3v2_remove = GTK_BUTTON(glade_xml_get_widget(xml, "b_id3v2_remove"));
+	tv_id3v2_frames = GTK_TREE_VIEW(gtk_builder_get_object(builder, "tv_id3v2_frames"));
+	b_id3v2_add = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "b_id3v2_add"));
+	b_id3v2_edit = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "b_id3v2_edit"));
+	b_id3v2_remove = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "b_id3v2_remove"));
 
-	img_id3v1_tab = GTK_IMAGE(glade_xml_get_widget(xml, "img_id3v1_tab"));
-	img_id3v2_tab = GTK_IMAGE(glade_xml_get_widget(xml, "img_id3v2_tab"));
+	img_id3v1_tab = GTK_IMAGE(gtk_builder_get_object(builder, "img_id3v1_tab"));
+	img_id3v2_tab = GTK_IMAGE(gtk_builder_get_object(builder, "img_id3v2_tab"));
 
 	/* additional widget setup */
 	gtk_editable_set_max_chars(GTK_EDITABLE(ent_id3v1_title), 30);
@@ -768,12 +768,14 @@ void mpeg_edit_init(GladeXML *xml)
 			 G_CALLBACK(cb_id3v2_frame_selection_changed), NULL);
 
 	/* find out which tab has the ID3 interface */
-	tab_edit_id3 = gtk_notebook_page_num(nb_edit, glade_xml_get_widget(xml, "cont_id3_edit"));
+	tab_edit_id3 = gtk_notebook_page_num(nb_edit, gtk_builder_get_object(builder, "cont_id3_edit"));
 
 	/* ID3v1 genre list */
 	temp_list = genre_create_list(TRUE);
 	g_elist_prepend(temp_list, "");
-	gtk_combo_set_popdown_strings(combo_id3v1_genre, GLIST(temp_list));
+	
+	g_list_foreach(GLIST(temp_list), glist_2_combo, combo_id3v1_genre);
+	//gtk_combo_set_popdown_strings(combo_id3v1_genre, GLIST(temp_list));
 	g_elist_free(temp_list);
 
 	/* ID3v2 genre list, from prefs */

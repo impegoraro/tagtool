@@ -4,7 +4,6 @@
 #include <glib.h>
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
-#include <glade/glade.h>
 
 #include "prefs.h"
 #include "progress_dlg.h"
@@ -76,16 +75,16 @@ void cb_dlg_progress_size_changed(GtkWidget *widget, GtkAllocation *alloc, gpoin
 
 
 /* public functions */
-void pd_init(GladeXML *xml)
+void pd_init(GtkBuilder *builder)
 {
 	gint temp = 0;
 
 	/* widgets and icons */
-	w_main = glade_xml_get_widget(xml, "w_main");
-	b_stop = glade_xml_get_widget(xml, "b_stop");
-	b_close = glade_xml_get_widget(xml, "b_close");
-	dlg_progress = GTK_WINDOW(glade_xml_get_widget(xml, "dlg_progress"));
-	tv_progress = GTK_TREE_VIEW(glade_xml_get_widget(xml, "tv_progress"));
+	w_main = GTK_WIDGET(gtk_builder_get_object(builder, "w_main"));
+	b_stop = GTK_WIDGET(gtk_builder_get_object(builder, "b_stop"));
+	b_close = GTK_WIDGET(gtk_builder_get_object(builder, "b_close"));
+	dlg_progress = GTK_WINDOW(gtk_builder_get_object(builder, "dlg_progress"));
+	tv_progress = GTK_TREE_VIEW(gtk_builder_get_object(builder, "tv_progress"));
 
 	pix_table[PD_ICON_INFO] = gdk_pixbuf_new_from_file(DATADIR"/info.png", NULL);
 	pix_table[PD_ICON_OK]   = gdk_pixbuf_new_from_file(DATADIR"/ok.png", NULL);
@@ -156,6 +155,6 @@ void pd_scroll_to_bottom()
 	GtkAdjustment *adj;
 
 	adj = gtk_tree_view_get_vadjustment(tv_progress);
-	gtk_adjustment_set_value(adj, adj->upper);
+	gtk_adjustment_set_value(adj, gtk_adjustment_get_upper(adj));
 }
 

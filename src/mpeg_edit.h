@@ -2,7 +2,7 @@
 #define MPEG_EDIT_H
 
 
-void mpeg_edit_init(GladeXML *xml);
+void mpeg_edit_init(GtkBuilder *builder);
 
 
 #endif

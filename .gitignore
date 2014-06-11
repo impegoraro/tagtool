@@ -12,3 +12,14 @@
 
 # other stuff
 tagtool.sublime-workspace
+Makefile
+autom4te.cache
+config.h
+config.status
+po/.intltool-merge-cache
+Makefile.in
+src/tagtool
+stamp-h1
+stamp-it
+.deps
+config.log

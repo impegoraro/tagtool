@@ -5,8 +5,8 @@
 #include <glib.h>
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
-#include <glade/glade.h>
 #include <gdk/gdkkeysyms.h>
+#include <gdk/gdkkeysyms-compat.h>
 
 #include "elist.h"
 #include "gtk_util.h"
@@ -36,7 +36,7 @@ static GtkEntry *ent_album = NULL;
 static GtkEntry *ent_year = NULL;
 static GtkEntry *ent_comment = NULL;
 static GtkEntry *ent_track = NULL;
-static GtkCombo *combo_genre = NULL;
+static GtkComboBoxText *combo_genre = NULL;
 static GtkLabel *lab_title = NULL;
 static GtkLabel *lab_artist = NULL;
 static GtkLabel *lab_album = NULL;
@@ -51,9 +51,9 @@ static GtkButton *b_write = NULL;
 
 static GtkTreeView *tv_comments = NULL;
 static GtkListStore *store_comments = NULL;
-static GtkButton *b_add = NULL;
-static GtkButton *b_edit = NULL;
-static GtkButton *b_remove = NULL;
+static GtkToolButton *b_add = NULL;
+static GtkToolButton *b_edit = NULL;
+static GtkToolButton *b_remove = NULL;
 static GtkButton *b_simple = NULL;
 
 /* the various notebook tabs */
@@ -181,15 +181,18 @@ static void update_form_simple()
 	const gchar *str;
 
 	ignore_changed_signals = TRUE;
+
+	//	gtk_combo_set_popdown_strings(combo_genre, GLIST(genre_mru->list));
 	if (g_elist_length(genre_mru->list) > 0)
-		gtk_combo_set_popdown_strings(combo_genre, GLIST(genre_mru->list));
+		g_list_foreach(GLIST(genre_mru->list), glist_2_combo, combo_genre);
+
 	vorbis_file_get_field(file, AF_TITLE, &str);   gtk_entry_set_text(ent_title, str);
 	vorbis_file_get_field(file, AF_ARTIST, &str);  gtk_entry_set_text(ent_artist, str);
 	vorbis_file_get_field(file, AF_ALBUM, &str);   gtk_entry_set_text(ent_album, str);
 	vorbis_file_get_field(file, AF_YEAR, &str);    gtk_entry_set_text(ent_year, str);
 	vorbis_file_get_field(file, AF_COMMENT, &str); gtk_entry_set_text(ent_comment, str);
 	vorbis_file_get_field(file, AF_TRACK, &str);   gtk_entry_set_text(ent_track, str);
-	vorbis_file_get_field(file, AF_GENRE, &str);   gtk_entry_set_text(GTK_ENTRY(combo_genre->entry), str);
+	vorbis_file_get_field(file, AF_GENRE, &str);   gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(combo_genre))), str);
 	ignore_changed_signals = FALSE;
 
 	extra_fields = 0;
@@ -252,7 +255,7 @@ static void update_tag()
 		vorbis_file_set_field(file, AF_YEAR, gtk_entry_get_text(ent_year));
 		vorbis_file_set_field(file, AF_COMMENT, gtk_entry_get_text(ent_comment));
 		vorbis_file_set_field(file, AF_TRACK, gtk_entry_get_text(ent_track));
-		vorbis_file_set_field(file, AF_GENRE, gtk_entry_get_text(GTK_ENTRY(combo_genre->entry)));
+		vorbis_file_set_field(file, AF_GENRE, gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(combo_genre)))));
 	}
 	else {
 		/* Nothing to do here, advanced mode alters tag directly */
@@ -267,7 +270,7 @@ static void write_to_file()
 
 	cursor_set_wait();
 
-	genre = gtk_entry_get_text(GTK_ENTRY(combo_genre->entry));
+	genre = gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(combo_genre))));
 	if (strcmp(genre, "") != 0)
 		mru_add(genre_mru, genre);
 
@@ -325,7 +328,7 @@ void cb_vor_view_simple(GtkWidget *widget, GdkEvent *event)
 		update_tag();
 		*current_tab = TAB_SIMPLE;
 		update_form();
-		gtk_notebook_set_page(nb_vorbis, *current_tab);
+		gtk_notebook_set_current_page(nb_vorbis, *current_tab);
 	}
 }
 
@@ -335,7 +338,7 @@ void cb_vor_view_advanced(GtkWidget *widget, GdkEvent *event)
 		update_tag();
 		*current_tab = TAB_ADVANCED;
 		update_form();
-		gtk_notebook_set_page(nb_vorbis, *current_tab);
+		gtk_notebook_set_current_page(nb_vorbis, *current_tab);
 	}
 }
 
@@ -441,8 +444,8 @@ void vorbis_edit_load(vorbis_file *f)
 	set_editable_flag(audio_file_is_editable((audio_file *)file));
 	set_changed_flag(FALSE);
 
-	gtk_notebook_set_page(nb_edit, tab_edit_vorbis);
-	gtk_notebook_set_page(nb_vorbis, *current_tab);
+	gtk_notebook_set_current_page(nb_edit, tab_edit_vorbis);
+	gtk_notebook_set_current_page(nb_vorbis, *current_tab);
 }
 
 
@@ -468,7 +471,7 @@ void vorbis_edit_unload()
 }
 
 
-void vorbis_edit_init(GladeXML *xml)
+void vorbis_edit_init(GtkBuilder *builder)
 {
 	GEList *temp_list;
 	GEList *genre_list;
@@ -478,37 +481,37 @@ void vorbis_edit_init(GladeXML *xml)
 	 * get the widgets from glade
 	 */
 
-	w_main = GTK_WINDOW(glade_xml_get_widget(xml, "w_main"));
-	nb_edit = GTK_NOTEBOOK(glade_xml_get_widget(xml, "nb_edit"));
-	nb_vorbis = GTK_NOTEBOOK(glade_xml_get_widget(xml, "nb_vorbis"));
-	m_vorbis = GTK_MENU_ITEM(glade_xml_get_widget(xml, "m_vorbis"));
-	m_vor_view_simple = GTK_CHECK_MENU_ITEM(glade_xml_get_widget(xml, "m_vor_view_simple"));
-	m_vor_view_advanced = GTK_CHECK_MENU_ITEM(glade_xml_get_widget(xml, "m_vor_view_advanced"));
+	w_main = GTK_WINDOW(gtk_builder_get_object(builder, "w_main"));
+	nb_edit = GTK_NOTEBOOK(gtk_builder_get_object(builder, "nb_edit"));
+	nb_vorbis = GTK_NOTEBOOK(gtk_builder_get_object(builder, "nb_vorbis"));
+	m_vorbis = GTK_MENU_ITEM(gtk_builder_get_object(builder, "m_vorbis"));
+	m_vor_view_simple = GTK_CHECK_MENU_ITEM(gtk_builder_get_object(builder, "m_vor_view_simple"));
+	m_vor_view_advanced = GTK_CHECK_MENU_ITEM(gtk_builder_get_object(builder, "m_vor_view_advanced"));
 
-	ent_title = GTK_ENTRY(glade_xml_get_widget(xml, "ent_vor_title"));
-	ent_artist = GTK_ENTRY(glade_xml_get_widget(xml, "ent_vor_artist"));
-	ent_album = GTK_ENTRY(glade_xml_get_widget(xml, "ent_vor_album"));
-	ent_year = GTK_ENTRY(glade_xml_get_widget(xml, "ent_vor_year"));
-	ent_comment = GTK_ENTRY(glade_xml_get_widget(xml, "ent_vor_comment"));
-	ent_track = GTK_ENTRY(glade_xml_get_widget(xml, "ent_vor_track"));
-	combo_genre = GTK_COMBO(glade_xml_get_widget(xml, "combo_vor_genre"));
-	lab_title = GTK_LABEL(glade_xml_get_widget(xml, "lab_vor_title"));
-	lab_artist = GTK_LABEL(glade_xml_get_widget(xml, "lab_vor_artist"));
-	lab_album = GTK_LABEL(glade_xml_get_widget(xml, "lab_vor_album"));
-	lab_year = GTK_LABEL(glade_xml_get_widget(xml, "lab_vor_year"));
-	lab_comment = GTK_LABEL(glade_xml_get_widget(xml, "lab_vor_comment"));
-	lab_track = GTK_LABEL(glade_xml_get_widget(xml, "lab_vor_track"));
-	lab_genre = GTK_LABEL(glade_xml_get_widget(xml, "lab_vor_genre"));
-	lab_advanced = GTK_LABEL(glade_xml_get_widget(xml, "lab_vor_advanced"));
-	b_advanced = GTK_BUTTON(glade_xml_get_widget(xml, "b_vor_advanced"));
-	b_clear = GTK_BUTTON(glade_xml_get_widget(xml, "b_vor_clear"));
-	b_write = GTK_BUTTON(glade_xml_get_widget(xml, "b_vor_write"));
+	ent_title = GTK_ENTRY(gtk_builder_get_object(builder, "ent_vor_title"));
+	ent_artist = GTK_ENTRY(gtk_builder_get_object(builder, "ent_vor_artist"));
+	ent_album = GTK_ENTRY(gtk_builder_get_object(builder, "ent_vor_album"));
+	ent_year = GTK_ENTRY(gtk_builder_get_object(builder, "ent_vor_year"));
+	ent_comment = GTK_ENTRY(gtk_builder_get_object(builder, "ent_vor_comment"));
+	ent_track = GTK_ENTRY(gtk_builder_get_object(builder, "ent_vor_track"));
+	combo_genre = GTK_COMBO_BOX_TEXT(gtk_builder_get_object(builder, "combo_vor_genre"));
+	lab_title = GTK_LABEL(gtk_builder_get_object(builder, "lab_vor_title"));
+	lab_artist = GTK_LABEL(gtk_builder_get_object(builder, "lab_vor_artist"));
+	lab_album = GTK_LABEL(gtk_builder_get_object(builder, "lab_vor_album"));
+	lab_year = GTK_LABEL(gtk_builder_get_object(builder, "lab_vor_year"));
+	lab_comment = GTK_LABEL(gtk_builder_get_object(builder, "lab_vor_comment"));
+	lab_track = GTK_LABEL(gtk_builder_get_object(builder, "lab_vor_track"));
+	lab_genre = GTK_LABEL(gtk_builder_get_object(builder, "lab_vor_genre"));
+	lab_advanced = GTK_LABEL(gtk_builder_get_object(builder, "lab_vor_advanced"));
+	b_advanced = GTK_BUTTON(gtk_builder_get_object(builder, "b_vor_advanced"));
+	b_clear = GTK_BUTTON(gtk_builder_get_object(builder, "b_vor_clear"));
+	b_write = GTK_BUTTON(gtk_builder_get_object(builder, "b_vor_write"));
 
-	tv_comments = GTK_TREE_VIEW(glade_xml_get_widget(xml, "tv_vor_comments"));
-	b_add = GTK_BUTTON(glade_xml_get_widget(xml, "b_vor_add"));
-	b_edit = GTK_BUTTON(glade_xml_get_widget(xml, "b_vor_edit"));
-	b_remove = GTK_BUTTON(glade_xml_get_widget(xml, "b_vor_remove"));
-	b_simple = GTK_BUTTON(glade_xml_get_widget(xml, "b_vor_simple"));
+	tv_comments = GTK_TREE_VIEW(gtk_builder_get_object(builder, "tv_vor_comments"));
+	b_add = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "b_vor_add"));
+	b_edit = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "b_vor_edit"));
+	b_remove = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "b_vor_remove"));
+	b_simple = GTK_BUTTON(gtk_builder_get_object(builder, "b_vor_simple"));
 
 	/* set up the tree view */
 	tree_view_setup();
@@ -516,7 +519,7 @@ void vorbis_edit_init(GladeXML *xml)
 			 G_CALLBACK(cb_vor_comment_selection_changed), NULL);
 
 	/* find out which tab has the Vorbis interface */
-	tab_edit_vorbis = gtk_notebook_page_num(nb_edit, glade_xml_get_widget(xml, "cont_vorbis_edit"));
+	tab_edit_vorbis = gtk_notebook_page_num(nb_edit, GTK_WIDGET(gtk_builder_get_object(builder, "cont_vorbis_edit")));
 
 
 	/*

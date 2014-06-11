@@ -1,5 +1,4 @@
 #include <gtk/gtk.h>
-#include <glade/glade.h>
 
 #include "cursor.h"
 
@@ -9,16 +8,16 @@ static GtkWidget *w_main = NULL;
 
 static void set_cursor(GtkWidget *widget, GdkCursor *cursor)
 {
-	gdk_window_set_cursor(widget->window, cursor);
+	gdk_window_set_cursor(gtk_widget_get_window(widget), cursor);
 
 	/* process events or we won't see the change */
 	while (gtk_events_pending()) gtk_main_iteration();
 }
 
 
-void cursor_init(GladeXML *xml)
+void cursor_init(GtkBuilder *builder)
 {
-	w_main = GTK_WIDGET(glade_xml_get_widget(xml, "w_main"));
+	w_main = GTK_WIDGET(gtk_builder_get_object(builder, "w_main"));
 }
 
 void cursor_set_wait()

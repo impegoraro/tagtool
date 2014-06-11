@@ -4,7 +4,7 @@
 #include "elist.h"
 
 
-void fl_init(GladeXML *xml);
+void fl_init(GtkBuilder *builder);
 
 /*
  * Initializes the working dir. Must be called once at the start 

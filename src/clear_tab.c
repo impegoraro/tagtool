@@ -5,7 +5,6 @@
 #include <glib.h>
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
-#include <glade/glade.h>
 
 #include "str_util.h"
 #include "str_convert.h"
@@ -30,7 +29,7 @@ enum {
 
 /* widgets */
 static GtkButton *b_clear_go = NULL;
-static GtkComboBox *combo_clear_apply = NULL;
+static GtkComboBoxText *combo_clear_apply = NULL;
 static GtkToggleButton *rb_clear_all = NULL;
 static GtkToggleButton *rb_clear_id3v1 = NULL;
 static GtkToggleButton *rb_clear_id3v2 = NULL;
@@ -135,7 +134,7 @@ static void clear_tags(GEList *file_list)
 		}
 		last_path = curr_path;
 
-		name_utf8 = str_filename_to_utf8(g_basename(curr_path), _("(UTF8 conversion error)"));
+		name_utf8 = str_filename_to_utf8(g_path_get_basename(curr_path), _("(UTF8 conversion error)"));
 
 		res = audio_file_new(&af, curr_path, TRUE);
 		if (res != AF_OK) {
@@ -196,7 +195,7 @@ static void start_operation()
 		return;
 	*/
 
-	if (gtk_combo_box_get_active(combo_clear_apply) == APPLY_TO_ALL)
+	if (gtk_combo_box_get_active(GTK_COMBO_BOX(combo_clear_apply)) == APPLY_TO_ALL)
 		file_list = fl_get_all_files();
 	else
 		file_list = fl_get_selected_files();
@@ -232,54 +231,51 @@ void cb_clear_go(GtkButton *button, gpointer user_data)
 static void cb_file_selection_changed(GtkTreeSelection *selection, gpointer data)
 {
 	if (fl_count_selected() > 0)
-		gtk_combo_box_set_active(combo_clear_apply, APPLY_TO_SELECTED);
+		gtk_combo_box_set_active(GTK_COMBO_BOX(combo_clear_apply), APPLY_TO_SELECTED);
 	else
-		gtk_combo_box_set_active(combo_clear_apply, APPLY_TO_ALL);
+		gtk_combo_box_set_active(GTK_COMBO_BOX(combo_clear_apply), APPLY_TO_ALL);
 }
 
 
 /*** public functions *******************************************************/
 
-void ct_init(GladeXML *xml)
+void ct_init(GtkBuilder *builder)
 {
-	GtkStyle *style;
-	GtkWidget *w;
-
 	/*
 	 * get the widgets from glade
 	 */
 
-	b_clear_go = GTK_BUTTON(glade_xml_get_widget(xml, "b_clear_go"));
-	combo_clear_apply = GTK_COMBO_BOX(glade_xml_get_widget(xml, "combo_clear_apply"));
+	b_clear_go = GTK_BUTTON(gtk_builder_get_object(builder, "b_clear_go"));
+	combo_clear_apply = GTK_COMBO_BOX_TEXT(gtk_builder_get_object(builder, "combo_clear_apply"));
 
-	rb_clear_all = GTK_TOGGLE_BUTTON(glade_xml_get_widget(xml, "rb_clear_all"));
-	rb_clear_id3v1 = GTK_TOGGLE_BUTTON(glade_xml_get_widget(xml, "rb_clear_id3v1"));
-	rb_clear_id3v2 = GTK_TOGGLE_BUTTON(glade_xml_get_widget(xml, "rb_clear_id3v2"));
+	rb_clear_all = GTK_TOGGLE_BUTTON(gtk_builder_get_object(builder, "rb_clear_all"));
+	rb_clear_id3v1 = GTK_TOGGLE_BUTTON(gtk_builder_get_object(builder, "rb_clear_id3v1"));
+	rb_clear_id3v2 = GTK_TOGGLE_BUTTON(gtk_builder_get_object(builder, "rb_clear_id3v2"));
 
 	/* initialize some widgets' state */
-	gtk_combo_box_set_active(combo_clear_apply, APPLY_TO_ALL);
+	gtk_combo_box_set_active(GTK_COMBO_BOX(combo_clear_apply), APPLY_TO_ALL);
 
 	/* connect signals */
-	g_signal_connect(gtk_tree_view_get_selection(GTK_TREE_VIEW(glade_xml_get_widget(xml, "tv_files"))),
+	g_signal_connect(gtk_tree_view_get_selection(GTK_TREE_VIEW(gtk_builder_get_object(builder, "tv_files"))),
 			 "changed", G_CALLBACK(cb_file_selection_changed), NULL);
 
 #ifndef ENABLE_MP3
-	gtk_widget_hide(glade_xml_get_widget(xml, "tab_clear_options"));
+	gtk_widget_hide(gtk_builder_get_object(builder, "tab_clear_options"));
 #endif
 
 
 	/*
 	 * set the title colors
 	 */
+	 // FIXME: style
+	// w = gtk_builder_get_object(builder, "lab_clear_title");
+	// gtk_widget_ensure_style(w);
+	// style = gtk_widget_get_style(w);
 
-	w = glade_xml_get_widget(xml, "lab_clear_title");
-	gtk_widget_ensure_style(w);
-	style = gtk_widget_get_style(w);
+	// gtk_widget_modify_fg(w, GTK_STATE_NORMAL, &style->text[GTK_STATE_SELECTED]);
 
-	gtk_widget_modify_fg(w, GTK_STATE_NORMAL, &style->text[GTK_STATE_SELECTED]);
-
-	w = glade_xml_get_widget(xml, "box_clear_title");
-	gtk_widget_modify_bg(w, GTK_STATE_NORMAL, &style->base[GTK_STATE_SELECTED]);
+	// w = gtk_builder_get_object(builder, "box_clear_title");
+	// gtk_widget_modify_bg(w, GTK_STATE_NORMAL, &style->base[GTK_STATE_SELECTED]);
 
 
 	/*

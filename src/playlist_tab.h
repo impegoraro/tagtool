@@ -2,7 +2,7 @@
 #define PLAYLIST_TAB_H
 
 
-void pt_init(GladeXML *xml);
+void pt_init(GtkBuilder *builder);
 
 
 #endif

@@ -6,7 +6,7 @@
 #include <glib.h>
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
-#include <glade/glade.h>
+
 #ifdef HAVE_GNU_REGEX_H
 # include <gnu/regex.h>	/* for recent FreeBSD */
 #elif HAVE_GNUREGEX_H
@@ -15,6 +15,7 @@
 # include <regex.h>	/* for everyone else */
 #endif
 
+#include "gtk_util.h"
 #include "elist.h"
 #include "file_util.h"
 #include "str_util.h"
@@ -54,12 +55,12 @@ typedef struct {
 
 
 /* widgets */
-static GtkCombo *combo_tag_format = NULL;
+static GtkComboBoxText *combo_tag_format = NULL;
 static GtkEntry *ent_tag_format = NULL;
 static GtkButton *b_tag_edit_format = NULL;
 static GtkCheckButton *cb_use_filename = NULL;
 static GtkButton *b_tag_go = NULL;
-static GtkComboBox *combo_tag_apply = NULL;
+static GtkComboBoxText *combo_tag_apply = NULL;
 static GtkCheckButton *cb_title = NULL;
 static GtkCheckButton *cb_artist = NULL;
 static GtkCheckButton *cb_album = NULL;
@@ -74,7 +75,7 @@ static GtkEntry *ent_year = NULL;
 static GtkEntry *ent_comment = NULL;
 static GtkEntry *ent_track = NULL;
 static GtkCheckButton *cb_track_auto = NULL;
-static GtkCombo *combo_genre = NULL;
+static GtkComboBoxText *combo_genre = NULL;
 static GtkEntry *ent_genre = NULL;
 static GtkWindow *w_main = NULL;
 
@@ -407,7 +408,7 @@ static void tag_files(GEList *file_list)
 				audio_file_set_field(af, AF_TRACK, gtk_entry_get_text(ent_track));
 		}
 		if (write_genre && !(from_fn_genre && *use_filename))
-			audio_file_set_field(af, AF_GENRE, gtk_entry_get_text(GTK_ENTRY(combo_genre->entry)));
+			audio_file_set_field(af, AF_GENRE, gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(combo_genre))));
 
 		/* fill in the values from the file name */
 		if (pi != NULL) {
@@ -479,8 +480,9 @@ static void start_operation()
 	gtk_widget_set_sensitive(GTK_WIDGET(b_tag_go), FALSE);
 
 	mru_add(format_mru, gtk_entry_get_text(ent_tag_format));
-	gtk_combo_set_popdown_strings(combo_tag_format, GLIST(format_mru->list));
-
+	
+	//gtk_combo_set_popdown_strings(combo_tag_format, GLIST(format_mru->list));
+	g_list_foreach(GLIST(format_mru->list), glist_2_combo, combo_tag_format);
 	tag_files(file_list);
 
 	gtk_widget_set_sensitive(GTK_WIDGET(b_tag_go), TRUE);
@@ -665,17 +667,17 @@ void cb_tag_help(GtkButton *button, gpointer user_data)
 static void cb_file_selection_changed(GtkTreeSelection *selection, gpointer data)
 {
 	if (fl_count_selected() > 0)
-		gtk_combo_box_set_active(combo_tag_apply, APPLY_TO_SELECTED);
+		gtk_combo_box_set_active(GTK_COMBO_BOX(combo_tag_apply), APPLY_TO_SELECTED);
 	else
-		gtk_combo_box_set_active(combo_tag_apply, APPLY_TO_ALL);
+		gtk_combo_box_set_active(GTK_COMBO_BOX(combo_tag_apply), APPLY_TO_ALL);
 }
 
 
 /*** public functions *******************************************************/
 
-void tt_init(GladeXML *xml)
+void tt_init(GtkBuilder *builder)
 {
-	GtkStyle *style;
+	//GtkStyle *style;
 	GtkWidget *w;
 	GEList *genre_list;
 	GEList *format_list;
@@ -684,58 +686,59 @@ void tt_init(GladeXML *xml)
 	 * get the widgets from glade
 	 */
 
-	combo_tag_format = GTK_COMBO(glade_xml_get_widget(xml, "combo_tag_format"));
-	ent_tag_format = GTK_ENTRY(glade_xml_get_widget(xml, "ent_tag_format"));
-	b_tag_edit_format = GTK_BUTTON(glade_xml_get_widget(xml, "b_tag_edit_format"));
-	cb_use_filename = GTK_CHECK_BUTTON(glade_xml_get_widget(xml, "cb_use_filename"));
-	b_tag_go = GTK_BUTTON(glade_xml_get_widget(xml, "b_tag_go"));
-	combo_tag_apply = GTK_COMBO_BOX(glade_xml_get_widget(xml, "combo_tag_apply"));
+	combo_tag_format = GTK_COMBO_BOX_TEXT(gtk_builder_get_object(builder, "combo_tag_format"));
+	ent_tag_format = GTK_ENTRY(gtk_builder_get_object(builder, "ent_tag_format"));
+	b_tag_edit_format = GTK_BUTTON(gtk_builder_get_object(builder, "b_tag_edit_format"));
+	cb_use_filename = GTK_CHECK_BUTTON(gtk_builder_get_object(builder, "cb_use_filename"));
+	b_tag_go = GTK_BUTTON(gtk_builder_get_object(builder, "b_tag_go"));
+	combo_tag_apply = GTK_COMBO_BOX_TEXT(gtk_builder_get_object(builder, "combo_tag_apply"));
 
-	cb_title = GTK_CHECK_BUTTON(glade_xml_get_widget(xml, "cb_title"));
-	cb_artist = GTK_CHECK_BUTTON(glade_xml_get_widget(xml, "cb_artist"));
-	cb_album = GTK_CHECK_BUTTON(glade_xml_get_widget(xml, "cb_album"));
-	cb_year = GTK_CHECK_BUTTON(glade_xml_get_widget(xml, "cb_year"));
-	cb_comment = GTK_CHECK_BUTTON(glade_xml_get_widget(xml, "cb_comment"));
-	cb_track = GTK_CHECK_BUTTON(glade_xml_get_widget(xml, "cb_track"));
-	cb_genre = GTK_CHECK_BUTTON(glade_xml_get_widget(xml, "cb_genre"));
+	cb_title = GTK_CHECK_BUTTON(gtk_builder_get_object(builder, "cb_title"));
+	cb_artist = GTK_CHECK_BUTTON(gtk_builder_get_object(builder, "cb_artist"));
+	cb_album = GTK_CHECK_BUTTON(gtk_builder_get_object(builder, "cb_album"));
+	cb_year = GTK_CHECK_BUTTON(gtk_builder_get_object(builder, "cb_year"));
+	cb_comment = GTK_CHECK_BUTTON(gtk_builder_get_object(builder, "cb_comment"));
+	cb_track = GTK_CHECK_BUTTON(gtk_builder_get_object(builder, "cb_track"));
+	cb_genre = GTK_CHECK_BUTTON(gtk_builder_get_object(builder, "cb_genre"));
 
-	ent_title = GTK_ENTRY(glade_xml_get_widget(xml, "ent_title2"));
-	ent_artist = GTK_ENTRY(glade_xml_get_widget(xml, "ent_artist2"));
-	ent_album = GTK_ENTRY(glade_xml_get_widget(xml, "ent_album2"));
-	ent_year = GTK_ENTRY(glade_xml_get_widget(xml, "ent_year2"));
-	ent_comment = GTK_ENTRY(glade_xml_get_widget(xml, "ent_comment2"));
-	ent_track = GTK_ENTRY(glade_xml_get_widget(xml, "ent_track2"));
-	cb_track_auto = GTK_CHECK_BUTTON(glade_xml_get_widget(xml, "cb_track_auto"));
-	combo_genre = GTK_COMBO(glade_xml_get_widget(xml, "combo_genre2"));
-	ent_genre = GTK_ENTRY(glade_xml_get_widget(xml, "ent_genre2"));
+	ent_title = GTK_ENTRY(gtk_builder_get_object(builder, "ent_title2"));
+	ent_artist = GTK_ENTRY(gtk_builder_get_object(builder, "ent_artist2"));
+	ent_album = GTK_ENTRY(gtk_builder_get_object(builder, "ent_album2"));
+	ent_year = GTK_ENTRY(gtk_builder_get_object(builder, "ent_year2"));
+	ent_comment = GTK_ENTRY(gtk_builder_get_object(builder, "ent_comment2"));
+	ent_track = GTK_ENTRY(gtk_builder_get_object(builder, "ent_track2"));
+	cb_track_auto = GTK_CHECK_BUTTON(gtk_builder_get_object(builder, "cb_track_auto"));
+	combo_genre = GTK_COMBO_BOX_TEXT(gtk_builder_get_object(builder, "combo_genre2"));
+	ent_genre = GTK_ENTRY(gtk_builder_get_object(builder, "ent_genre2"));
 
-	w_main = GTK_WINDOW(glade_xml_get_widget(xml, "w_main"));
+	w_main = GTK_WINDOW(gtk_builder_get_object(builder, "w_main"));
 
 	/* initialize some widgets' state */
-	gtk_combo_box_set_active(combo_tag_apply, APPLY_TO_ALL);
+	gtk_combo_box_set_active(GTK_COMBO_BOX(combo_tag_apply), APPLY_TO_ALL);
 
 	genre_list = genre_create_list(TRUE);
 	g_elist_prepend(genre_list, "");
-	gtk_combo_set_popdown_strings(combo_genre, GLIST(genre_list));
+	
+	//gtk_combo_set_popdown_strings(combo_genre, GLIST(genre_list));
 	g_elist_free(genre_list);
 
 	/* connect signals */
-	g_signal_connect(gtk_tree_view_get_selection(GTK_TREE_VIEW(glade_xml_get_widget(xml, "tv_files"))),
+	g_signal_connect(gtk_tree_view_get_selection(GTK_TREE_VIEW(gtk_builder_get_object(builder, "tv_files"))),
 			 "changed", G_CALLBACK(cb_file_selection_changed), NULL);
 
 
 	/*
 	 * set the title colors
 	 */
+	 // FIXME: style
+	// w = gtk_builder_get_object(builder, "lab_tag_title");
+	// gtk_widget_ensure_style(w);
+	// style = gtk_widget_get_style(w);
 
-	w = glade_xml_get_widget(xml, "lab_tag_title");
-	gtk_widget_ensure_style(w);
-	style = gtk_widget_get_style(w);
+	// gtk_widget_modify_fg(w, GTK_STATE_NORMAL, &style->text[GTK_STATE_SELECTED]);
 
-	gtk_widget_modify_fg(w, GTK_STATE_NORMAL, &style->text[GTK_STATE_SELECTED]);
-
-	w = glade_xml_get_widget(xml, "box_tag_title");
-	gtk_widget_modify_bg(w, GTK_STATE_NORMAL, &style->base[GTK_STATE_SELECTED]);
+	// w = gtk_builder_get_object(builder, "box_tag_title");
+	// gtk_widget_modify_bg(w, GTK_STATE_NORMAL, &style->base[GTK_STATE_SELECTED]);
 
 
 	/*
@@ -769,8 +772,9 @@ void tt_init(GladeXML *xml)
 	 */
 
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(cb_use_filename), *use_filename);
-	gtk_combo_set_popdown_strings(combo_tag_format, GLIST(format_mru->list));
 
+	//gtk_combo_set_popdown_strings(combo_tag_format, GLIST(format_mru->list));
+	g_list_foreach(GLIST(format_mru->list), glist_2_combo, combo_tag_format);
 	update_interface_fname();
 }
 

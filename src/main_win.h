@@ -2,7 +2,7 @@
 #define MAIN_WIN_H
 
 
-void mw_init(GladeXML *xml);
+void mw_init(GtkBuilder *builder);
 
 
 #endif

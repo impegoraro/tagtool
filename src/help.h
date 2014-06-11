@@ -7,7 +7,7 @@ enum {
 };
 
 
-void help_init(GladeXML *xml);
+void help_init(GtkBuilder *builder);
 
 void help_display(int topic);
 

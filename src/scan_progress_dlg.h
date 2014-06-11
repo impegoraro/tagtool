@@ -2,7 +2,7 @@
 #define SCAN_PROGRESS_DLG_H
 
 
-void spd_init(GladeXML *xml);
+void spd_init(GtkBuilder *builder);
 
 void spd_display();
 

@@ -2,7 +2,7 @@
 #define ABOUT_H
 
 
-void about_init(GladeXML *xml);
+void about_init(GtkBuilder *builder);
 
 void about_display();
 

@@ -1,10 +1,8 @@
 #ifndef RENAME_DLG_H
 #define RENAME_DLG_H
 
-#include <glade/glade.h>
 
-
-void rename_init(GladeXML *xml);
+void rename_init(GtkBuilder *builder);
 
 char *rename_prompt_new_name(const char *old_name);
 

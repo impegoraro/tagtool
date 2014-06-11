@@ -1,7 +1,6 @@
 #include <config.h>
 #include <string.h>
 #include <gtk/gtk.h>
-#include <glade/glade.h>
 
 #include "str_util.h"
 #include "str_convert.h"
@@ -94,32 +93,46 @@ void cb_main_win_size_changed(GtkWidget *widget, GtkAllocation *alloc, gpointer 
 
 /*** public functions *******************************************************/
 
-void mw_init(GladeXML *xml)
+void mw_init(GtkBuilder *builder)
 {
 	/* 
 	 * Tabs are visible by default to make editing in glade easier.
 	 * They must be hidden before showing the window, otherwise they 
 	 * would affect the window size.
 	 */
-	gtk_notebook_set_show_tabs(GTK_NOTEBOOK(glade_xml_get_widget(xml, "nb_file")), FALSE);
-	gtk_notebook_set_show_tabs(GTK_NOTEBOOK(glade_xml_get_widget(xml, "nb_edit")), FALSE);
-	gtk_notebook_set_show_tabs(GTK_NOTEBOOK(glade_xml_get_widget(xml, "nb_id3v1")), FALSE);
-	gtk_notebook_set_show_tabs(GTK_NOTEBOOK(glade_xml_get_widget(xml, "nb_id3v2")), FALSE);
-	gtk_notebook_set_show_tabs(GTK_NOTEBOOK(glade_xml_get_widget(xml, "nb_vorbis")), FALSE);
+	gtk_notebook_set_show_tabs(GTK_NOTEBOOK(gtk_builder_get_object(builder, "nb_file")), FALSE);
+	gtk_notebook_set_show_tabs(GTK_NOTEBOOK(gtk_builder_get_object(builder, "nb_edit")), FALSE);
+	gtk_notebook_set_show_tabs(GTK_NOTEBOOK(gtk_builder_get_object(builder, "nb_id3v1")), FALSE);
+	gtk_notebook_set_show_tabs(GTK_NOTEBOOK(gtk_builder_get_object(builder, "nb_id3v2")), FALSE);
+	gtk_notebook_set_show_tabs(GTK_NOTEBOOK(gtk_builder_get_object(builder, "nb_vorbis")), FALSE);
+
+	// sets the image of the main notebook pages...
+	GtkImage *img_tab_edit = GTK_IMAGE(gtk_builder_get_object(builder, "img_tab_edit"));
+	gtk_image_set_from_file(img_tab_edit, DATADIR"/tab_edit.png");
+	GtkImage *img_tab_tag = GTK_IMAGE(gtk_builder_get_object(builder, "img_tab_tag"));
+	gtk_image_set_from_file(img_tab_tag, DATADIR"/tab_tag.png");
+	GtkImage *img_tab_clear = GTK_IMAGE(gtk_builder_get_object(builder, "img_tab_clear"));
+	gtk_image_set_from_file(img_tab_clear, DATADIR"/tab_clear.png");
+	GtkImage *img_tab_rename = GTK_IMAGE(gtk_builder_get_object(builder, "img_tab_rename"));
+	gtk_image_set_from_file(img_tab_rename, DATADIR"/tab_rename.png");
+	GtkImage *img_tab_playlist = GTK_IMAGE(gtk_builder_get_object(builder, "img_tab_playlist"));
+	gtk_image_set_from_file(img_tab_playlist, DATADIR"/tab_playlist.png");
+
+
 
 	/* 
 	 * Hide the MP3 and Vorbis menus.  This has to be done here because 
 	 * the MP3/Vorbis specific code may not be compiled.
 	 */
-	gtk_widget_hide(GTK_WIDGET(glade_xml_get_widget(xml, "m_id3")));
-	gtk_widget_hide(GTK_WIDGET(glade_xml_get_widget(xml, "m_vorbis")));
+	gtk_widget_hide(GTK_WIDGET(gtk_builder_get_object(builder, "m_id3")));
+	gtk_widget_hide(GTK_WIDGET(gtk_builder_get_object(builder, "m_vorbis")));
 
 
 	/*
 	 * Get the widgets from glade and setup the interface
 	 */
-	w_main = GTK_WINDOW(glade_xml_get_widget(xml, "w_main"));
-	nb_main = GTK_NOTEBOOK(glade_xml_get_widget(xml, "nb_main"));
+	w_main = GTK_WINDOW(gtk_builder_get_object(builder, "w_main"));
+	nb_main = GTK_NOTEBOOK(gtk_builder_get_object(builder, "nb_main"));
 
 
 	/*
