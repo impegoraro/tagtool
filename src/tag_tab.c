@@ -408,7 +408,7 @@ static void tag_files(GEList *file_list)
 				audio_file_set_field(af, AF_TRACK, gtk_entry_get_text(ent_track));
 		}
 		if (write_genre && !(from_fn_genre && *use_filename))
-			audio_file_set_field(af, AF_GENRE, gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(combo_genre))));
+			audio_file_set_field(af, AF_GENRE, gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(combo_genre)))));
 
 		/* fill in the values from the file name */
 		if (pi != NULL) {
@@ -462,7 +462,7 @@ static void start_operation()
 {
 	GEList *file_list;
 
-	if (gtk_combo_box_get_active(combo_tag_apply) == APPLY_TO_ALL)
+	if (gtk_combo_box_get_active(GTK_COMBO_BOX(combo_tag_apply)) == APPLY_TO_ALL)
 		file_list = fl_get_all_files();
 	else
 		file_list = fl_get_selected_files();
@@ -677,8 +677,6 @@ static void cb_file_selection_changed(GtkTreeSelection *selection, gpointer data
 
 void tt_init(GtkBuilder *builder)
 {
-	//GtkStyle *style;
-	GtkWidget *w;
 	GEList *genre_list;
 	GEList *format_list;
 
@@ -719,7 +717,7 @@ void tt_init(GtkBuilder *builder)
 	genre_list = genre_create_list(TRUE);
 	g_elist_prepend(genre_list, "");
 	
-	//gtk_combo_set_popdown_strings(combo_genre, GLIST(genre_list));
+	g_list_foreach(GLIST(genre_list), glist_2_combo, combo_genre);
 	g_elist_free(genre_list);
 
 	/* connect signals */

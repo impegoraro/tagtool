@@ -84,7 +84,7 @@ static void to_prefs()
 	tag_space_conv_chars = pref_set("chconv:tag_space_conv_chars", PREF_STRING, 
 					(void*)gtk_entry_get_text(ent_t_conv_chars));
 
-	*tag_case_conv = gtk_combo_box_get_active(combo_t_case);
+	*tag_case_conv = gtk_combo_box_get_active(GTK_COMBO_BOX(combo_t_case));
 
 	/* rename tab */
 	*rename_space_conv = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(rb_r_conv_space_to));
@@ -95,7 +95,7 @@ static void to_prefs()
 	rename_invalid_conv_chars = pref_set("chconv:rename_invalid_conv_chars", PREF_STRING, 
 					     (void*)gtk_entry_get_text(ent_r_invalid_chars));
 
-	*rename_case_conv = gtk_combo_box_get_active(combo_r_case);
+	*rename_case_conv = gtk_combo_box_get_active(GTK_COMBO_BOX(combo_r_case));
 }
 
 

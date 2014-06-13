@@ -1,6 +1,6 @@
 Summary: Audio Tag Tool is an MP3 and Vorbis tag manager.
 Name: tagtool
-Version: 0.12.3 
+Version: 0.13.0 
 Release: 1 
 License: GPL
 Group: Sound
