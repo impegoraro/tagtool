@@ -372,7 +372,7 @@ void load_file_list()
 		"*.[mM][pP][aA23]",
 #endif
 #ifdef ENABLE_VORBIS
-		"*.[oO][gG][gG]",
+		"*.[oO][gG][gGaA]",
 #endif
 		NULL
 	};

@@ -23,7 +23,7 @@ int audio_file_new(audio_file **f, const char *filename, gboolean editable)
 #endif
 
 #ifdef ENABLE_VORBIS
-	if (fnmatch("*.[oO][gG][gG]", filename, FNM_NOESCAPE) == 0)
+	if (fnmatch("*.[oO][gG][gGaA]", filename, FNM_NOESCAPE) == 0)
 		return vorbis_file_new(f, filename, editable);
 #endif
 
