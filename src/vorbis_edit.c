@@ -519,8 +519,8 @@ void vorbis_edit_init(GtkBuilder *builder)
 			 G_CALLBACK(cb_vor_comment_selection_changed), NULL);
 
 	/* find out which tab has the Vorbis interface */
-	tab_edit_vorbis = gtk_notebook_page_num(nb_edit, GTK_WIDGET(gtk_builder_get_object(builder, "cont_vorbis_edit")));
-
+	//tab_edit_vorbis = gtk_notebook_page_num(nb_edit, GTK_WIDGET(gtk_builder_get_object(builder, "nb_vorbis")));
+	tab_edit_vorbis = 1; // FIXME: hardcoded since in Gtk3 the old method failed
 
 	/*
 	 * get the preference values, or set them to defaults

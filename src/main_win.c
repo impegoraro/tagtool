@@ -100,7 +100,9 @@ void mw_init(GtkBuilder *builder)
 	 * They must be hidden before showing the window, otherwise they 
 	 * would affect the window size.
 	 */
-	gtk_notebook_set_show_tabs(GTK_NOTEBOOK(gtk_builder_get_object(builder, "nb_file")), FALSE);
+ 	gtk_widget_show(GTK_WIDGET(gtk_builder_get_object(builder, "w_no_file")));
+ 	gtk_widget_hide(GTK_WIDGET(gtk_builder_get_object(builder, "box_tag_file")));
+	
 	gtk_notebook_set_show_tabs(GTK_NOTEBOOK(gtk_builder_get_object(builder, "nb_edit")), FALSE);
 	gtk_notebook_set_show_tabs(GTK_NOTEBOOK(gtk_builder_get_object(builder, "nb_id3v1")), FALSE);
 	gtk_notebook_set_show_tabs(GTK_NOTEBOOK(gtk_builder_get_object(builder, "nb_id3v2")), FALSE);

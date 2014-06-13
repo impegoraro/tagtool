@@ -15,7 +15,8 @@
 
 
 /* widgets */
-static GtkNotebook *nb_file = NULL;
+static GtkWidget *w_no_file = NULL;
+static GtkWidget *box_file = NULL;
 static GtkNotebook *nb_edit = NULL;
 static GtkLabel *lab_info_names = NULL;
 static GtkLabel *lab_info_values = NULL;
@@ -51,7 +52,8 @@ void cb_notebook_switch(GtkNotebook *nb, GtkWidget *page, guint page_num, gpoint
 void et_init(GtkBuilder *builder)
 {
 	/* widgets and icons */
-	nb_file = GTK_NOTEBOOK(gtk_builder_get_object(builder, "nb_file"));
+	w_no_file = GTK_WIDGET(gtk_builder_get_object(builder, "w_no_file"));
+	box_file = GTK_WIDGET(gtk_builder_get_object(builder, "box_tag_file"));
 	nb_edit = GTK_NOTEBOOK(gtk_builder_get_object(builder, "nb_edit"));
 	align_create_tag = GTK_WIDGET(gtk_builder_get_object(builder, "align_create_tag"));
 	align_remove_tag = GTK_WIDGET(gtk_builder_get_object(builder, "align_remove_tag"));
@@ -145,7 +147,8 @@ void et_load_file(const gchar *name)
 	/* display the appropriate edit interface */
 	audio_file_edit_load(af);
 
-	gtk_notebook_set_current_page(nb_file, 1);
+	gtk_widget_hide(w_no_file);
+	gtk_widget_show(box_file);
 }
 
 
@@ -157,7 +160,8 @@ void et_unload_file()
 		audio_file_edit_unload(temp);
 		audio_file_delete(temp);
 
-		gtk_notebook_set_current_page(nb_file, 0);
+		gtk_widget_show(w_no_file);
+		gtk_widget_hide(box_file);
 	}
 }
 
