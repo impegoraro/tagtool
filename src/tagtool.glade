@@ -807,6 +807,8 @@
     </child>
   </object>
   <object class="GtkDialog" id="dlg_progress">
+    <property name="width_request">320</property>
+    <property name="height_request">285</property>
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Progress</property>
     <property name="type_hint">dialog</property>
@@ -868,6 +870,7 @@
                 <property name="can_focus">True</property>
                 <property name="hexpand">True</property>
                 <property name="vexpand">True</property>
+                <property name="headers_visible">False</property>
                 <child internal-child="selection">
                   <object class="GtkTreeSelection" id="treeview-selection4"/>
                 </child>
@@ -1818,6 +1821,8 @@ Files found:</property>
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">True</property>
                                                     <property name="hexpand">True</property>
+                                                    <signal name="changed" handler="cb_id3_tag_changed" swapped="no"/>
+                                                    <signal name="key-press-event" handler="cb_id3_keypress" swapped="no"/>
                                                   </object>
                                                   <packing>
                                                     <property name="left_attach">1</property>
@@ -1904,6 +1909,8 @@ Files found:</property>
                                                   <object class="GtkEntry" id="ent_id3v1_artist">
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">True</property>
+                                                    <signal name="changed" handler="cb_id3_tag_changed" swapped="no"/>
+                                                    <signal name="key-press-event" handler="cb_id3_tag_changed" swapped="no"/>
                                                   </object>
                                                   <packing>
                                                     <property name="left_attach">1</property>
@@ -1915,6 +1922,8 @@ Files found:</property>
                                                   <object class="GtkEntry" id="ent_id3v1_album">
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">True</property>
+                                                    <signal name="changed" handler="cb_id3_tag_changed" swapped="no"/>
+                                                    <signal name="key-press-event" handler="cb_id3_keypress" swapped="no"/>
                                                   </object>
                                                   <packing>
                                                     <property name="left_attach">1</property>
@@ -1970,6 +1979,8 @@ Files found:</property>
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">True</property>
                                                     <property name="width_chars">12</property>
+                                                    <signal name="changed" handler="cb_id3_tag_changed" swapped="no"/>
+                                                    <signal name="key-press-event" handler="cb_id3_keypress" swapped="no"/>
                                                   </object>
                                                   <packing>
                                                     <property name="left_attach">1</property>
@@ -1980,6 +1991,8 @@ Files found:</property>
                                                   <object class="GtkEntry" id="ent_id3v1_comment">
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">True</property>
+                                                    <signal name="changed" handler="cb_id3_tag_changed" swapped="no"/>
+                                                    <signal name="key-release-event" handler="cb_id3_keypress" swapped="no"/>
                                                   </object>
                                                   <packing>
                                                     <property name="left_attach">1</property>
@@ -1996,6 +2009,8 @@ Files found:</property>
                                                     <property name="climb_rate">1</property>
                                                     <property name="numeric">True</property>
                                                     <property name="value">1</property>
+                                                    <signal name="changed" handler="cb_id3_tag_changed" swapped="no"/>
+                                                    <signal name="key-press-event" handler="cb_id3_keypress" swapped="no"/>
                                                   </object>
                                                   <packing>
                                                     <property name="left_attach">1</property>
@@ -2200,6 +2215,7 @@ Files found:</property>
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">False</property>
                                                     <property name="xalign">0</property>
+                                                    <property name="yalign">0</property>
                                                     <property name="label" translatable="yes">_Commnt:</property>
                                                     <property name="use_underline">True</property>
                                                     <property name="mnemonic_widget">text_id3v2_comment</property>
