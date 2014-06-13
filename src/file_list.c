@@ -268,7 +268,7 @@ static void rename_file(const char *old_path, const char *new_name)
 		int button;
 		button = message_box(w_main, _("File Exists"), 
 				     _("A file with this name already exists.\nDo you want to overwrite it?"), 
-				     0, GTK_STOCK_CANCEL, GTK_STOCK_YES, NULL);
+				     0, GTK_BUTTONS_YES_NO);
 		if (button == 0) {
 			free(new_path);
 			return;
@@ -281,7 +281,7 @@ static void rename_file(const char *old_path, const char *new_name)
 		GString *msg = g_string_sized_new(256);
 
 		g_string_printf(msg, _("Error renaming file:\n%s (%d)"), strerror(save_errno), save_errno);
-		message_box(w_main, _("Error Renaming File"), msg->str, 0, GTK_STOCK_OK, NULL);
+		message_box(w_main, _("Error Renaming File"), msg->str, 0, GTK_BUTTONS_OK);
 
 		g_string_free(msg, TRUE);
 	}
@@ -440,7 +440,7 @@ void cb_ctx_manual_rename(GtkWidget *widget, GdkEvent *event)
 
 	gtk_tree_view_get_first_selected(tv_files, &model, &iter);
 	gtk_tree_model_get(model, &iter, 4, &old_path, -1);
-	new_name = rename_prompt_new_name(g_basename(old_path));
+	new_name = rename_prompt_new_name(g_path_get_basename(old_path));
 	if (new_name == NULL)
 		return;
 
@@ -461,8 +461,8 @@ void cb_ctx_delete(GtkWidget *widget, GdkEvent *event)
 
 	button = message_box(w_main, _("Delete selected files"), 
 			     _("This will delete the selected files from disk. Proceed?"), 
-			     0, GTK_STOCK_CANCEL, GTK_STOCK_YES, NULL);
-	if (button == 0)
+			     GTK_BUTTONS_YES_NO, 0);
+	if (button == GTK_RESPONSE_NO)
 		return;
 
 	files = fl_get_selected_files();
@@ -617,7 +617,7 @@ void fl_init(GtkBuilder *builder)
 	 * get the widgets from glade
 	 */
 	w_main = GTK_WINDOW(gtk_builder_get_object(builder, "w_main"));
-	combo_wd = GTK_COMBO_BOX(gtk_builder_get_object(builder, "combo_wd"));
+	combo_wd = GTK_COMBO_BOX_TEXT(gtk_builder_get_object(builder, "combo_wd"));
 	ent_wd = GTK_ENTRY(gtk_builder_get_object(builder, "ent_wd"));
 	cb_recurse = GTK_TOGGLE_BUTTON(gtk_builder_get_object(builder, "cb_recurse"));
 	tv_files = GTK_TREE_VIEW(gtk_builder_get_object(builder, "tv_files"));
@@ -634,8 +634,8 @@ void fl_init(GtkBuilder *builder)
 					_("Select Directory"),
 					w_main,
 					GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
-					GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-					GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
+					"Cancel", GTK_RESPONSE_CANCEL,
+					"Open", GTK_RESPONSE_ACCEPT,
 					NULL));
 
 	/*
@@ -795,7 +795,8 @@ void fl_refresh(gboolean keep_scroll_pos)
 	GtkAdjustment *adj;
 	double saved_value;
 
-	adj = gtk_tree_view_get_vadjustment(tv_files);
+
+	adj = gtk_scrollable_get_vadjustment(GTK_SCROLLABLE(tv_files));
 	saved_value = gtk_adjustment_get_value(adj);
 
 	ent_wd_text = gtk_entry_get_text(ent_wd);

@@ -154,7 +154,7 @@ void pd_scroll_to_bottom()
 {
 	GtkAdjustment *adj;
 
-	adj = gtk_tree_view_get_vadjustment(tv_progress);
+	adj = gtk_scrollable_get_vadjustment(GTK_SCROLLABLE(tv_progress));
 	gtk_adjustment_set_value(adj, gtk_adjustment_get_upper(adj));
 }
 

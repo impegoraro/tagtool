@@ -291,7 +291,7 @@ static void write_to_file()
 				 file->name, strerror(errno), errno);
 		}
 
-		message_box(w_main, _("Error Saving File"), msg, 0, GTK_STOCK_OK, NULL);
+		message_box(w_main, _("Error Saving File"), msg, GTK_BUTTONS_OK, 0);
 	}
 	else {
 		set_changed_flag(FALSE);
@@ -455,9 +455,9 @@ void vorbis_edit_unload()
 		int button;
 
 		button = message_box(w_main, _("Save Changes"), 
-				     _("Vorbis Tag has been modified. Save changes?"), 1, 
-				     _("Discard"), GTK_STOCK_SAVE, NULL);
-		if (button == 1) {
+				     _("Vorbis Tag has been modified. Save changes?"),
+				     GTK_BUTTONS_YES_NO, GTK_RESPONSE_YES);
+		if (button == GTK_RESPONSE_YES) {
 			/* save button was pressed */
 			update_tag();
 			write_to_file();

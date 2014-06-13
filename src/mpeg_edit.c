@@ -418,7 +418,7 @@ static void write_to_file()
 		snprintf(msg, sizeof(msg), 
 			 _("Error saving file \"%s\":\n%s (%d)"), 
 			 file->name, strerror(errno), errno);
-		message_box(w_main, _("Error Saving File"), msg, 0, GTK_STOCK_OK, NULL);
+		message_box(w_main, _("Error Saving File"), msg, GTK_BUTTONS_OK, 0);
 	}
 	else {
 		set_changed_flag(FALSE);
@@ -671,9 +671,9 @@ void mpeg_edit_unload()
 		int button;
 
 		button = message_box(w_main, _("Save Changes"), 
-				     _("ID3 Tag has been modified. Save changes?"), 1, 
-				     _("Discard"), GTK_STOCK_SAVE, NULL);
-		if (button == 1) {
+				     _("ID3 Tag has been modified. Save changes?"), 
+				     GTK_BUTTONS_YES_NO, GTK_RESPONSE_YES);
+		if (button == GTK_RESPONSE_YES) {
 			/* save button was pressed */
 			update_tag();
 			write_to_file();
@@ -768,7 +768,7 @@ void mpeg_edit_init(GtkBuilder *builder)
 			 G_CALLBACK(cb_id3v2_frame_selection_changed), NULL);
 
 	/* find out which tab has the ID3 interface */
-	tab_edit_id3 = gtk_notebook_page_num(nb_edit, gtk_builder_get_object(builder, "cont_id3_edit"));
+	tab_edit_id3 = gtk_notebook_page_num(nb_edit, GTK_WIDGET(gtk_builder_get_object(builder, "cont_id3_edit")));
 
 	/* ID3v1 genre list */
 	temp_list = genre_create_list(TRUE);

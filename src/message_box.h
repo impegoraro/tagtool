@@ -10,18 +10,14 @@
  * <transient>	If not NULL, the dialog is made transient for this window.
  * <title>	Dialog title.
  * <text>	Dialog message text.
+ * <buttons>	Gtk Message dialog buttons.
  * <defbutton>	Default button (or < 0 for none).
- * <...>	Variable number of arguments of type char* with the button labels 
- *		or stock button IDs. Last argument must be NULL.
  *
  * return	The index of the button that was clicked, or < 0 if the dialog 
  *		was closed by other means.
  */
-int message_box( GtkWindow *transientfor, 
-		 char *title, 
-		 char* text, 
-		 int defbutton, 
-		 ... );
+int message_box(GtkWindow *transientfor, char *title, char* text, 
+	GtkButtonsType buttons, int defbutton);
 
 
 #endif
