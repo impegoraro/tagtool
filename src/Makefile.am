@@ -39,7 +39,7 @@ tagtool_CFLAGS = -Wall -Wno-pointer-sign $(GTK_CFLAGS) ${mp3_cflags} 	\
 	${vorbis_cflags} -DDATADIR='"$(datadir)/${PACKAGE_NAME}"'
 
 tagtool_LDFLAGS = -export-dynamic
-tagtool_LDADD = -lm $(GTK_LIBS)
+tagtool_LDADD = -lm -logg $(GTK_LIBS)
 
 tagtool_SOURCES = file_list.c file_list.h file_util.c file_util.h	\
 	edit_tab.c edit_tab.h elist.c elist.h main.c math_util.c	\

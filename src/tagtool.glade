@@ -1434,6 +1434,7 @@ Files found:</property>
             <property name="can_focus">True</property>
             <property name="border_width">4</property>
             <property name="position">390</property>
+            <property name="position_set">True</property>
             <child>
               <object class="GtkBox" id="box2">
                 <property name="visible">True</property>
@@ -1673,12 +1674,13 @@ Files found:</property>
                       <object class="GtkBox" id="w_no_file">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="hexpand">True</property>
+                        <property name="vexpand">True</property>
                         <property name="orientation">vertical</property>
                         <child>
                           <object class="GtkLabel" id="_no_file">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="valign">start</property>
                             <property name="hexpand">True</property>
                             <property name="vexpand">True</property>
                             <property name="label" translatable="yes">Select a file to edit</property>
