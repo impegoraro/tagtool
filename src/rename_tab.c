@@ -411,16 +411,15 @@ void rt_init(GtkBuilder *builder)
 	/*
 	 * set the title colors
 	 */
-	 //FIXME: style
-	// w = gtk_builder_get_object(builder, "lab_rename_title");
-	// gtk_widget_ensure_style(w);
-	// style = gtk_widget_get_style(w);
+	GdkRGBA rbga;
+	GtkWidget *w = GTK_WIDGET(gtk_builder_get_object(builder, "lab_rename_title"));
+	GtkStyleContext *context = gtk_widget_get_style_context(w);
+	
+	gtk_style_context_get_background_color(context, GTK_STATE_FLAG_SELECTED, &rbga);
+	gtk_widget_override_background_color(w, GTK_STATE_FLAG_NORMAL, &rbga);
 
-	// gtk_widget_modify_fg(w, GTK_STATE_NORMAL, &style->text[GTK_STATE_SELECTED]);
-
-	// w = gtk_builder_get_object(builder, "box_rename_title");
-	// gtk_widget_modify_bg(w, GTK_STATE_NORMAL, &style->base[GTK_STATE_SELECTED]);
-
+	gtk_style_context_get_color(context, GTK_STATE_FLAG_SELECTED, &rbga);
+	gtk_widget_override_color(w, GTK_STATE_FLAG_NORMAL, &rbga);	
 
 	/*
 	 * get the preference values, or set them to defaults

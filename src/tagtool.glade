@@ -3829,7 +3829,7 @@ value6</property>
                     <property name="orientation">vertical</property>
                     <property name="spacing">16</property>
                     <child>
-                      <object class="GtkLabel" id="lab_tag_title1">
+                      <object class="GtkLabel" id="lab_clear_title">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="margin_left">8</property>
@@ -4009,7 +4009,7 @@ value6</property>
                     <property name="orientation">vertical</property>
                     <property name="spacing">16</property>
                     <child>
-                      <object class="GtkLabel" id="lab_tag_title2">
+                      <object class="GtkLabel" id="lab_rename_title">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="margin_left">8</property>
@@ -4220,7 +4220,7 @@ value6</property>
                     <property name="orientation">vertical</property>
                     <property name="spacing">16</property>
                     <child>
-                      <object class="GtkLabel" id="lab_tag_title3">
+                      <object class="GtkLabel" id="lab_playlist_title">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="margin_left">8</property>
