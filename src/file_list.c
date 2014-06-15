@@ -65,6 +65,7 @@ static chrono_t progress_dlg_time;
 static gboolean *recurse;
 static MRUList *dir_mru;
 
+static void cb_file_edited (GtkCellRendererText *, gchar *, gchar *, gpointer);
 
 /*** private functions ******************************************************/
 
@@ -74,9 +75,8 @@ static void setup_tree_view()
 	GtkCellRenderer *renderer;
 
 	/* model */
-	store_files = gtk_list_store_new(5, GDK_TYPE_PIXBUF, G_TYPE_STRING, 
-					 G_TYPE_STRING, G_TYPE_BOOLEAN, G_TYPE_POINTER);
-					 //GDK_TYPE_COLOR, G_TYPE_BOOLEAN, G_TYPE_POINTER);
+	store_files = gtk_list_store_new(6, GDK_TYPE_PIXBUF, G_TYPE_STRING, 
+					 G_TYPE_STRING, G_TYPE_BOOLEAN, G_TYPE_POINTER, G_TYPE_BOOLEAN);
 
 	/* columns and renderers */
 	col = gtk_tree_view_column_new();
@@ -96,7 +96,10 @@ static void setup_tree_view()
 	gtk_tree_view_column_add_attribute(col, renderer, "text", 1);
 	gtk_tree_view_column_add_attribute(col, renderer, "cell-background", 2);
 	gtk_tree_view_column_add_attribute(col, renderer, "cell-background-set", 3);
+	gtk_tree_view_column_add_attribute(col, renderer, "editable", 5);
 
+	g_signal_connect(renderer, "edited", G_CALLBACK(cb_file_edited), NULL);
+	
 	/* selection mode */
 	gtk_tree_selection_set_mode(gtk_tree_view_get_selection(tv_files), GTK_SELECTION_MULTIPLE);
 }
@@ -168,6 +171,7 @@ static void update_tree_view(const GEList *file_list)
 					   2, strColor, //&style->bg[GTK_STATE_NORMAL]
 					   3, TRUE,
 					   4, NULL,
+					   5, FALSE,
 					   -1);
 			g_free(dirname);
 			g_free(aux);
@@ -181,6 +185,7 @@ static void update_tree_view(const GEList *file_list)
 				   2, NULL,
 				   3, FALSE,
 				   4, i->data,
+				   5, TRUE,
 				   -1);
 		g_free(aux);
 
@@ -254,7 +259,7 @@ static void delete_files(const GEList *file_list)
 }
 
 
-static void rename_file(const char *old_path, const char *new_name)
+static void rename_file(const char *old_path, const char *new_name, gboolean showBox)
 {
 	char *new_path;
 	char *dir;
@@ -268,8 +273,8 @@ static void rename_file(const char *old_path, const char *new_name)
 		int button;
 		button = message_box(w_main, _("File Exists"), 
 				     _("A file with this name already exists.\nDo you want to overwrite it?"), 
-				     0, GTK_BUTTONS_YES_NO);
-		if (button == 0) {
+				     GTK_BUTTONS_YES_NO, GTK_RESPONSE_NO);
+		if (button == GTK_RESPONSE_NO) {
 			free(new_path);
 			return;
 		}
@@ -281,7 +286,13 @@ static void rename_file(const char *old_path, const char *new_name)
 		GString *msg = g_string_sized_new(256);
 
 		g_string_printf(msg, _("Error renaming file:\n%s (%d)"), strerror(save_errno), save_errno);
-		message_box(w_main, _("Error Renaming File"), msg->str, 0, GTK_BUTTONS_OK);
+		
+		if(showBox)
+			message_box(w_main, _("Error Renaming File"), msg->str, GTK_BUTTONS_OK, GTK_RESPONSE_OK);
+		else {
+			sb_clear();
+			sb_printf(msg->str);
+		}
 
 		g_string_free(msg, TRUE);
 	}
@@ -291,7 +302,6 @@ static void rename_file(const char *old_path, const char *new_name)
 
 	free(new_path);
 }
-
 
 static gboolean expand_dir(GString *dir)
 {
@@ -439,13 +449,13 @@ void cb_ctx_manual_rename(GtkWidget *widget, GdkEvent *event)
 	char *new_name;
 
 	gtk_tree_view_get_first_selected(tv_files, &model, &iter);
-	gtk_tree_model_get(model, &iter, 4, &old_path, -1);
+	gtk_tree_model_get(model, &iter, 1, &old_path, -1);
 	new_name = rename_prompt_new_name(g_path_get_basename(old_path));
 	if (new_name == NULL)
 		return;
 
-	rename_file(old_path, new_name);
-
+	rename_file(old_path, new_name, TRUE);
+	//gtk_list_store_set(GTK_LIST_STORE(model), &iter, 4, new_name, -1);
 	free(new_name);
 }
 
@@ -478,6 +488,26 @@ void cb_ctx_unselect_all(GtkWidget *widget, GdkEvent *event)
 
 
 /* file list UI callbacks */
+
+static void cb_file_edited (GtkCellRendererText *renderer, gchar *strPath, gchar *new_path, gpointer user_data)
+{
+	GtkTreeIter iter;
+	GtkTreeModel *model = gtk_tree_view_get_model(tv_files);
+	GtkTreePath *path = gtk_tree_path_new_from_string(strPath);
+
+	if(path != NULL && gtk_tree_model_get_iter(model, &iter, path)) {
+		gchar* old_path;
+		gtk_tree_model_get(model, &iter, 4, &old_path, -1);
+		
+		if(g_strcmp0(old_path, new_path)) {
+			rename_file(old_path, new_path, FALSE);
+			//gtk_list_store_set(GTK_LIST_STORE(model), &iter, 4, new_path, -1);
+		}
+
+		gtk_tree_path_free(path);
+	}
+}
+
 static gboolean cb_file_selection_changing(GtkTreeSelection *selection, GtkTreeModel *model, 
 					   GtkTreePath *path, gboolean path_currently_selected, 
 					   gpointer data)
