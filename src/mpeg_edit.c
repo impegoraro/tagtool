@@ -242,8 +242,10 @@ static void update_form_v2()
 
 			ignore_changed_signals = TRUE;
 			//	gtk_combo_set_popdown_strings(combo_id3v2_genre, GLIST(genre_mru->list));
-			if (g_elist_length(genre_mru->list) > 0)
+			if (g_elist_length(genre_mru->list) > 0) {
+				gtk_combo_box_text_remove_all(combo_id3v2_genre);
 				g_list_foreach(GLIST(genre_mru->list), glist_2_combo, combo_id3v2_genre);
+			}
 			mpeg_file_get_field_v(file, ID3TT_ID3V2, AF_TITLE, &str);
 			gtk_entry_set_text(ent_id3v2_title, str);
 			mpeg_file_get_field_v(file, ID3TT_ID3V2, AF_ARTIST, &str);
@@ -775,6 +777,7 @@ void mpeg_edit_init(GtkBuilder *builder)
 	temp_list = genre_create_list(TRUE);
 	g_elist_prepend(temp_list, "");
 	
+	gtk_combo_box_text_remove_all(combo_id3v1_genre);
 	g_list_foreach(GLIST(temp_list), glist_2_combo, combo_id3v1_genre);
 	//gtk_combo_set_popdown_strings(combo_id3v1_genre, GLIST(temp_list));
 	g_elist_free(temp_list);

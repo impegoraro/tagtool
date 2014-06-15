@@ -481,7 +481,7 @@ static void start_operation()
 
 	mru_add(format_mru, gtk_entry_get_text(ent_tag_format));
 	
-	//gtk_combo_set_popdown_strings(combo_tag_format, GLIST(format_mru->list));
+	gtk_combo_box_text_remove_all(combo_tag_format);
 	g_list_foreach(GLIST(format_mru->list), glist_2_combo, combo_tag_format);
 	tag_files(file_list);
 
@@ -717,6 +717,7 @@ void tt_init(GtkBuilder *builder)
 	genre_list = genre_create_list(TRUE);
 	g_elist_prepend(genre_list, "");
 	
+	gtk_combo_box_text_remove_all(combo_genre);
 	g_list_foreach(GLIST(genre_list), glist_2_combo, combo_genre);
 	g_elist_free(genre_list);
 
@@ -770,8 +771,10 @@ void tt_init(GtkBuilder *builder)
 
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(cb_use_filename), *use_filename);
 
-	//gtk_combo_set_popdown_strings(combo_tag_format, GLIST(format_mru->list));
+	
+	gtk_combo_box_text_remove_all(combo_tag_format);
 	g_list_foreach(GLIST(format_mru->list), glist_2_combo, combo_tag_format);
+	gtk_combo_box_set_active(GTK_COMBO_BOX(combo_tag_format), 0);
 	update_interface_fname();
 }
 

@@ -725,6 +725,8 @@ void fl_set_working_dir(const gchar *dir)
 	
 	/* update the directory mru list */
 	mru_add(dir_mru, working_dir_utf8->str);
+
+	gtk_combo_box_text_remove_all(combo_wd);
 	g_list_foreach(GLIST(dir_mru->list), glist_2_combo, combo_wd);
 
 	if (check_working_dir())
@@ -767,6 +769,7 @@ void fl_set_working_dir_utf8(const gchar *dir)
 	
 	/* update the directory mru list */
 	mru_add(dir_mru, working_dir_utf8->str);
+	gtk_combo_box_text_remove_all(combo_wd);
 	g_list_foreach(GLIST(dir_mru->list), glist_2_combo, combo_wd);
 
 

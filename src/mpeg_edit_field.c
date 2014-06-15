@@ -64,6 +64,7 @@ static void set_ui(int mode, mpeg_file *file, int tag_version, ID3Frame *frame)
 			g_elist_append(strings, display_name);
 		}
 		g_elist_sort(strings, (GCompareFunc)strcoll);
+		gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(widget));
 		g_list_foreach(GLIST(strings), glist_2_combo, GTK_COMBO_BOX_TEXT(widget));
 		g_elist_free(strings);
 	}

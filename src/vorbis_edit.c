@@ -182,9 +182,10 @@ static void update_form_simple()
 
 	ignore_changed_signals = TRUE;
 
-	//	gtk_combo_set_popdown_strings(combo_genre, GLIST(genre_mru->list));
-	if (g_elist_length(genre_mru->list) > 0)
+	if (g_elist_length(genre_mru->list) > 0) {
+		gtk_combo_box_text_remove_all(combo_genre);
 		g_list_foreach(GLIST(genre_mru->list), glist_2_combo, combo_genre);
+	}
 
 	vorbis_file_get_field(file, AF_TITLE, &str);   gtk_entry_set_text(ent_title, str);
 	vorbis_file_get_field(file, AF_ARTIST, &str);  gtk_entry_set_text(ent_artist, str);

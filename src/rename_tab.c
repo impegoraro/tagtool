@@ -344,7 +344,7 @@ static void start_operation()
 
 	mru_add(format_mru, gtk_entry_get_text(ent_rename_format));
 	
-	//gtk_combo_set_popdown_strings(combo_rename_format, GLIST(format_mru->list));
+	gtk_combo_box_text_remove_all(combo_rename_format);
 	g_list_foreach(GLIST(format_mru->list), glist_2_combo, combo_rename_format);
 
 	cursor_set_wait();
@@ -444,7 +444,8 @@ void rt_init(GtkBuilder *builder)
 	}
 	format_mru = mru_new_from_list(10, format_list);
 
-	//gtk_combo_set_popdown_strings(combo_rename_format, GLIST(format_mru->list));
+	gtk_combo_box_text_remove_all(combo_rename_format);
 	g_list_foreach(GLIST(format_mru->list), glist_2_combo, combo_rename_format);
+	gtk_combo_box_set_active(GTK_COMBO_BOX(combo_rename_format), 0);
 }
 
