@@ -1411,6 +1411,7 @@ Files found:</property>
                     <property name="valign">start</property>
                     <property name="margin_right">15</property>
                     <property name="use_stock">True</property>
+                    <signal name="clicked" handler="cb_dlg_scan_stop" swapped="no"/>
                   </object>
                   <packing>
                     <property name="expand">False</property>

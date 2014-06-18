@@ -15,6 +15,7 @@
 po/POTFILES
 
 # other stuff
+configure
 aclocal.m4
 tagtool.sublime-workspace
 tagtool.sublime-project
