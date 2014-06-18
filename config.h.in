@@ -46,6 +46,9 @@
 /* Define to 1 if you have the `id3' library (-lid3). */
 #undef HAVE_LIBID3
 
+/* Define to 1 if you have the `ogg' library (-logg). */
+#undef HAVE_LIBOGG
+
 /* Define to 1 if you have the `vorbis' library (-lvorbis). */
 #undef HAVE_LIBVORBIS
 
@@ -125,6 +128,9 @@
 /* Define to 1 if `lstat' dereferences a symlink specified with a trailing
    slash. */
 #undef LSTAT_FOLLOWS_SLASHED_SYMLINK
+
+/* Define to 1 if your C compiler doesn't accept -c and -o together. */
+#undef NO_MINUS_C_MINUS_O
 
 /* Name of package */
 #undef PACKAGE

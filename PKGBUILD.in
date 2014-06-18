@@ -1,0 +1,43 @@
+# Maintainer: Ilan Moreira Pegoraro <iemoreirap@gmail.com>
+pkgname=@PACKAGE@
+pkgver=@VERSION@
+pkgrel=@SPEC_RELEASE@
+epoch=
+pkgdesc="A tool to manage the tags in MP3 and Ogg Vorbis files."
+arch=('i686' 'x86_64')
+url="http://pwp.netcabo.pt/paol/tagtool/"
+license=('GPL')
+groups=()
+depends=('gtk3>=3.10' 'libxml2>=2.6.0' 'libvorbis>=1.0' 'id3lib>=3.8.0')
+makedepends=()
+checkdepends=()
+optdepends=()
+provides=()
+conflicts=()
+replaces=()
+backup=()
+options=()
+install=
+changelog=
+source=($pkgname-$pkgver.tar.gz)
+noextract=()
+md5sums=('')
+
+prepare() {
+	cd "$srcdir/$pkgname-$pkgver"
+}
+
+build() {
+	cd "$srcdir/$pkgname-$pkgver"
+	./configure --prefix=/usr
+	make
+}
+
+check() {
+	cd "$srcdir/$pkgname-$pkgver"
+}
+
+package() {
+	cd "$srcdir/$pkgname-$pkgver"
+	make DESTDIR="$pkgdir/" install
+}

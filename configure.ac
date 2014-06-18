@@ -30,6 +30,7 @@ fi;
 
 dnl Checks for programs.
 AC_PROG_CC
+AC_PROG_CC_C_O
 AC_PROG_AWK
 AC_PROG_INSTALL
 AC_PROG_LN_S
@@ -53,7 +54,7 @@ fi;
 dnl Check for gtk and related libraries
 PKG_CHECK_MODULES(GTK, [glib-2.0 >= 2.12.0
 		       gtk+-3.0 >= 3.10.0
-                       libxml-2.0])
+           libxml-2.0])
 dnl		       libglade-2.0 >= 2.6.0])
 AC_SUBST(GTK_CFLAGS)
 AC_SUBST(GTK_LIBS)
@@ -91,6 +92,10 @@ fi;
 if test "$enable_vorbis" = "yes"; then
 	AC_CHECK_LIB(vorbisfile, main,,
 		[enable_vorbis=no;  disable_vorbis_reason="(missing vorbisfile library)"])
+fi;
+if test "$enable_vorbis" = "yes"; then
+ AC_CHECK_LIB(ogg, main,,
+   [enable_vorbis=no;  disable_vorbis_reason="(missing ogg library)"])
 fi;
 
 AM_CONDITIONAL(ENABLE_MP3,    test "$enable_mp3" = "yes")
@@ -144,6 +149,7 @@ AC_CONFIG_FILES([
 	src/Makefile
 	Makefile
 	tagtool.spec
+	PKGBUILD
 ])
 dnl	help/Makefile
 dnl	help/C/Makefile

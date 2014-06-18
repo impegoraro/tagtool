@@ -10,8 +10,14 @@
 
 # autoconf
 
+#internationalization
+*.gmo
+po/POTFILES
+
 # other stuff
+aclocal.m4
 tagtool.sublime-workspace
+tagtool.sublime-project
 Makefile
 autom4te.cache
 config.h
@@ -24,3 +30,4 @@ stamp-it
 .deps
 config.log
 tagtool.spec
+PKGBUILD
