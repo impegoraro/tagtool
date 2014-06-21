@@ -1045,8 +1045,9 @@
     <property name="can_focus">False</property>
     <property name="stock">gtk-open</property>
   </object>
-  <object class="GtkWindow" id="w_main">
+  <object class="GtkApplicationWindow" id="w_main">
     <property name="can_focus">False</property>
+    <property name="margin_bottom">6</property>
     <property name="title" translatable="yes">Audio Tag Tool</property>
     <signal name="delete-event" handler="cb_main_win_delete" swapped="no"/>
     <signal name="destroy" handler="gtk_main_quit" swapped="no"/>
@@ -1059,8 +1060,8 @@
         <property name="orientation">vertical</property>
         <child>
           <object class="GtkMenuBar" id="menubat1">
-            <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="no_show_all">True</property>
             <child>
               <object class="GtkMenuItem" id="m_file">
                 <property name="visible">True</property>
@@ -1434,7 +1435,7 @@ Files found:</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="border_width">4</property>
-            <property name="position">390</property>
+            <property name="position">610</property>
             <property name="position_set">True</property>
             <child>
               <object class="GtkBox" id="box2">
@@ -1655,6 +1656,7 @@ Files found:</property>
                     <property name="spacing">16</property>
                     <child>
                       <object class="GtkLabel" id="lab_edit_title">
+                        <property name="width_request">-1</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="margin_left">8</property>
