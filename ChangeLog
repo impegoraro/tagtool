@@ -1,3 +1,8 @@
+0.13.4 (Jun 24 2014)
+	- Ported to Gtk+3.
+	- UI improvements using new widgets from the toolkit.
+	- Add inline rename to files in the files tree view.
+	
 0.12.3 (Feb 27 2007)
 	- New application icon.  (Jean-François Fortin Tam)
 	- Allow application icon to be themed.  (Brian Pepple)
