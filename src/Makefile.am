@@ -9,7 +9,7 @@ bin_PROGRAMS = tagtool
 ## resource files
 
 resourcedir = $(pkgdatadir)
-resource_DATA = tagtool.glade preferences.dtd
+resource_DATA = menu.ui tagtool.glade preferences.dtd
 
 
 ## tagtool binary

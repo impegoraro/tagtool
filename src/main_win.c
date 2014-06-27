@@ -27,6 +27,7 @@ enum {
 /* widgets */
 static GtkWindow *w_main = NULL;
 static GtkNotebook *nb_main = NULL;
+static GtkHeaderBar *w_header = NULL;
 
 /* prefs variables */
 static int *width;
@@ -100,7 +101,7 @@ void mw_init(GtkBuilder *builder)
 	 * They must be hidden before showing the window, otherwise they 
 	 * would affect the window size.
 	 */
- 	gtk_widget_show(GTK_WIDGET(gtk_builder_get_object(builder, "w_no_file")));
+	gtk_widget_show(GTK_WIDGET(gtk_builder_get_object(builder, "w_no_file")));
  	gtk_widget_hide(GTK_WIDGET(gtk_builder_get_object(builder, "box_tag_file")));
 	
 	gtk_notebook_set_show_tabs(GTK_NOTEBOOK(gtk_builder_get_object(builder, "nb_edit")), FALSE);
@@ -161,6 +162,33 @@ void mw_init(GtkBuilder *builder)
 	 */
 	if (*width && *height)
 		gtk_window_set_default_size(w_main, *width, *height);
+	
+	w_header = GTK_HEADER_BAR(gtk_header_bar_new());
+	gtk_header_bar_set_title(w_header, "Audio Tag Tool");
+	gtk_header_bar_set_has_subtitle(w_header, FALSE);
+	gtk_header_bar_set_show_close_button(w_header, TRUE);
+	
+
+	gtk_window_set_titlebar(w_main, GTK_WIDGET(w_header));
+	
+
+
+	GMenu *appMenuModel = g_menu_new();
+	g_menu_append(appMenuModel, "About", "win.about");
+	g_menu_append(appMenuModel, "Preferences", "win.prefs");
+	g_menu_append(appMenuModel, "Quit", "win.quit");
+
+
+
+	GtkMenuButton *appMenu = GTK_MENU_BUTTON(gtk_menu_button_new());
+
+	GtkWidget *popover = gtk_popover_new_from_model(GTK_WIDGET(appMenu), G_MENU_MODEL(appMenuModel));
+	gtk_menu_button_set_popover(appMenu, popover);
+	gtk_header_bar_pack_end(w_header, GTK_WIDGET(appMenu));
+
+
+
+	gtk_widget_show_all(GTK_WIDGET(w_header));
 	gtk_widget_show(GTK_WIDGET(w_main));
 }
 
