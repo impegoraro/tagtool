@@ -28,6 +28,8 @@
 
 #include "file_list.h"
 
+#include "mplayer.h"
+
 
 /* directory scans that take longer than this (ms) pop up a progress dialog */
 #define PROGRESS_DLG_DELAY  1000
@@ -65,7 +67,13 @@ static chrono_t progress_dlg_time;
 static gboolean *recurse;
 static MRUList *dir_mru;
 
-static void cb_file_edited (GtkCellRendererText *, gchar *, gchar *, gpointer);
+/* Pixbuf resources */
+static GdkPixbuf *pix_play;
+static GdkPixbuf *pix_stop;
+
+static void cb_file_edited(GtkCellRendererText *, gchar *, gchar *, gpointer);
+static void cb_files_row_activated(GtkTreeView *tree, GtkTreePath *path, GtkTreeViewColumn *col, gpointer user_data);
+
 
 /*** private functions ******************************************************/
 
@@ -75,8 +83,10 @@ static void setup_tree_view()
 	GtkCellRenderer *renderer;
 
 	/* model */
-	store_files = gtk_list_store_new(6, GDK_TYPE_PIXBUF, G_TYPE_STRING, 
-					 G_TYPE_STRING, G_TYPE_BOOLEAN, G_TYPE_POINTER, G_TYPE_BOOLEAN);
+	store_files = gtk_list_store_new(7, GDK_TYPE_PIXBUF, G_TYPE_STRING,
+					 G_TYPE_STRING, G_TYPE_BOOLEAN,
+					 G_TYPE_POINTER, G_TYPE_BOOLEAN,
+					 GDK_TYPE_PIXBUF);
 
 	/* columns and renderers */
 	col = gtk_tree_view_column_new();
@@ -99,7 +109,22 @@ static void setup_tree_view()
 	gtk_tree_view_column_add_attribute(col, renderer, "editable", 5);
 
 	g_signal_connect(renderer, "edited", G_CALLBACK(cb_file_edited), NULL);
+	gtk_tree_view_column_set_expand(col, TRUE);
+
+	/***** add colum to preview music *****/
 	
+	col = gtk_tree_view_column_new();
+	gtk_tree_view_append_column(tv_files, col);
+	
+	renderer = gtk_cell_renderer_pixbuf_new();
+	g_object_set(renderer, "ypad", 0, NULL);
+	g_object_set(renderer, "xpad", 4, NULL);
+	gtk_tree_view_column_pack_end(col, renderer, FALSE);
+	gtk_tree_view_column_add_attribute(col, renderer, "pixbuf", 6);
+	gtk_tree_view_column_add_attribute(col, renderer, "cell-background", 2);
+	gtk_tree_view_column_add_attribute(col, renderer, "cell-background-set", 3);
+
+	g_signal_connect(G_OBJECT(tv_files), "row-activated", G_CALLBACK(cb_files_row_activated), NULL);
 	/* selection mode */
 	gtk_tree_selection_set_mode(gtk_tree_view_get_selection(tv_files), GTK_SELECTION_MULTIPLE);
 }
@@ -172,6 +197,7 @@ static void update_tree_view(const GEList *file_list)
 					   3, TRUE,
 					   4, NULL,
 					   5, FALSE,
+					   6, NULL,
 					   -1);
 			g_free(dirname);
 			g_free(aux);
@@ -186,6 +212,7 @@ static void update_tree_view(const GEList *file_list)
 				   3, FALSE,
 				   4, i->data,
 				   5, TRUE,
+				   6, pix_play,
 				   -1);
 		g_free(aux);
 
@@ -489,19 +516,53 @@ void cb_ctx_unselect_all(GtkWidget *widget, GdkEvent *event)
 
 /* file list UI callbacks */
 
+static void cb_files_row_activated(GtkTreeView *tree, GtkTreePath *path, GtkTreeViewColumn *col, gpointer user_data)
+{
+	static GtkTreePath *treePath=NULL;
+	//if(gtk_tree_view_get_column(tree, 1) == col) {
+
+		GtkTreeIter iter;
+
+		if(path != NULL && gtk_tree_model_get_iter(GTK_TREE_MODEL(store_files), &iter, path)) {
+			if(treePath != NULL && !gtk_tree_path_compare(treePath, path)) {
+				mp_stop();
+				
+			} else {
+				gchar* tmpPath;
+				GString *musicPath;
+
+				gtk_tree_model_get(GTK_TREE_MODEL(store_files), &iter, 4, &tmpPath, -1);
+				musicPath = g_string_new(gtk_entry_get_text(ent_wd));
+				g_string_append(musicPath, tmpPath);
+
+
+				mp_add_track(musicPath->str);
+				g_string_free(musicPath, TRUE);
+				gtk_list_store_set(GTK_LIST_STORE(store_files), &iter, 6, pix_stop, -1);
+
+				sb_printf(_("Now playing %s..."), tmpPath);
+
+				if(treePath != NULL) gtk_tree_path_free(treePath);
+				treePath = gtk_tree_path_copy(path);
+			}
+
+		}		
+	//}
+}
+
 static void cb_file_edited (GtkCellRendererText *renderer, gchar *strPath, gchar *new_path, gpointer user_data)
 {
 	GtkTreeIter iter;
-	GtkTreeModel *model = gtk_tree_view_get_model(tv_files);
 	GtkTreePath *path = gtk_tree_path_new_from_string(strPath);
 
-	if(path != NULL && gtk_tree_model_get_iter(model, &iter, path)) {
+	if(path != NULL && gtk_tree_model_get_iter(GTK_TREE_MODEL(store_files), &iter, path)) {
 		gchar* old_path;
-		gtk_tree_model_get(model, &iter, 4, &old_path, -1);
+		gtk_tree_model_get(GTK_TREE_MODEL(store_files), &iter, 4, &old_path, -1);
 		
 		if(g_strcmp0(old_path, new_path)) {
 			rename_file(old_path, new_path, FALSE);
-			//gtk_list_store_set(GTK_LIST_STORE(model), &iter, 4, new_path, -1);
+
+			//gtk_list_store_set(GTK_LIST_STORE(store_files), &iter, 4, new_path, -1);
 		}
 
 		gtk_tree_path_free(path);
@@ -673,6 +734,13 @@ void fl_init(GtkBuilder *builder)
 	 */
 	pix_file = gdk_pixbuf_new_from_file(DATADIR"/file.png", NULL);
 	pix_folder = gdk_pixbuf_new_from_file(DATADIR"/folder.png", NULL);
+
+
+	GtkIconTheme *icTheme = gtk_icon_theme_get_default();
+	GError *error = NULL;
+	pix_play = gtk_icon_theme_load_icon(icTheme, "media-playback-start", 18, GTK_ICON_LOOKUP_USE_BUILTIN, &error);
+	pix_stop = gtk_icon_theme_load_icon(icTheme, "media-playback-start", 18, GTK_ICON_LOOKUP_USE_BUILTIN, &error);
+
 
 	/*
 	 * setup the file list treeview

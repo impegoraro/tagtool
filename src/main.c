@@ -33,7 +33,7 @@
 #  include "vorbis_edit.h"
 #  include "vorbis_edit_field.h"
 #endif
-
+#include "mplayer.h"
 
 int print_version()
 {
@@ -156,6 +156,7 @@ int main(int argc, char *argv[])
 	cursor_init(builder);
 	help_init(builder);
 	about_init(builder);
+	mp_init();
 #ifdef ENABLE_MP3
 	mpeg_edit_init(builder);
 	mpeg_editfld_init(builder);

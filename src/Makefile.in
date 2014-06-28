@@ -103,8 +103,8 @@ am__tagtool_SOURCES_DIST = file_list.c file_list.h file_util.c \
 	str_util.h str_convert.c str_convert.h about.c about.h \
 	prefs_dlg.c prefs_dlg.h rename_dlg.c rename_dlg.h status_bar.c \
 	status_bar.h clear_tab.c clear_tab.h scan_progress_dlg.c \
-	scan_progress_dlg.h chrono.c chrono.h tagtool.glade \
-	mpeg_file.c mpeg_file.h mpeg_edit.c mpeg_edit.h \
+	scan_progress_dlg.h chrono.c chrono.h tagtool.glade mplayer.h \
+	mplayer.c mpeg_file.c mpeg_file.h mpeg_edit.c mpeg_edit.h \
 	mpeg_edit_field.c mpeg_edit_field.h aux_id3lib.c vorbis_file.c \
 	vorbis_file.h vorbis_edit.c vorbis_edit.h vorbis_edit_field.c \
 	vorbis_edit_field.h vcedit.c vcedit.h
@@ -132,7 +132,7 @@ am_tagtool_OBJECTS = tagtool-file_list.$(OBJEXT) \
 	tagtool-prefs_dlg.$(OBJEXT) tagtool-rename_dlg.$(OBJEXT) \
 	tagtool-status_bar.$(OBJEXT) tagtool-clear_tab.$(OBJEXT) \
 	tagtool-scan_progress_dlg.$(OBJEXT) tagtool-chrono.$(OBJEXT) \
-	$(am__objects_1) $(am__objects_2)
+	tagtool-mplayer.$(OBJEXT) $(am__objects_1) $(am__objects_2)
 tagtool_OBJECTS = $(am_tagtool_OBJECTS)
 am__DEPENDENCIES_1 =
 tagtool_DEPENDENCIES = $(am__DEPENDENCIES_1)
@@ -383,7 +383,7 @@ tagtool_SOURCES = file_list.c file_list.h file_util.c file_util.h	\
 	str_convert.c str_convert.h about.c about.h prefs_dlg.c 	\
 	prefs_dlg.h rename_dlg.c rename_dlg.h status_bar.c status_bar.h	\
 	clear_tab.c clear_tab.h scan_progress_dlg.c scan_progress_dlg.h	\
-	chrono.c chrono.h tagtool.glade 				\
+	chrono.c chrono.h tagtool.glade mplayer.h mplayer.c				\
 	${mp3_sources} ${vorbis_sources}
 
 EXTRA_tagtool_SOURCES = mpeg_file.c mpeg_file.h mpeg_edit.c mpeg_edit.h	\
@@ -500,6 +500,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tagtool-mpeg_edit.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tagtool-mpeg_edit_field.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tagtool-mpeg_file.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tagtool-mplayer.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tagtool-mru.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tagtool-playlist_tab.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tagtool-prefs.Po@am__quote@
@@ -965,6 +966,20 @@ tagtool-chrono.obj: chrono.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='chrono.c' object='tagtool-chrono.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(tagtool_CFLAGS) $(CFLAGS) -c -o tagtool-chrono.obj `if test -f 'chrono.c'; then $(CYGPATH_W) 'chrono.c'; else $(CYGPATH_W) '$(srcdir)/chrono.c'; fi`
+
+tagtool-mplayer.o: mplayer.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(tagtool_CFLAGS) $(CFLAGS) -MT tagtool-mplayer.o -MD -MP -MF $(DEPDIR)/tagtool-mplayer.Tpo -c -o tagtool-mplayer.o `test -f 'mplayer.c' || echo '$(srcdir)/'`mplayer.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/tagtool-mplayer.Tpo $(DEPDIR)/tagtool-mplayer.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='mplayer.c' object='tagtool-mplayer.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(tagtool_CFLAGS) $(CFLAGS) -c -o tagtool-mplayer.o `test -f 'mplayer.c' || echo '$(srcdir)/'`mplayer.c
+
+tagtool-mplayer.obj: mplayer.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(tagtool_CFLAGS) $(CFLAGS) -MT tagtool-mplayer.obj -MD -MP -MF $(DEPDIR)/tagtool-mplayer.Tpo -c -o tagtool-mplayer.obj `if test -f 'mplayer.c'; then $(CYGPATH_W) 'mplayer.c'; else $(CYGPATH_W) '$(srcdir)/mplayer.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/tagtool-mplayer.Tpo $(DEPDIR)/tagtool-mplayer.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='mplayer.c' object='tagtool-mplayer.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(tagtool_CFLAGS) $(CFLAGS) -c -o tagtool-mplayer.obj `if test -f 'mplayer.c'; then $(CYGPATH_W) 'mplayer.c'; else $(CYGPATH_W) '$(srcdir)/mplayer.c'; fi`
 
 tagtool-mpeg_file.o: mpeg_file.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(tagtool_CFLAGS) $(CFLAGS) -MT tagtool-mpeg_file.o -MD -MP -MF $(DEPDIR)/tagtool-mpeg_file.Tpo -c -o tagtool-mpeg_file.o `test -f 'mpeg_file.c' || echo '$(srcdir)/'`mpeg_file.c

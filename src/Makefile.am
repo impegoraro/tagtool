@@ -53,7 +53,7 @@ tagtool_SOURCES = file_list.c file_list.h file_util.c file_util.h	\
 	str_convert.c str_convert.h about.c about.h prefs_dlg.c 	\
 	prefs_dlg.h rename_dlg.c rename_dlg.h status_bar.c status_bar.h	\
 	clear_tab.c clear_tab.h scan_progress_dlg.c scan_progress_dlg.h	\
-	chrono.c chrono.h tagtool.glade 				\
+	chrono.c chrono.h tagtool.glade mplayer.h mplayer.c				\
 	${mp3_sources} ${vorbis_sources}
 
 EXTRA_tagtool_SOURCES = mpeg_file.c mpeg_file.h mpeg_edit.c mpeg_edit.h	\
