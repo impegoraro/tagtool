@@ -6,8 +6,8 @@
  ****************************************************************************/
 
 
-#include <sys/types.h>
-#include <sys/stat.h>
+#include <glib.h>
+#include <glib/gstdio.h>
 #include <unistd.h>
 
 #include "elist.h"
@@ -56,14 +56,12 @@ GEList *fu_get_file_list( const gchar *dir_path,
  *
  * return	TRUE if the process has all the requested permissions
  */
-gboolean fu_check_permission( struct stat* stat_data,
-			      const gchar *perm );
+gboolean fu_check_permission( GStatBuf* stat_data, const gchar *perm );
 
 /*
  * Compares two file names and returns TRUE if they have the same path.
  */
-gboolean fu_compare_file_paths( const gchar *f1, 
-				const gchar *f2 );
+gboolean fu_compare_file_paths( const gchar *f1, const gchar *f2 );
 
 /*
  * Returns the number of path components
@@ -93,8 +91,7 @@ gint fu_count_path_components( const gchar *path );
  *	"/", 1			-> "/"
  *	"", 1			-> ""
  */
-gchar *fu_last_n_path_components( const gchar *path, 
-				  gint n );
+gchar *fu_last_n_path_components( const gchar *path, gint n );
 
 /*
  * Returns the last component of the given path, without leading or trailing 
@@ -114,8 +111,7 @@ gchar *fu_last_path_component( const gchar *path );
  * Joins two paths. <path2> should be a relative path.
  * The returned string must be freed by the caller.
  */
-gchar *fu_join_path( const gchar *path1,
-		     const gchar *path2 );
+gchar *fu_join_path( const gchar *path1, const gchar *path2 );
 
 /*
  * Returns TRUE if the given path exists.
@@ -143,8 +139,7 @@ gboolean fu_dir_exists( const gchar *path );
  * return	TRUE if the operation was successfull (i.e., <path> is now 
  *		guarenteed to exist)
  */
-gboolean fu_make_dir_tree( const gchar *path, 
-			   gint *new );
+gboolean fu_make_dir_tree( const gchar *path, gint *new );
 
 
 #endif

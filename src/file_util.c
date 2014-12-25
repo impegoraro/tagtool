@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <dirent.h>
-#include <fnmatch.h>
 #include <string.h>
 #include <glib.h>
+#include <glib/gstdio.h>
+#include <glib/gfileutils.h>
 
 #include "str_util.h"
 #include "glib_util.h"
@@ -54,8 +54,7 @@ gint rev_strcoll(gconstpointer s1, gconstpointer s2)
  * return	FALSE if the directory was not encountered before, TRUE
  *		otherwise.
  */
-static gboolean remember_dir( GHashTable *dir_table,
-			      struct stat *dir_stat )
+static gboolean remember_dir( GHashTable *dir_table, GStatBuf *dir_stat )
 {
 	file_uid *f = malloc(sizeof(file_uid));
 
@@ -100,38 +99,32 @@ static GEList *aux_file_list( GEList *dir_stack,
 {
 	GEList *result;
 	GEList *aux_stack = NULL;
-	DIR* dir;
-	int dir_fd;
-	struct stat dir_stat;
-	struct dirent *dir_entry;
-	struct stat stat_data;
-	gint res;
+	GStatBuf dir_stat;
 	gchar *buffer;
 	gchar *buffer_fname;
 	gint buffer_size;
 	gboolean matched;
-	gint i;
+	GDir *dir;
+	GError *gerr = NULL;
+	const gchar *entry_name;
 
 	result = g_elist_new();
 	if (dir_stack != NULL)
 		aux_stack = g_elist_new();
 
-	dir = opendir(base_dir);
+	dir = g_dir_open(base_dir, 0, &gerr);
 	if (dir == NULL) {
-		g_warning("couldn't open dir: %s", base_dir);
+		g_warning("couldn't open dir: %s (%s)", base_dir, gerr->message);
+		g_clear_error(&gerr);
 		return result;
 	}
 
 	/* guard against loops in the directory structure */
 	if (dir_memory != NULL) {
-		dir_fd = dirfd(dir);
-		if (dir_fd >= 0)
-			fstat(dir_fd, &dir_stat);
-		else 
-			stat(base_dir, &dir_stat);
+			g_stat(base_dir, &dir_stat);
 		if (remember_dir(dir_memory, &dir_stat)) {
 			//printf("skipping directory, already been here: %s", base_dir);
-			closedir(dir);
+			g_dir_close(dir);
 			return result;
 		}
 	}
@@ -144,7 +137,7 @@ static GEList *aux_file_list( GEList *dir_stack,
 		buffer_fname = memccpy(buffer, base_dir, 0, buffer_size);
 		if (buffer_fname == NULL) {
 			g_warning("FIXME - buffer too small for file name!!!");
-			closedir(dir);
+			g_dir_close(dir);
 			g_free(buffer);
 			return result;
 		} else {
@@ -152,22 +145,17 @@ static GEList *aux_file_list( GEList *dir_stack,
 			buffer_size -= (gint)(buffer_fname - buffer);
 		}
 	}
-
-	while ( (dir_entry = readdir(dir)) ) {
-		if (memccpy(buffer_fname, dir_entry->d_name, 0, buffer_size) == NULL) {
+	
+	while((entry_name = g_dir_read_name(dir))) {
+		if (memccpy(buffer_fname, entry_name, 0, buffer_size) == NULL) {
 			g_warning("FIXME - buffer too small for file name!!!");
 			continue;
 		}
 
-		res = stat(buffer, &stat_data);
-		if (res < 0) {
-			//printf("couldn't stat file: %s", buffer);
-			continue;
-		}
-		if (S_ISDIR(stat_data.st_mode)) {
-			if ((aux_stack != NULL) &&
-			    (strcmp(dir_entry->d_name, ".") != 0) &&
-			    (strcmp(dir_entry->d_name, "..") != 0)) {
+		if (g_file_test(buffer, G_FILE_TEST_IS_DIR)) {
+			if ((aux_stack != NULL) && 
+			    (strcmp(entry_name, ".") != 0) &&
+			    (strcmp(entry_name, "..") != 0)) {
 				g_elist_push(aux_stack, g_strdup(buffer));
 			}
 			continue;
@@ -175,9 +163,10 @@ static GEList *aux_file_list( GEList *dir_stack,
 		if (patterns == NULL) {
 			matched = TRUE;
 		} else {
+			gint i;
 			matched = FALSE;
 			for (i = 0; patterns[i]; i++) {
-				if (fnmatch(patterns[i], dir_entry->d_name, FNM_NOESCAPE) == 0) {
+				if (g_regex_match_simple(patterns[i], entry_name, G_REGEX_DOTALL, G_REGEX_MATCH_PARTIAL_SOFT)) {
 					matched = TRUE;
 					break;
 				}
@@ -186,7 +175,7 @@ static GEList *aux_file_list( GEList *dir_stack,
 		if (matched)
 			g_elist_append(result, g_strdup(buffer));
 	}
-
+		
 	if (sort) {
 		g_elist_sort(result, (GCompareFunc)strcoll);
 		if (aux_stack != NULL)
@@ -196,13 +185,16 @@ static GEList *aux_file_list( GEList *dir_stack,
 	if (aux_stack != NULL)
 		g_elist_concat(dir_stack, aux_stack);
 
-	closedir(dir);
+	g_dir_close(dir);
 	g_free(buffer);
 	return result;
 }
 
 
-/*** public functions *******************************************************/
+
+/****************************** 
+       public functions 
+ *****************************/
 
 GEList *fu_get_file_list( const gchar *dir_path, 
 			  const gchar **patterns, 
@@ -212,7 +204,7 @@ GEList *fu_get_file_list( const gchar *dir_path,
 {
 	GEList *result;
 
-	chdir(dir_path);
+	g_chdir(dir_path);
 
 	if (!recurse) {
 		result = aux_file_list(NULL, NULL, ".", patterns, sort);
@@ -234,8 +226,7 @@ GEList *fu_get_file_list( const gchar *dir_path,
 		while (g_elist_length(dir_stack) > 0) {
 			cur_dir = g_elist_pop(dir_stack);
 			g_elist_concat(result, 
-				       aux_file_list(dir_stack, dir_memory, 
-						     cur_dir, patterns, sort));
+				       aux_file_list(dir_stack, dir_memory, cur_dir, patterns, sort));
 			g_free(cur_dir);
 			dircount++;
 
@@ -252,7 +243,7 @@ GEList *fu_get_file_list( const gchar *dir_path,
 }
 
 
-gboolean fu_check_permission( struct stat* stat_data,
+gboolean fu_check_permission( GStatBuf* stat_data,
 			      const gchar *perm )
 {
 	mode_t rmask, wmask, xmask;
@@ -333,8 +324,7 @@ gint fu_count_path_components( const gchar *path )
 }
 
 
-gchar *fu_last_n_path_components( const gchar *path, 
-				  gint n )
+gchar *fu_last_n_path_components( const gchar *path, gint n )
 {
 	gint count;
 	gint len;
@@ -382,8 +372,7 @@ gchar *fu_last_path_component( const gchar *path )
 }
 
 
-gchar *fu_join_path( const gchar *path1,
-		     const gchar *path2 )
+gchar *fu_join_path( const gchar *path1, const gchar *path2 )
 {
 	gchar *ret;
 	int len1, len2;
@@ -403,45 +392,23 @@ gchar *fu_join_path( const gchar *path1,
 
 gboolean fu_exists( const gchar *path )
 {
-	struct stat stat_data;
-	int res;
-
-	res = stat(path, &stat_data);
-	if (res == 0)
-		return TRUE;
-	else
-		return FALSE;
+	return g_file_test(path, G_FILE_TEST_EXISTS);
 }
 
 
 gboolean fu_file_exists( const gchar *path )
 {
-	struct stat stat_data;
-	int res;
-
-	res = stat(path, &stat_data);
-	if (res == 0)
-		return S_ISREG(stat_data.st_mode);
-	else
-		return FALSE;
+	return g_file_test(path, G_FILE_TEST_IS_DIR);
 }
 
 
 gboolean fu_dir_exists( const gchar *path )
 {
-	struct stat stat_data;
-	int res;
-
-	res = stat(path, &stat_data);
-	if (res == 0)
-		return S_ISDIR(stat_data.st_mode);
-	else
-		return FALSE;
+	return g_file_test(path, G_FILE_TEST_IS_REGULAR);
 }
 
 
-gboolean fu_make_dir_tree( const gchar *path, 
-			   gint *new )
+gboolean fu_make_dir_tree( const gchar *path, gint *new )
 {
 	gchar *partial_path, *p;
 	gint i, res;
@@ -462,7 +429,7 @@ gboolean fu_make_dir_tree( const gchar *path,
 		strncpy(partial_path, path, (p ? p-path : strlen(path)));
 
 		if (!fu_dir_exists(partial_path)) {
-			res = mkdir(partial_path, 0777);
+			res = g_mkdir(partial_path, 0777);
 			if (res < 0) {
 				ret = FALSE;
 				break;

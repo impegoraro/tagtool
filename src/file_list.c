@@ -379,10 +379,10 @@ void load_file_list()
 {
 	static const char *patterns[] = {
 #ifdef ENABLE_MP3
-		"*.[mM][pP][aA23]",
+		".+[mM][pP][aA23]",
 #endif
 #ifdef ENABLE_VORBIS
-		"*.[oO][gG][gGaA]",
+		".+[oO][gG][gGaA]",
 #endif
 		NULL
 	};
