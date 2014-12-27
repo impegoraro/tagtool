@@ -17,12 +17,12 @@ int audio_file_new(audio_file **f, const char *filename, gboolean editable)
 {
 	
 #ifdef ENABLE_MP3
-	if (g_regex_match_simple(".+[mM][pP][aA23]", filename, G_REGEX_DOTALL, G_REGEX_MATCH_PARTIAL_SOFT))
+	if (g_regex_match_simple(".+[mM][pP][aA23]$", filename, G_REGEX_DOTALL, G_REGEX_MATCH_PARTIAL_SOFT))
 		return mpeg_file_new(f, filename, editable);
 #endif
 
 #ifdef ENABLE_VORBIS
-	if (g_regex_match_simple(".+[oO][gG][gGaA]", filename, G_REGEX_DOTALL, G_REGEX_MATCH_PARTIAL_SOFT))
+	if (g_regex_match_simple(".+[oO][gG][gGaA]$", filename, G_REGEX_DOTALL, G_REGEX_MATCH_PARTIAL_SOFT))
 		return vorbis_file_new(f, filename, editable);
 #endif
 

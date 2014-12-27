@@ -127,7 +127,7 @@ static parse_info *build_parse_info(const gchar *format)
 	j = 0;
 	pos = 1;
 	while (TRUE) {
-		p = index(&aux_str[i], '<');
+		p = strchr(&aux_str[i], '<');
 		if (p != NULL) {
 			span = (gint)(p - &aux_str[i]);
 			if (span > 0) {

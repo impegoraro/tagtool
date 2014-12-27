@@ -109,7 +109,7 @@ static gboolean build_file_name(const gchar *format, audio_file *af, GString *ne
 	/* fill in the filename from the tag according to the given format */
 	i = 0;
 	while (TRUE) {
-		p = index(&format[i], '<');
+		p = strchr(&format[i], '<');
 		if (p != NULL) {
 			span = (gint)(p - &format[i]);
 			if (span > 0) {
