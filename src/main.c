@@ -156,7 +156,7 @@ int main(int argc, char *argv[])
 	cursor_init(builder);
 	help_init(builder);
 	about_init(builder);
-	mp_init();
+	mp_init(builder);
 #ifdef ENABLE_MP3
 	mpeg_edit_init(builder);
 	mpeg_editfld_init(builder);

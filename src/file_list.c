@@ -69,7 +69,6 @@ static MRUList *dir_mru;
 
 /* Pixbuf resources */
 static GdkPixbuf *pix_play;
-static GdkPixbuf *pix_stop;
 
 static void cb_file_edited(GtkCellRendererText *, gchar *, gchar *, gpointer);
 static void cb_files_row_activated(GtkTreeView *tree, GtkTreePath *path, GtkTreeViewColumn *col, gpointer user_data);
@@ -518,39 +517,25 @@ void cb_ctx_unselect_all(GtkWidget *widget, GdkEvent *event)
 
 static void cb_files_row_activated(GtkTreeView *tree, GtkTreePath *path, GtkTreeViewColumn *col, gpointer user_data)
 {
-	static GtkTreePath *treePath=NULL;
-	//if(gtk_tree_view_get_column(tree, 1) == col) {
+	GtkTreeIter iter;
 
-		GtkTreeIter iter;
+	if(path != NULL && gtk_tree_model_get_iter(GTK_TREE_MODEL(store_files), &iter, path)) {
+	
+		gchar* tmpPath;
+		GString *musicPath;
 
-		if(path != NULL && gtk_tree_model_get_iter(GTK_TREE_MODEL(store_files), &iter, path)) {
-			if(treePath != NULL && !gtk_tree_path_compare(treePath, path)) {
-				mp_stop();
-				
-			} else {
-				gchar* tmpPath;
-				GString *musicPath;
+		gtk_tree_model_get(GTK_TREE_MODEL(store_files), &iter, 4, &tmpPath, -1);
+		musicPath = g_string_new(gtk_entry_get_text(ent_wd));
+		g_string_append(musicPath, tmpPath);
 
-				gtk_tree_model_get(GTK_TREE_MODEL(store_files), &iter, 4, &tmpPath, -1);
-				musicPath = g_string_new(gtk_entry_get_text(ent_wd));
-				g_string_append(musicPath, tmpPath);
+		mp_add_track(musicPath->str);
+		g_string_free(musicPath, TRUE);
 
-
-				mp_add_track(musicPath->str);
-				g_string_free(musicPath, TRUE);
-				gtk_list_store_set(GTK_LIST_STORE(store_files), &iter, 6, pix_stop, -1);
-
-				sb_printf(_("Now playing %s..."), tmpPath);
-
-				if(treePath != NULL) gtk_tree_path_free(treePath);
-				treePath = gtk_tree_path_copy(path);
-			}
-
-		}		
-	//}
+		sb_printf(_("Now playing %s..."), tmpPath);
+	}
 }
 
-static void cb_file_edited (GtkCellRendererText *renderer, gchar *strPath, gchar *new_path, gpointer user_data)
+static void cb_file_edited(GtkCellRendererText *renderer, gchar *strPath, gchar *new_path, gpointer user_data)
 {
 	GtkTreeIter iter;
 	GtkTreePath *path = gtk_tree_path_new_from_string(strPath);
@@ -739,8 +724,6 @@ void fl_init(GtkBuilder *builder)
 	GtkIconTheme *icTheme = gtk_icon_theme_get_default();
 	GError *error = NULL;
 	pix_play = gtk_icon_theme_load_icon(icTheme, "media-playback-start", 18, GTK_ICON_LOOKUP_USE_BUILTIN, &error);
-	pix_stop = gtk_icon_theme_load_icon(icTheme, "media-playback-start", 18, GTK_ICON_LOOKUP_USE_BUILTIN, &error);
-
 
 	/*
 	 * setup the file list treeview
