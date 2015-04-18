@@ -7,6 +7,7 @@
 #include <string.h>
 #include <glib.h>
 #include <glib/gi18n.h>
+#include <assert.h>
 
 #include "math_util.h"
 #include "str_convert.h"
@@ -14,6 +15,17 @@
 #include "prefs_dlg.h"
 #include "mpeg_file.h"
 
+
+static int vfieldsmeta[] = {
+	ID3FID_TITLE, // TIT2
+	ID3FID_LEADARTIST, // TPE1
+	ID3FID_ALBUM, // TALB
+	ID3FID_YEAR, // TYER
+	ID3FID_CONTENTTYPE, // TCON
+
+	ID3FID_TRACKNUM,	// TRCK
+	ID3FID_COMMENT,	// COMM
+};
 
 /*** private functions dealing with MPEG headers ****************************/
 
@@ -69,7 +81,6 @@ static char *lookup_channel_mode(gint id)
 
 	return modes[id];
 }
-
 
 /* Reads the first valid mpeg header found in the given file */
 static gboolean read_header(FILE *file, size_t offset, frame_header *header)
@@ -197,24 +208,8 @@ static gboolean read_header(FILE *file, size_t offset, frame_header *header)
 /* Gets the ID3v2 frame id that corresponds to the given field */
 static int frame_id_from_field(int field)
 {
-	switch (field) {
-		case AF_TITLE:
-			return ID3FID_TITLE;		// TIT2
-		case AF_ARTIST:
-			return ID3FID_LEADARTIST;	// TPE1
-		case AF_ALBUM:
-			return ID3FID_ALBUM;		// TALB
-		case AF_YEAR:
-			return ID3FID_YEAR;		// TYER
-		case AF_GENRE:
-			return ID3FID_CONTENTTYPE;	// TCON
-		case AF_TRACK:
-			return ID3FID_TRACKNUM;		// TRCK
-		case AF_COMMENT:
-			return ID3FID_COMMENT;		// COMM
-		default:
-			return ID3FID_NOFRAME;
-	}
+	assert(field >=  AF_TITLE && field <= AF_TRACK);
+	return vfieldsmeta[field];
 }
 
 
@@ -505,59 +500,59 @@ int mpeg_file_write_changes_wrapper(mpeg_file *f)
 
 int mpeg_file_new(mpeg_file **f, const char *filename, gboolean editable)
 {
-	mpeg_file newfile;
 	int v2_disk_size;
 	gboolean res;
-
-	*f = NULL;
+	*f = malloc(sizeof(mpeg_file));
 	
-	newfile.file = fopen(filename, (editable ? "r+" : "r"));
-	if (!newfile.file)
+	(*f)->file = fopen(filename, (editable ? "r+" : "r"));
+	if (!(*f)->file) {
+		free(*f);
+		*f = NULL;
 		return AF_ERR_FILE;
+	}
 
 	/* read v1 tag */
-	newfile.v1_tag = ID3Tag_New();
-	ID3Tag_LinkWithFlags(newfile.v1_tag, filename, ID3TT_ID3V1);
-	newfile.has_v1_tag = ID3Tag_HasTagType(newfile.v1_tag, ID3TT_ID3V1);
-	newfile.orig_v1_tag = newfile.has_v1_tag;
+	(*f)->v1_tag = ID3Tag_New();
+	ID3Tag_LinkWithFlags((*f)->v1_tag, filename, ID3TT_ID3V1);
+	(*f)->has_v1_tag = ID3Tag_HasTagType((*f)->v1_tag, ID3TT_ID3V1);
+	(*f)->orig_v1_tag = (*f)->has_v1_tag;
 
 	/* read v2 tag */
-	newfile.v2_tag = ID3Tag_New();
-	v2_disk_size = ID3Tag_LinkWithFlags(newfile.v2_tag, filename, ID3TT_ID3V2);
-	newfile.has_v2_tag = ID3Tag_HasTagType(newfile.v2_tag, ID3TT_ID3V2);;
-	newfile.orig_v2_tag = newfile.has_v2_tag;
+	(*f)->v2_tag = ID3Tag_New();
+	v2_disk_size = ID3Tag_LinkWithFlags((*f)->v2_tag, filename, ID3TT_ID3V2);
+	(*f)->has_v2_tag = ID3Tag_HasTagType((*f)->v2_tag, ID3TT_ID3V2);;
+	(*f)->orig_v2_tag = (*f)->has_v2_tag;
 
 	/* read 1st frame header */
-	res = read_header(newfile.file, v2_disk_size, &newfile.header);
-	fclose(newfile.file);
-	newfile.file = NULL;
+	res = read_header((*f)->file, v2_disk_size, &(*f)->header);
+	fclose((*f)->file);
+	(*f)->file = NULL;
 	if (!res) {
-		ID3Tag_Delete(newfile.v1_tag);
-		ID3Tag_Delete(newfile.v2_tag);
+		ID3Tag_Delete((*f)->v1_tag);
+		ID3Tag_Delete((*f)->v2_tag);
+		free(*f);
+		*f = NULL;
 		return AF_ERR_FORMAT;
 	}
 
 
-	newfile.type = AF_MPEG;
-	newfile.name = strdup(filename);
-	newfile.editable = editable;
-	newfile.changed = FALSE;
+	(*f)->type = AF_MPEG;
+	(*f)->name = strdup(filename);
+	(*f)->editable = editable;
+	(*f)->changed = FALSE;
 
-	newfile.delete = (af_delete_func) mpeg_file_delete;
-	newfile.get_desc = (af_get_desc_func) mpeg_file_get_desc;
-	newfile.get_info = (af_get_info_func) mpeg_file_get_info;
-	newfile.has_tag = (af_has_tag_func) mpeg_file_has_tag;
-	newfile.create_tag = (af_create_tag_func) mpeg_file_create_tag;
-	newfile.remove_tag = (af_remove_tag_func) mpeg_file_remove_tag;
-	newfile.write_changes = (af_write_changes_func) mpeg_file_write_changes_wrapper;
-	newfile.set_field = (af_set_field_func) mpeg_file_set_field;
-	newfile.get_field = (af_get_field_func) mpeg_file_get_field;
-	newfile.dump = (af_dump_func) mpeg_file_dump;
-	newfile.edit_load = (af_edit_load_func) mpeg_file_edit_load;
-	newfile.edit_unload = (af_edit_unload_func) mpeg_file_edit_unload;
-
-	*f = malloc(sizeof(mpeg_file));
-	memcpy(*f, &newfile, sizeof(mpeg_file));
+	(*f)->delete = (af_delete_func) mpeg_file_delete;
+	(*f)->get_desc = (af_get_desc_func) mpeg_file_get_desc;
+	(*f)->get_info = (af_get_info_func) mpeg_file_get_info;
+	(*f)->has_tag = (af_has_tag_func) mpeg_file_has_tag;
+	(*f)->create_tag = (af_create_tag_func) mpeg_file_create_tag;
+	(*f)->remove_tag = (af_remove_tag_func) mpeg_file_remove_tag;
+	(*f)->write_changes = (af_write_changes_func) mpeg_file_write_changes_wrapper;
+	(*f)->set_field = (af_set_field_func) mpeg_file_set_field;
+	(*f)->get_field = (af_get_field_func) mpeg_file_get_field;
+	(*f)->dump = (af_dump_func) mpeg_file_dump;
+	(*f)->edit_load = (af_edit_load_func) mpeg_file_edit_load;
+	(*f)->edit_unload = (af_edit_unload_func) mpeg_file_edit_unload;
 
 	return AF_OK;
 }
@@ -710,8 +705,8 @@ void mpeg_file_dump(mpeg_file *f)
 	printf("\nFile type: MPEG Audio\n");
 
 	printf("\nFirst frame found at 0x%08X (header: 0x%02X%02X%02X%02X):\n",
-	       f->header.offset, f->header.raw[0], f->header.raw[1], 
-	       f->header.raw[2], f->header.raw[3]);
+	       (unsigned int) f->header.offset, (unsigned int) f->header.raw[0], (unsigned int) f->header.raw[1], 
+	       (unsigned int) f->header.raw[2], (unsigned int) f->header.raw[3]);
 	printf("MPEG type   : Version %d.%d, Layer %d\n"
 	       "Bit rate    : %d kbps\n"
 	       "Sample rate : %d Hz\n"

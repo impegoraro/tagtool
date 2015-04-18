@@ -8,11 +8,25 @@
 #include <glib/gi18n.h>
 #include <vorbis/codec.h>
 #include <vorbis/vorbisfile.h>
+#include <assert.h>
 
 #include "vcedit.h"
 #include "str_util.h"
 #include "vorbis_file.h"
 
+
+static char* vfieldsmeta[] = {
+	"title",
+	"artist",
+	"album",
+	"date",
+	"genre",
+	/* XXX - "comment" is not part of the standard field names, but it's 
+	   what Winamp uses.  XMMS is horribly broken uses "" (empty 
+	   name).  Using "description" might be better */
+	"comment",
+	"tracknumber"
+};
 
 /*** private functions ******************************************************/
 
@@ -114,31 +128,10 @@ static void vorbis_comment_to_table(vorbis_comment *vc, GHashTable *table)
 	}
 }
 
-
 static char *get_field_name(int field_id)
 {
-	switch (field_id) {
-		case AF_TITLE:
-			return "title";
-		case AF_ARTIST:
-			return "artist";
-		case AF_ALBUM:
-			return "album";
-		case AF_YEAR:
-			return "date";
-		case AF_GENRE:
-			return "genre";
-		case AF_COMMENT:
-			/* XXX
-			   "comment" is not part of the standard field names, but it's 
-			   what Winamp uses.  XMMS is horribly broken uses "" (empty 
-			   name).  Using "description" might be better */
-			return "comment";
-		case AF_TRACK:
-			return "tracknumber";
-		default:
-			return NULL;
-	}
+	assert(field_id >=  AF_TITLE && field_id <= AF_TRACK);
+	return vfieldsmeta[field_id];
 }
 
 
@@ -150,46 +143,44 @@ static char *get_field_name(int field_id)
 
 int vorbis_file_new(vorbis_file **f, const char *filename, gboolean editable)
 {
-	vorbis_file newfile;
-	int res;
+	*f = malloc(sizeof(vorbis_file));
 
-	*f = NULL;
-
-	newfile.file = fopen(filename, "r");
-	if (!newfile.file)
+	(*f)->file = fopen(filename, "r");
+	if (!(*f)->file) {
+		free(*f);
+		*f = NULL;
 		return AF_ERR_FILE;
+	}
 
-	res = ov_open(newfile.file, &newfile.ov, NULL, 0);
-	if (res < 0) {
-		fclose(newfile.file);
+	if (ov_open((*f)->file, &(*f)->ov, NULL, 0) < 0) {
+		fclose((*f)->file);
+		free(*f);
+		*f = NULL;
 		return AF_ERR_FORMAT;
 	}
 
-	newfile.comments = g_hash_table_new(g_str_hash, g_str_equal);
-	vorbis_comment_to_table(ov_comment(&newfile.ov, -1), newfile.comments);
+	(*f)->comments = g_hash_table_new(g_str_hash, g_str_equal);
+	vorbis_comment_to_table(ov_comment(&(*f)->ov, -1), (*f)->comments);
 
 
-	newfile.type = AF_VORBIS;
-	newfile.name = strdup(filename);
+	(*f)->type = AF_VORBIS;
+	(*f)->name = strdup(filename);
 	/* XXX - editable flag is meaningless, write will fail if dir is read-only */
-	newfile.editable = editable;
-	newfile.changed = FALSE;
+	(*f)->editable = editable;
+	(*f)->changed = FALSE;
 
-	newfile.delete = (af_delete_func) vorbis_file_delete;
-	newfile.get_desc = (af_get_desc_func) vorbis_file_get_desc;
-	newfile.get_info = (af_get_info_func) vorbis_file_get_info;
-	newfile.has_tag = (af_has_tag_func) vorbis_file_has_tag;
-	newfile.create_tag = (af_create_tag_func) vorbis_file_create_tag;
-	newfile.remove_tag = (af_remove_tag_func) vorbis_file_remove_tag;
-	newfile.write_changes = (af_write_changes_func) vorbis_file_write_changes;
-	newfile.set_field = (af_set_field_func) vorbis_file_set_field;
-	newfile.get_field = (af_get_field_func) vorbis_file_get_field;
-	newfile.dump = (af_dump_func) vorbis_file_dump;
-	newfile.edit_load = (af_edit_load_func) vorbis_file_edit_load;
-	newfile.edit_unload = (af_edit_unload_func) vorbis_file_edit_unload;
-
-	*f = malloc(sizeof(vorbis_file));
-	memcpy(*f, &newfile, sizeof(vorbis_file));
+	(*f)->delete = (af_delete_func) vorbis_file_delete;
+	(*f)->get_desc = (af_get_desc_func) vorbis_file_get_desc;
+	(*f)->get_info = (af_get_info_func) vorbis_file_get_info;
+	(*f)->has_tag = (af_has_tag_func) vorbis_file_has_tag;
+	(*f)->create_tag = (af_create_tag_func) vorbis_file_create_tag;
+	(*f)->remove_tag = (af_remove_tag_func) vorbis_file_remove_tag;
+	(*f)->write_changes = (af_write_changes_func) vorbis_file_write_changes;
+	(*f)->set_field = (af_set_field_func) vorbis_file_set_field;
+	(*f)->get_field = (af_get_field_func) vorbis_file_get_field;
+	(*f)->dump = (af_dump_func) vorbis_file_dump;
+	(*f)->edit_load = (af_edit_load_func) vorbis_file_edit_load;
+	(*f)->edit_unload = (af_edit_unload_func) vorbis_file_edit_unload;
 
 	return AF_OK;
 }
