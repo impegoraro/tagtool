@@ -725,19 +725,19 @@ void tt_init(GtkBuilder *builder)
 	g_signal_connect(gtk_tree_view_get_selection(GTK_TREE_VIEW(gtk_builder_get_object(builder, "tv_files"))),
 			 "changed", G_CALLBACK(cb_file_selection_changed), NULL);
 
-
+	//FIXME: Fix colors gtk > 3.16
 	/*
 	 * set the title colors
 	 */
-	GdkRGBA rbga;
-	GtkWidget *w = GTK_WIDGET(gtk_builder_get_object(builder, "lab_tag_title"));
-	GtkStyleContext *context = gtk_widget_get_style_context(w);
+	//GdkRGBA rbga;
+	//GtkWidget *w = GTK_WIDGET(gtk_builder_get_object(builder, "lab_tag_title"));
+	//GtkStyleContext *context = gtk_widget_get_style_context(w);
 	
-	gtk_style_context_get_background_color(context, GTK_STATE_FLAG_SELECTED, &rbga);
-	gtk_widget_override_background_color(w, GTK_STATE_FLAG_NORMAL, &rbga);
+	//gtk_style_context_get_background_color(context, GTK_STATE_FLAG_SELECTED, &rbga);
+	//gtk_widget_override_background_color(w, GTK_STATE_FLAG_NORMAL, &rbga);
 
-	gtk_style_context_get_color(context, GTK_STATE_FLAG_SELECTED, &rbga);
-	gtk_widget_override_color(w, GTK_STATE_FLAG_NORMAL, &rbga);	
+	//gtk_style_context_get_color(context, GTK_STATE_FLAG_SELECTED, &rbga);
+	//gtk_widget_override_color(w, GTK_STATE_FLAG_NORMAL, &rbga);
 
 	/*
 	 * get the preference values, or set them to defaults

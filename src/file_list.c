@@ -49,6 +49,10 @@ static GtkMenuItem *m_ctx_manual_rename = NULL;
 static GtkMenuItem *m_ctx_delete = NULL;
 static GtkMenuItem *m_ctx_unselect_all = NULL;
 
+/*Help labels */
+static GtkLabel *l_help_title;
+static GtkLabel *l_help_secondary;
+
 /* icons */
 static GdkPixbuf *pix_file;
 static GdkPixbuf *pix_folder;
@@ -116,17 +120,27 @@ static void update_file_count()
 
 	str = g_string_sized_new(60);
 
-	if (total == 0)
+	if (total == 0) {
 		g_string_assign(str, _("No files found"));
-	else if (total == 1)
+	} else if (total == 1)
 		g_string_assign(str, _("1 file found"));
 	else
 		g_string_printf(str, _("%i files found"), total);
 
-	if (selected == 1)
+	if (selected == 1) {
 		g_string_append(str, _(" (1 selected)"));
-	else if (selected > 1)
+	} else if (selected > 1) {
 		g_string_append_printf(str, _(" (%i selected)"), selected);
+  		GString *str2;
+	  	str2 = g_string_sized_new(60);
+  		g_string_append_printf(str2, _("<span size='xx-large'>%i files selected</span>"), selected);
+  		gtk_label_set_markup(l_help_title, str2->str);
+	  	gtk_label_set_markup(l_help_secondary, _("<span size='small'>use the next tab to edit multiple files.</span>"));
+  		g_string_free(str2, TRUE);
+	} else {
+		gtk_label_set_markup(l_help_title, _("<span size='xx-large'>No file selected</span>"));
+	  	gtk_label_set_markup(l_help_secondary, _("<span size='small'>try selecting a file from the list.</span>"));
+  	}
 
 	gtk_label_set_text(lab_file_count, str->str);
 
@@ -140,17 +154,16 @@ static void update_tree_view(const GEList *file_list)
 	gchar *aux;
 	GtkTreeIter tree_iter;
 	GList *i;
-	GtkStyleContext *style;
-	GdkRGBA outColor;
-	gchar *strColor;
+	//GtkStyleContext *style;
 
-	style = gtk_widget_get_style_context(GTK_WIDGET(tv_files));
-	if (style == NULL)
-		g_error("Couldn't get style context for widget tv_files");
-	
-	gtk_style_context_get_background_color(style, GTK_STATE_FLAG_INSENSITIVE, &outColor);
-	strColor = gdk_rgba_to_string(&outColor);
-	
+  	//style = gtk_widget_get_style_context(GTK_WIDGET(tv_files));
+	//if (style == NULL)
+	///	g_error("Couldn't get style context for widget tv_files");
+
+	//gtk_style_context_get_background_color(style, GTK_STATE_FLAG_INSENSITIVE, &outColor);
+	//gtk_style_context_get_property(style, GTK_STYLE_PROPERTY_BACKGROUND_COLOR, GTK_STATE_FLAG_INSENSITIVE, &value);
+	//strColor = gdk_rgba_to_string(&outColor);
+
 
 	gtk_tree_view_set_model(tv_files, NULL);
 
@@ -168,7 +181,7 @@ static void update_tree_view(const GEList *file_list)
 			gtk_list_store_set(store_files, &tree_iter, 
 					   0, pix_folder,
 					   1, aux,
-					   2, strColor, //&style->bg[GTK_STATE_NORMAL]
+					   2, NULL,
 					   3, TRUE,
 					   4, NULL,
 					   5, FALSE,
@@ -192,7 +205,6 @@ static void update_tree_view(const GEList *file_list)
 		last_file = i->data;
 		i = g_list_next(i);
 	}
-	g_free(strColor);
 	gtk_tree_view_set_model(tv_files, GTK_TREE_MODEL(store_files));
 
 	update_file_count();
@@ -656,7 +668,8 @@ void fl_init(GtkBuilder *builder)
 	m_ctx_manual_rename = GTK_MENU_ITEM(gtk_builder_get_object(builder, "m_ctx_manual_rename"));
 	m_ctx_delete = GTK_MENU_ITEM(gtk_builder_get_object(builder, "m_ctx_delete"));
 	m_ctx_unselect_all = GTK_MENU_ITEM(gtk_builder_get_object(builder, "m_ctx_unselect_all"));
-
+	l_help_title = GTK_LABEL(gtk_builder_get_object(builder, "l_help_title"));
+  	l_help_secondary = GTK_LABEL(gtk_builder_get_object(builder, "l_help_secondary"));
 	/* 
 	 * create the file chooser
 	 */

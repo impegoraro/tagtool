@@ -408,6 +408,7 @@ void rt_init(GtkBuilder *builder)
 			 "changed", G_CALLBACK(cb_file_selection_changed), NULL);
 
 
+  	// FIXME colors for gtk > 3.16
 	/*
 	 * set the title colors
 	 */

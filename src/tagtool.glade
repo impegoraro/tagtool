@@ -82,9 +82,9 @@
                       <object class="GtkLabel" id="label38">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="halign">start</property>
                         <property name="label" translatable="yes">&lt;b&gt;Space conversion&lt;/b&gt;</property>
                         <property name="use_markup">True</property>
-                        <property name="xalign">0</property>
                       </object>
                       <packing>
                         <property name="left_attach">0</property>
@@ -99,7 +99,6 @@
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
                         <property name="margin_left">10</property>
-                        <property name="xalign">0</property>
                         <property name="active">True</property>
                         <property name="draw_indicator">True</property>
                         <signal name="toggled" handler="cb_t_conv_space_none_toggled" swapped="no"/>
@@ -116,7 +115,6 @@
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
                         <property name="margin_left">10</property>
-                        <property name="xalign">0</property>
                         <property name="active">True</property>
                         <property name="draw_indicator">True</property>
                         <property name="group">rb_t_conv_space_none</property>
@@ -159,9 +157,9 @@
                       <object class="GtkLabel" id="label39">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="halign">start</property>
                         <property name="label" translatable="yes">&lt;b&gt;Case conversion&lt;/b&gt;</property>
                         <property name="use_markup">True</property>
-                        <property name="xalign">0</property>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -227,9 +225,9 @@
                       <object class="GtkLabel" id="label24">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="halign">start</property>
                         <property name="label" translatable="yes">&lt;b&gt;Space conversion&lt;/b&gt;</property>
                         <property name="use_markup">True</property>
-                        <property name="xalign">0</property>
                       </object>
                       <packing>
                         <property name="left_attach">0</property>
@@ -243,7 +241,6 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
-                        <property name="xalign">0</property>
                         <property name="active">True</property>
                         <property name="draw_indicator">True</property>
                         <signal name="toggled" handler="cb_r_conv_space_none_toggled" swapped="no"/>
@@ -261,7 +258,6 @@
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
                         <property name="hexpand">True</property>
-                        <property name="xalign">0</property>
                         <property name="draw_indicator">True</property>
                         <property name="group">rb_r_conv_space_none</property>
                       </object>
@@ -299,9 +295,9 @@
                       <object class="GtkLabel" id="label45">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="halign">start</property>
                         <property name="label" translatable="yes">&lt;b&gt;Case conversion&lt;/b&gt;</property>
                         <property name="use_markup">True</property>
-                        <property name="xalign">0</property>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -346,9 +342,9 @@
                       <object class="GtkLabel" id="label46">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="halign">start</property>
                         <property name="label" translatable="yes">&lt;b&gt;Invalid File Name Characters&lt;/b&gt;</property>
                         <property name="use_markup">True</property>
-                        <property name="xalign">0</property>
                       </object>
                       <packing>
                         <property name="left_attach">0</property>
@@ -362,7 +358,6 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
-                        <property name="xalign">0</property>
                         <property name="active">True</property>
                         <property name="draw_indicator">True</property>
                         <signal name="toggled" handler="cb_r_conv_space_none_toggled" swapped="no"/>
@@ -380,7 +375,6 @@
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
                         <property name="hexpand">True</property>
-                        <property name="xalign">0</property>
                         <property name="active">True</property>
                         <property name="draw_indicator">True</property>
                         <property name="group">rb_r_invalid_omit</property>
@@ -661,9 +655,9 @@
               <object class="GtkLabel" id="label47">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="halign">start</property>
                 <property name="label" translatable="yes">&lt;b&gt;When tagging multiple files&lt;/b&gt;</property>
                 <property name="use_markup">True</property>
-                <property name="xalign">0</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -681,9 +675,9 @@
                   <object class="GtkLabel" id="label48">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="halign">start</property>
                     <property name="margin_left">4</property>
                     <property name="label" translatable="yes">ID3 tag version to create:</property>
-                    <property name="xalign">0</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -698,7 +692,6 @@
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
                     <property name="margin_left">10</property>
-                    <property name="xalign">0</property>
                     <property name="active">True</property>
                     <property name="draw_indicator">True</property>
                   </object>
@@ -715,7 +708,6 @@
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
                     <property name="margin_left">10</property>
-                    <property name="xalign">0</property>
                     <property name="active">True</property>
                     <property name="draw_indicator">True</property>
                     <property name="group">rb_ver_v1</property>
@@ -733,7 +725,6 @@
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
                     <property name="margin_left">10</property>
-                    <property name="xalign">0</property>
                     <property name="active">True</property>
                     <property name="draw_indicator">True</property>
                     <property name="group">rb_ver_v1</property>
@@ -751,7 +742,6 @@
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
                     <property name="margin_left">10</property>
-                    <property name="xalign">0</property>
                     <property name="active">True</property>
                     <property name="draw_indicator">True</property>
                     <property name="group">rb_ver_v1</property>
@@ -787,7 +777,6 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="margin_left">10</property>
-                <property name="xalign">0</property>
                 <property name="draw_indicator">True</property>
               </object>
               <packing>
@@ -1277,7 +1266,6 @@
                             <property name="can_focus">False</property>
                             <property name="label" translatable="yes">&lt;b&gt;Scanning...&lt;/b&gt;</property>
                             <property name="use_markup">True</property>
-                            <property name="xalign">0</property>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -1603,47 +1591,49 @@ Files found:</property>
                         <property name="orientation">vertical</property>
                         <property name="spacing">16</property>
                         <child>
-                          <object class="GtkLabel" id="lab_edit_title">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="halign">start</property>
-                            <property name="margin_left">8</property>
-                            <property name="label" translatable="yes">&lt;span size="large" weight="bold"&gt;Edit Tag&lt;/span&gt;</property>
-                            <property name="use_markup">True</property>
-                            <property name="ellipsize">end</property>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">0</property>
-                          </packing>
-                        </child>
-                        <child>
                           <object class="GtkBox" id="w_no_file">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
+                            <property name="valign">center</property>
                             <property name="hexpand">True</property>
                             <property name="vexpand">True</property>
                             <property name="orientation">vertical</property>
                             <child>
-                              <object class="GtkLabel" id="_no_file">
+                              <object class="GtkLabel" id="l_help_title">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
+                                <property name="valign">center</property>
                                 <property name="hexpand">True</property>
                                 <property name="vexpand">True</property>
-                                <property name="label" translatable="yes">Select a file to edit</property>
+                                <property name="label" translatable="yes">&lt;span size="xx-large"&gt;No file selected&lt;/span&gt;</property>
+                                <property name="use_markup">True</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="position">0</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel" id="l_help_secondary">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="valign">center</property>
+                                <property name="label" translatable="yes">&lt;span size="small"&gt;try selecting a file from the list.&lt;/span&gt;</property>
+                                <property name="use_markup">True</property>
                               </object>
                               <packing>
                                 <property name="expand">True</property>
                                 <property name="fill">True</property>
-                                <property name="position">0</property>
+                                <property name="padding">8</property>
+                                <property name="position">1</property>
                               </packing>
                             </child>
                           </object>
                           <packing>
                             <property name="expand">True</property>
                             <property name="fill">True</property>
-                            <property name="position">1</property>
+                            <property name="position">0</property>
                           </packing>
                         </child>
                         <child>
@@ -1651,6 +1641,22 @@ Files found:</property>
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="orientation">vertical</property>
+                            <property name="spacing">16</property>
+                            <child>
+                              <object class="GtkLabel" id="lab_edit_title">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">&lt;span size="large" weight="bold"&gt;Edit Tag&lt;/span&gt;</property>
+                                <property name="use_markup">True</property>
+                                <property name="ellipsize">end</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="position">0</property>
+                              </packing>
+                            </child>
                             <child>
                               <object class="GtkBox" id="box8">
                                 <property name="visible">True</property>
@@ -1661,9 +1667,9 @@ Files found:</property>
                                   <object class="GtkLabel" id="label8">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
+                                    <property name="halign">start</property>
                                     <property name="label" translatable="yes">&lt;b&gt;Tag&lt;/b&gt;</property>
                                     <property name="use_markup">True</property>
-                                    <property name="xalign">0</property>
                                   </object>
                                   <packing>
                                     <property name="expand">False</property>
@@ -1758,8 +1764,7 @@ Files found:</property>
                                                         <property name="label" translatable="yes">_Title:</property>
                                                         <property name="use_underline">True</property>
                                                         <property name="mnemonic_widget">ent_id3v1_title</property>
-                                                        <property name="ellipsize">start</property>
-                                                        <property name="xalign">0</property>
+                                                        <property name="ellipsize">end</property>
                                                       </object>
                                                       <packing>
                                                         <property name="left_attach">0</property>
@@ -1788,7 +1793,6 @@ Files found:</property>
                                                         <property name="use_underline">True</property>
                                                         <property name="mnemonic_widget">ent_id3v1_artist</property>
                                                         <property name="ellipsize">start</property>
-                                                        <property name="xalign">0</property>
                                                       </object>
                                                       <packing>
                                                         <property name="left_attach">0</property>
@@ -1803,7 +1807,6 @@ Files found:</property>
                                                         <property name="use_underline">True</property>
                                                         <property name="mnemonic_widget">ent_id3v1_album</property>
                                                         <property name="ellipsize">start</property>
-                                                        <property name="xalign">0</property>
                                                       </object>
                                                       <packing>
                                                         <property name="left_attach">0</property>
@@ -1818,7 +1821,6 @@ Files found:</property>
                                                         <property name="use_underline">True</property>
                                                         <property name="mnemonic_widget">ent_id3v1_year</property>
                                                         <property name="ellipsize">start</property>
-                                                        <property name="xalign">0</property>
                                                       </object>
                                                       <packing>
                                                         <property name="left_attach">0</property>
@@ -1833,7 +1835,6 @@ Files found:</property>
                                                         <property name="use_underline">True</property>
                                                         <property name="mnemonic_widget">ent_id3v1_comment</property>
                                                         <property name="ellipsize">start</property>
-                                                        <property name="xalign">0</property>
                                                       </object>
                                                       <packing>
                                                         <property name="left_attach">0</property>
@@ -1848,7 +1849,6 @@ Files found:</property>
                                                         <property name="use_underline">True</property>
                                                         <property name="mnemonic_widget">spin_id3v1_track</property>
                                                         <property name="ellipsize">start</property>
-                                                        <property name="xalign">0</property>
                                                       </object>
                                                       <packing>
                                                         <property name="left_attach">0</property>
@@ -1892,7 +1892,6 @@ Files found:</property>
                                                             <property name="can_focus">False</property>
                                                             <property name="label" translatable="yes">_Genre:</property>
                                                             <property name="use_underline">True</property>
-                                                            <property name="xalign">0</property>
                                                           </object>
                                                           <packing>
                                                             <property name="expand">False</property>
@@ -2008,7 +2007,7 @@ Files found:</property>
                                                   <object class="GtkImage" id="img_id3v1_tab">
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">False</property>
-                                                    <property name="xpad">4</property>
+                                                    <property name="margin_left">4</property>
                                                     <property name="stock">gtk-missing-image</property>
                                                   </object>
                                                   <packing>
@@ -2094,7 +2093,6 @@ Files found:</property>
                                                         <property name="use_underline">True</property>
                                                         <property name="mnemonic_widget">ent_id3v2_title</property>
                                                         <property name="ellipsize">start</property>
-                                                        <property name="xalign">0</property>
                                                       </object>
                                                       <packing>
                                                         <property name="left_attach">0</property>
@@ -2123,7 +2121,6 @@ Files found:</property>
                                                         <property name="use_underline">True</property>
                                                         <property name="mnemonic_widget">ent_id3v2_artist</property>
                                                         <property name="ellipsize">start</property>
-                                                        <property name="xalign">0</property>
                                                       </object>
                                                       <packing>
                                                         <property name="left_attach">0</property>
@@ -2138,7 +2135,6 @@ Files found:</property>
                                                         <property name="use_underline">True</property>
                                                         <property name="mnemonic_widget">ent_id3v2_album</property>
                                                         <property name="ellipsize">start</property>
-                                                        <property name="xalign">0</property>
                                                       </object>
                                                       <packing>
                                                         <property name="left_attach">0</property>
@@ -2153,7 +2149,6 @@ Files found:</property>
                                                         <property name="use_underline">True</property>
                                                         <property name="mnemonic_widget">ent_id3v1_year</property>
                                                         <property name="ellipsize">start</property>
-                                                        <property name="xalign">0</property>
                                                       </object>
                                                       <packing>
                                                         <property name="left_attach">0</property>
@@ -2168,8 +2163,6 @@ Files found:</property>
                                                         <property name="use_underline">True</property>
                                                         <property name="mnemonic_widget">text_id3v2_comment</property>
                                                         <property name="ellipsize">start</property>
-                                                        <property name="xalign">0</property>
-                                                        <property name="yalign">0</property>
                                                       </object>
                                                       <packing>
                                                         <property name="left_attach">0</property>
@@ -2184,7 +2177,6 @@ Files found:</property>
                                                         <property name="use_underline">True</property>
                                                         <property name="mnemonic_widget">spin_id3v1_track</property>
                                                         <property name="ellipsize">start</property>
-                                                        <property name="xalign">0</property>
                                                       </object>
                                                       <packing>
                                                         <property name="left_attach">0</property>
@@ -2230,7 +2222,6 @@ Files found:</property>
                                                             <property name="use_underline">True</property>
                                                             <property name="mnemonic_widget">ent_id3v2_genre</property>
                                                             <property name="ellipsize">start</property>
-                                                            <property name="xalign">0</property>
                                                           </object>
                                                           <packing>
                                                             <property name="expand">False</property>
@@ -2553,7 +2544,7 @@ Files found:</property>
                                                   <object class="GtkImage" id="img_id3v2_tab">
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">False</property>
-                                                    <property name="xpad">4</property>
+                                                    <property name="margin_left">4</property>
                                                     <property name="stock">gtk-missing-image</property>
                                                   </object>
                                                   <packing>
@@ -2668,7 +2659,6 @@ Files found:</property>
                                                     <property name="use_underline">True</property>
                                                     <property name="mnemonic_widget">ent_vor_title</property>
                                                     <property name="ellipsize">start</property>
-                                                    <property name="xalign">0</property>
                                                   </object>
                                                   <packing>
                                                     <property name="left_attach">0</property>
@@ -2697,7 +2687,6 @@ Files found:</property>
                                                     <property name="use_underline">True</property>
                                                     <property name="mnemonic_widget">ent_vor_artist</property>
                                                     <property name="ellipsize">start</property>
-                                                    <property name="xalign">0</property>
                                                   </object>
                                                   <packing>
                                                     <property name="left_attach">0</property>
@@ -2712,7 +2701,6 @@ Files found:</property>
                                                     <property name="use_underline">True</property>
                                                     <property name="mnemonic_widget">ent_vor_album</property>
                                                     <property name="ellipsize">start</property>
-                                                    <property name="xalign">0</property>
                                                   </object>
                                                   <packing>
                                                     <property name="left_attach">0</property>
@@ -2727,7 +2715,6 @@ Files found:</property>
                                                     <property name="use_underline">True</property>
                                                     <property name="mnemonic_widget">ent_vor_year</property>
                                                     <property name="ellipsize">start</property>
-                                                    <property name="xalign">0</property>
                                                   </object>
                                                   <packing>
                                                     <property name="left_attach">0</property>
@@ -2742,7 +2729,6 @@ Files found:</property>
                                                     <property name="use_underline">True</property>
                                                     <property name="mnemonic_widget">ent_vor_comment</property>
                                                     <property name="ellipsize">start</property>
-                                                    <property name="xalign">0</property>
                                                   </object>
                                                   <packing>
                                                     <property name="left_attach">0</property>
@@ -2757,7 +2743,6 @@ Files found:</property>
                                                     <property name="use_underline">True</property>
                                                     <property name="mnemonic_widget">ent_vor_track</property>
                                                     <property name="ellipsize">start</property>
-                                                    <property name="xalign">0</property>
                                                   </object>
                                                   <packing>
                                                     <property name="left_attach">0</property>
@@ -2801,7 +2786,6 @@ Files found:</property>
                                                         <property name="can_focus">False</property>
                                                         <property name="label" translatable="yes">_Genre:</property>
                                                         <property name="use_underline">True</property>
-                                                        <property name="xalign">0</property>
                                                       </object>
                                                       <packing>
                                                         <property name="expand">False</property>
@@ -3171,14 +3155,14 @@ Files found:</property>
                                   <packing>
                                     <property name="expand">False</property>
                                     <property name="fill">True</property>
-                                    <property name="position">1</property>
+                                    <property name="position">2</property>
                                   </packing>
                                 </child>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
                                 <property name="fill">True</property>
-                                <property name="position">0</property>
+                                <property name="position">1</property>
                               </packing>
                             </child>
                             <child>
@@ -3208,7 +3192,6 @@ name3:
 name4:
 name5:
 name6:</property>
-                                            <property name="xalign">1</property>
                                           </object>
                                           <packing>
                                             <property name="expand">False</property>
@@ -3226,7 +3209,6 @@ value3
 value4
 value5
 value6</property>
-                                            <property name="xalign">1</property>
                                           </object>
                                           <packing>
                                             <property name="expand">False</property>
@@ -3250,7 +3232,7 @@ value6</property>
                               <packing>
                                 <property name="expand">False</property>
                                 <property name="fill">True</property>
-                                <property name="position">1</property>
+                                <property name="position">2</property>
                               </packing>
                             </child>
                           </object>
@@ -3305,10 +3287,10 @@ value6</property>
                               <object class="GtkLabel" id="label4">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="ypad">2</property>
+                                <property name="halign">start</property>
+                                <property name="margin_bottom">2</property>
                                 <property name="label" translatable="yes">&lt;b&gt;File Name Format&lt;/b&gt;</property>
                                 <property name="use_markup">True</property>
-                                <property name="xalign">0</property>
                               </object>
                               <packing>
                                 <property name="left_attach">0</property>
@@ -3417,10 +3399,10 @@ value6</property>
                               <object class="GtkLabel" id="label28">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="ypad">2</property>
+                                <property name="halign">start</property>
+                                <property name="margin_bottom">2</property>
                                 <property name="label" translatable="yes">&lt;b&gt;Tag&lt;/b&gt;</property>
                                 <property name="use_markup">True</property>
-                                <property name="xalign">0</property>
                               </object>
                               <packing>
                                 <property name="left_attach">0</property>
@@ -3435,7 +3417,6 @@ value6</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
                                 <property name="margin_left">15</property>
-                                <property name="xalign">0</property>
                                 <property name="draw_indicator">True</property>
                                 <signal name="toggled" handler="cb_update_filename" swapped="no"/>
                               </object>
@@ -3464,7 +3445,6 @@ value6</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
-                                <property name="xalign">0</property>
                                 <property name="draw_indicator">True</property>
                                 <signal name="toggled" handler="cb_check_changed" swapped="no"/>
                               </object>
@@ -3479,7 +3459,6 @@ value6</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
-                                <property name="xalign">0</property>
                                 <property name="draw_indicator">True</property>
                                 <signal name="toggled" handler="cb_check_changed" swapped="no"/>
                               </object>
@@ -3494,7 +3473,6 @@ value6</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
-                                <property name="xalign">0</property>
                                 <property name="draw_indicator">True</property>
                                 <signal name="toggled" handler="cb_check_changed" swapped="no"/>
                               </object>
@@ -3509,7 +3487,6 @@ value6</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
-                                <property name="xalign">0</property>
                                 <property name="draw_indicator">True</property>
                                 <signal name="toggled" handler="cb_check_changed" swapped="no"/>
                               </object>
@@ -3524,7 +3501,6 @@ value6</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
-                                <property name="xalign">0</property>
                                 <property name="draw_indicator">True</property>
                                 <signal name="toggled" handler="cb_check_changed" swapped="no"/>
                               </object>
@@ -3540,7 +3516,6 @@ value6</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
-                                <property name="xalign">0</property>
                                 <property name="draw_indicator">True</property>
                                 <signal name="toggled" handler="cb_check_changed" swapped="no"/>
                               </object>
@@ -3556,7 +3531,6 @@ value6</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
-                                <property name="xalign">0</property>
                                 <property name="draw_indicator">True</property>
                                 <signal name="toggled" handler="cb_field_changed" swapped="no"/>
                               </object>
@@ -3649,7 +3623,6 @@ value6</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">False</property>
-                                    <property name="xalign">0</property>
                                     <property name="draw_indicator">True</property>
                                     <signal name="toggled" handler="cb_check_changed" swapped="no"/>
                                   </object>
@@ -3810,9 +3783,9 @@ value6</property>
                               <object class="GtkLabel" id="label5">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
+                                <property name="halign">start</property>
                                 <property name="label" translatable="yes">&lt;b&gt;Tags to clear&lt;/b&gt;</property>
                                 <property name="use_markup">True</property>
-                                <property name="xalign">0</property>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
@@ -3827,7 +3800,6 @@ value6</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
                                 <property name="margin_left">20</property>
-                                <property name="xalign">0</property>
                                 <property name="active">True</property>
                                 <property name="draw_indicator">True</property>
                               </object>
@@ -3844,7 +3816,6 @@ value6</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
                                 <property name="margin_left">20</property>
-                                <property name="xalign">0</property>
                                 <property name="active">True</property>
                                 <property name="draw_indicator">True</property>
                                 <property name="group">rb_clear_all</property>
@@ -3862,7 +3833,6 @@ value6</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
                                 <property name="margin_left">20</property>
-                                <property name="xalign">0</property>
                                 <property name="active">True</property>
                                 <property name="draw_indicator">True</property>
                                 <property name="group">rb_clear_all</property>
@@ -4203,9 +4173,9 @@ value6</property>
                                   <object class="GtkLabel" id="label33">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
+                                    <property name="halign">start</property>
                                     <property name="label" translatable="yes">&lt;b&gt;Create In&lt;/b&gt;</property>
                                     <property name="use_markup">True</property>
-                                    <property name="xalign">0</property>
                                   </object>
                                   <packing>
                                     <property name="expand">False</property>
@@ -4220,7 +4190,6 @@ value6</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">False</property>
                                     <property name="margin_left">15</property>
-                                    <property name="xalign">0</property>
                                     <property name="active">True</property>
                                     <property name="draw_indicator">True</property>
                                   </object>
@@ -4237,7 +4206,6 @@ value6</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">False</property>
                                     <property name="margin_left">15</property>
-                                    <property name="xalign">0</property>
                                     <property name="active">True</property>
                                     <property name="draw_indicator">True</property>
                                     <property name="group">rb_create_dir</property>
@@ -4255,7 +4223,6 @@ value6</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">False</property>
                                     <property name="margin_left">15</property>
-                                    <property name="xalign">0</property>
                                     <property name="active">True</property>
                                     <property name="draw_indicator">True</property>
                                     <property name="group">rb_create_dir</property>
@@ -4416,7 +4383,6 @@ value6</property>
                                         <property name="can_focus">True</property>
                                         <property name="receives_default">False</property>
                                         <property name="margin_left">15</property>
-                                        <property name="xalign">0</property>
                                         <property name="active">True</property>
                                         <property name="draw_indicator">True</property>
                                         <property name="group">rb_sort_name</property>

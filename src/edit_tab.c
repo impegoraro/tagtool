@@ -60,16 +60,17 @@ void et_init(GtkBuilder *builder)
 	lab_info_names = GTK_LABEL(gtk_builder_get_object(builder, "lab_info_names"));
 	lab_info_values = GTK_LABEL(gtk_builder_get_object(builder, "lab_info_values"));
 
+  	// FIXME color for gtk > 3.16
 	/* set the title colors */
-	GdkRGBA rbga;
-	GtkWidget *w = GTK_WIDGET(gtk_builder_get_object(builder, "lab_edit_title"));
-	GtkStyleContext *context = gtk_widget_get_style_context(w);
-	
-	gtk_style_context_get_background_color(context, GTK_STATE_FLAG_SELECTED, &rbga);
-	gtk_widget_override_background_color(w, GTK_STATE_FLAG_NORMAL, &rbga);
+	//GdkRGBA rbga;
+	//GtkWidget *w = GTK_WIDGET(gtk_builder_get_object(builder, "lab_edit_title"));
+	//GtkStyleContext *context = gtk_widget_get_style_context(w);
 
-	gtk_style_context_get_color(context, GTK_STATE_FLAG_SELECTED, &rbga);
-	gtk_widget_override_color(w, GTK_STATE_FLAG_NORMAL, &rbga);	
+	//gtk_style_context_get_background_color(context, GTK_STATE_FLAG_SELECTED, &rbga);
+	//gtk_widget_override_background_color(w, GTK_STATE_FLAG_NORMAL, &rbga);
+
+	//gtk_style_context_get_color(context, GTK_STATE_FLAG_SELECTED, &rbga);
+	//gtk_widget_override_color(w, GTK_STATE_FLAG_NORMAL, &rbga);
 }
 
 
