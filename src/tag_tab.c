@@ -661,7 +661,7 @@ void cb_show_tag_chconv(GtkButton *button, gpointer user_data)
 
 void cb_tag_help(GtkButton *button, gpointer user_data)
 {
-	help_display(HELP_TAG_FORMAT);
+	help_display(GTK_WIDGET(button), HELP_TAG_FORMAT);
 }
 
 static void cb_file_selection_changed(GtkTreeSelection *selection, gpointer data)

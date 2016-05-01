@@ -371,7 +371,7 @@ void cb_show_rename_chconv(GtkButton *button, gpointer user_data)
 
 void cb_rename_help(GtkButton *button, gpointer user_data)
 {
-	help_display(HELP_RENAME_FORMAT);
+	help_display(GTK_WIDGET(button), HELP_RENAME_FORMAT);
 }
 
 static void cb_file_selection_changed(GtkTreeSelection *selection, gpointer data)

@@ -78,24 +78,24 @@ N_("This field describes the desired format of the file name. \n"
 
 
 /* widgets */
-static GtkWindow *dlg_help = NULL;
 static GtkLabel *lab_help = NULL;
+static GtkPopover *p_help = NULL;
 
 
 /*** public functions *******************************************************/
 
-void help_init(GtkBuilder *builder)
+void help_init()
 {
-	dlg_help = GTK_WINDOW(gtk_builder_get_object(builder, "dlg_help"));
-	lab_help = GTK_LABEL(gtk_builder_get_object(builder, "lab_help"));
+	p_help = GTK_POPOVER(gtk_popover_new(NULL));
+  	lab_help = GTK_LABEL(gtk_label_new(NULL));
+  	gtk_container_add(GTK_CONTAINER(p_help), GTK_WIDGET(lab_help));
 }
 
 
-void help_display(int topic)
+void help_display(GtkWidget* parent, int topic)
 {
-	gtk_window_set_title(dlg_help, _(help_titles[topic]));
 	gtk_label_set_text(lab_help, _(help_strings[topic]));
-
-	gtk_widget_show(GTK_WIDGET(dlg_help));
+	gtk_popover_set_relative_to(p_help, parent);
+  	gtk_widget_show_all(GTK_WIDGET(p_help));
 }
 

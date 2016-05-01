@@ -7,9 +7,9 @@ enum {
 };
 
 
-void help_init(GtkBuilder *builder);
+void help_init();
 
-void help_display(int topic);
+void help_display(GtkWidget* parent, int topic);
 
 
 #endif
