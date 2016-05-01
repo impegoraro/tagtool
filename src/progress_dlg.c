@@ -14,9 +14,8 @@
 
 /* widgets */
 static GtkWidget *w_main = NULL;
-static GtkWindow *dlg_progress = NULL;
 static GtkWidget *b_stop = NULL;
-static GtkWidget *b_close = NULL;
+static GtkPaned  *p_mainPaned = NULL;
 static GtkTreeView *tv_progress = NULL;
 static GtkListStore *store_progress = NULL;
 
@@ -24,8 +23,7 @@ static GtkListStore *store_progress = NULL;
 static GdkPixbuf *pix_table[4];
 
 /* prefs */
-static int *width;
-static int *height;
+static int *panedPos;
 
 /* private data */
 static gboolean stop_requested = FALSE;
@@ -67,23 +65,21 @@ void cb_dlg_progress_stop(GtkButton *button, gpointer user_data)
 	stop_requested = TRUE;
 }
 
-void cb_dlg_progress_size_changed(GtkWidget *widget, GtkAllocation *alloc, gpointer data)
+void cb_main_paned_resize(GtkWidget *widget, GdkRectangle *allocation, gpointer user_data)
 {
-	*width = alloc->width;
-	*height = alloc->height;
+	*panedPos = gtk_paned_get_position(p_mainPaned);
 }
 
 
 /* public functions */
 void pd_init(GtkBuilder *builder)
 {
-	gint temp = 0;
+	gint temp = 100;
 
 	/* widgets and icons */
 	w_main = GTK_WIDGET(gtk_builder_get_object(builder, "w_main"));
 	b_stop = GTK_WIDGET(gtk_builder_get_object(builder, "b_stop"));
-	b_close = GTK_WIDGET(gtk_builder_get_object(builder, "b_close"));
-	dlg_progress = GTK_WINDOW(gtk_builder_get_object(builder, "dlg_progress"));
+	p_mainPaned = GTK_PANED(gtk_builder_get_object(builder, "p_mainPaned"));
 	tv_progress = GTK_TREE_VIEW(gtk_builder_get_object(builder, "tv_progress"));
 
 	pix_table[PD_ICON_INFO] = gdk_pixbuf_new_from_file(DATADIR"/info.png", NULL);
@@ -92,16 +88,13 @@ void pd_init(GtkBuilder *builder)
 	pix_table[PD_ICON_WARN] = gdk_pixbuf_new_from_file(DATADIR"/warn.png", NULL);
 
 	/* preferences */
-	width = pref_get_ref("prog:width");
-	height = pref_get_ref("prog:height");
-	if (width == NULL)
-		width = pref_set("prog:width", PREF_INT, &temp);
-	if (height == NULL)
-		height = pref_set("prog:height", PREF_INT, &temp);
+	panedPos = pref_get_ref("prog:panedPos");
+	if (!panedPos)
+		panedPos = pref_set("prog:panedPos", PREF_INT, &temp);
+	if (*panedPos)
+		gtk_paned_set_position(p_mainPaned, *panedPos);
 
-	if (*width && *height)
-		gtk_window_set_default_size(dlg_progress, *width, *height);
-
+  	gtk_widget_hide(b_stop);
 	/* set up the tree view */
 	tree_view_setup();
 }
@@ -110,12 +103,8 @@ void pd_start(const char *title)
 {
 	stop_requested = FALSE;
 
-	gtk_window_set_title(dlg_progress, title ? title : _("Progress"));
 	gtk_widget_show(b_stop);
-	gtk_widget_hide(b_close);
 	gtk_list_store_clear(store_progress);
-
-	gtk_window_present(dlg_progress);
 }
 
 void pd_end()
@@ -124,7 +113,6 @@ void pd_end()
 
 	pd_scroll_to_bottom();
 	gtk_widget_hide(b_stop);
-	gtk_widget_show(b_close);
 }
 
 gboolean pd_stop_requested()

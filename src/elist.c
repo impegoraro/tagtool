@@ -108,7 +108,7 @@ void g_elist_remove_link (GEList *list, GList *llink)
 	if (llink == list->last)
 		list->last = list->last->prev;
 
-	g_list_remove_link(aux, llink);
+	(void)g_list_remove_link(aux, llink);
 
 	list->length--;
 }
@@ -197,7 +197,7 @@ void g_elist_print(GEList *list)
 {
 	GList *iter;
 	for (iter = g_elist_first(list); iter; iter = iter->next)
-		printf("0x%08X\n", (unsigned int)iter->data);
+		printf("0x%08X\n",  (unsigned int)iter->data);
 }
 
 void g_elist_print_str(GEList *list) 

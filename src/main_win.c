@@ -25,12 +25,14 @@ enum {
 
 
 /* widgets */
-static GtkWindow *w_main = NULL;
-static GtkNotebook *nb_main = NULL;
+static GtkWindow   *w_main        = NULL;
+static GtkNotebook *nb_main       = NULL;
+static GtkPaned    *p_innerPaned = NULL;
 
 /* prefs variables */
 static int *width;
 static int *height;
+static int *panedPos;
 
 
 /*** private functions ******************************************************/
@@ -58,6 +60,11 @@ void cb_settings_charconv(GtkWidget *widget, GdkEvent *event)
 void cb_settings_id3prefs(GtkWidget *widget, GdkEvent *event)
 {
 	prefs_display();
+}
+
+void cb_innerPaned_resize(GtkWidget *widget, GdkRectangle *allocation, gpointer user_data)
+{
+	*panedPos = gtk_paned_get_position(p_innerPaned);
 }
 
 void cb_help_contents(GtkWidget *widget, GdkEvent *event)
@@ -135,6 +142,7 @@ void mw_init(GtkBuilder *builder)
 	 */
 	w_main = GTK_WINDOW(gtk_builder_get_object(builder, "w_main"));
 	nb_main = GTK_NOTEBOOK(gtk_builder_get_object(builder, "nb_main"));
+  	p_innerPaned = GTK_PANED(gtk_builder_get_object(builder, "p_innerPaned"));
 
 
 	/*
@@ -155,12 +163,21 @@ void mw_init(GtkBuilder *builder)
 		height = pref_set("mw:height", PREF_INT, &temp);
 	}
 
+  	/* Panel position */
+  	panedPos = pref_get_ref("mw:panedPos");
+  	if(!panedPos) {
+	  	guint temp = 120;
+		panedPos = pref_set("mw:panedPos", PREF_INT, &temp);
+	}
 
 	/*
 	 * initialize the main window
 	 */
 	if (*width && *height)
 		gtk_window_set_default_size(w_main, *width, *height);
+  	if (*panedPos)
+		gtk_paned_set_position(p_innerPaned, *panedPos);
+
 	gtk_widget_show(GTK_WIDGET(w_main));
 }
 
