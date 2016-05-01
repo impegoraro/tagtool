@@ -519,18 +519,19 @@ void pt_init(GtkBuilder *builder)
 			 "changed", G_CALLBACK(cb_file_selection_changed), NULL);
 
 
+  	// FIXME gtk 3.16 color
 	/*
 	 * set the title colors
 	 */
-	GdkRGBA rbga;
-	GtkWidget *w = GTK_WIDGET(gtk_builder_get_object(builder, "lab_playlist_title"));
-	GtkStyleContext *context = gtk_widget_get_style_context(w);
-	
-	gtk_style_context_get_background_color(context, GTK_STATE_FLAG_SELECTED, &rbga);
-	gtk_widget_override_background_color(w, GTK_STATE_FLAG_NORMAL, &rbga);
+	//GdkRGBA rbga;
+	//GtkWidget *w = GTK_WIDGET(gtk_builder_get_object(builder, "lab_playlist_title"));
+	//GtkStyleContext *context = gtk_widget_get_style_context(w);
 
-	gtk_style_context_get_color(context, GTK_STATE_FLAG_SELECTED, &rbga);
-	gtk_widget_override_color(w, GTK_STATE_FLAG_NORMAL, &rbga);	
+	//gtk_style_context_get_background_color(context, GTK_STATE_FLAG_SELECTED, &rbga);
+	//gtk_widget_override_background_color(w, GTK_STATE_FLAG_NORMAL, &rbga);
+
+	//gtk_style_context_get_color(context, GTK_STATE_FLAG_SELECTED, &rbga);
+	//gtk_widget_override_color(w, GTK_STATE_FLAG_NORMAL, &rbga);
 
 	/*
 	 * get the preference values, or set them to defaults
