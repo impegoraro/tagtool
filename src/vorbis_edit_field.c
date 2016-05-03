@@ -22,10 +22,20 @@ static GtkGrid *grid;
 static GtkEntry *entry;
 static GtkButton *b_ok;
 static GtkButton *b_cancel;
-static GtkWidget *widget;  /* dinamically created "field" widget */
+static GtkWidget *widget = NULL;  /* dinamically created "field" widget */
 
 
 /*** private functions ******************************************************/
+gboolean cb_key_press (GtkWidget *widget, GdkEvent *event, gpointer user_data)
+{
+  	if(((GdkEventKey*)event)->keyval == GDK_KEY_KP_Enter || ((GdkEventKey*)event)->keyval == GDK_KEY_Return) {
+	  	gtk_dialog_response(dlg, GTK_RESPONSE_OK);
+	} else if(((GdkEventKey*)event)->keyval == GDK_KEY_Escape) {
+  		gtk_dialog_response(dlg, GTK_RESPONSE_CANCEL);
+	  	return TRUE;
+	}
+  	return FALSE;
+}
 
 static void fill_names_combo(GtkComboBox *combo)
 {
@@ -51,10 +61,18 @@ static void set_ui(int mode, vorbis_file *file, const char *name)
 	const char *title;
 	const char *value;
 
-	widget = gtk_combo_box_text_new();
-	//FIXME: Combo
-	//gtk_combo_set_value_in_list(GTK_COMBO_BOX(widget), FALSE, FALSE);
-	fill_names_combo(GTK_COMBO_BOX(widget));
+  	if(widget == NULL) {
+		widget = gtk_combo_box_text_new_with_entry();
+		fill_names_combo(GTK_COMBO_BOX(widget));
+	  	gtk_grid_attach(grid, widget, 1, 0, 1, 1);
+
+		gtk_dialog_set_default_response(dlg, GTK_RESPONSE_OK);
+
+		gtk_widget_unparent(GTK_WIDGET(b_cancel));
+  		gtk_dialog_add_action_widget(dlg, GTK_WIDGET(b_cancel), GTK_RESPONSE_CANCEL);
+	  	gtk_widget_unparent(GTK_WIDGET(b_ok));
+  		gtk_dialog_add_action_widget(dlg, GTK_WIDGET(b_ok), GTK_RESPONSE_OK);
+  	}
 
 	if (mode == MODE_CREATE) {
 		title = _("New Vorbis Field");
@@ -62,22 +80,20 @@ static void set_ui(int mode, vorbis_file *file, const char *name)
 	else {
 		title = _("Edit Vorbis Field");
 
-		gtk_entry_set_text(GTK_ENTRY(GTK_COMBO_BOX(gtk_bin_get_child(GTK_BIN(widget)))), name);
+		gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(widget))), name);
 
 		vorbis_file_get_field_by_name(file, name, &value);
 		gtk_entry_set_text(entry, value);
 	}
 
 	gtk_window_set_title(GTK_WINDOW(dlg), title);
-	gtk_grid_attach(grid, widget, 1, 0, 1, 1);
-
 	gtk_widget_show_all(GTK_WIDGET(dlg));
 }
 
 static void clear_ui()
 {
 	gtk_entry_set_text(entry, "");
-	gtk_widget_destroy(widget);
+	//gtk_widget_destroy(widget);
 }
 
 

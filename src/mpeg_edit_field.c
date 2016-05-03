@@ -24,6 +24,7 @@ static GtkEntry *entry;
 static GtkButton *b_ok;
 static GtkButton *b_cancel;
 static GtkWidget *widget;  /* dinamically created "field" widget */
+static bool changeParent = true;
 
 /* private data */
 static GHashTable *frame_id_table = NULL;
@@ -79,12 +80,18 @@ static void set_ui(int mode, mpeg_file *file, int tag_version, ID3Frame *frame)
 		title = _("Edit ID3 Field");
 		widget = gtk_label_new(buffer);
 		gtk_label_set_justify(GTK_LABEL(widget), GTK_JUSTIFY_LEFT);
-		gtk_misc_set_alignment(GTK_MISC(widget), 0.0, 0.5);
 
 		mpeg_file_get_frame_text(file, tag_version, frame, &text);
 		gtk_entry_set_text(entry, text);
 	}
+  	if(changeParent) {
+	  	gtk_widget_unparent(GTK_WIDGET(b_cancel));
+	  	gtk_dialog_add_action_widget(dlg, GTK_WIDGET(b_cancel), GTK_RESPONSE_CANCEL);
+	  	gtk_widget_unparent(GTK_WIDGET(b_ok));
+	  	gtk_dialog_add_action_widget(dlg, GTK_WIDGET(b_ok), GTK_RESPONSE_OK);
 
+	  	changeParent = false;
+	}
 	gtk_window_set_title(GTK_WINDOW(dlg), title);
 	gtk_grid_attach(grid, widget, 1, 0, 1, 1);
 
