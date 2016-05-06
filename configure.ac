@@ -1,8 +1,8 @@
 dnl Process this file with autoconf to produce a configure script.
 
 
-AC_INIT(tagtool, 0.14)
-AM_INIT_AUTOMAKE(${PACKAGE_NAME}, ${PACKAGE_VERSION})
+AC_INIT(tagtool, 0.14.1)
+AM_INIT_AUTOMAKE
 
 AC_CONFIG_SRCDIR([src/main.c])
 AM_CONFIG_HEADER(config.h)
@@ -52,9 +52,7 @@ fi;
 
 
 dnl Check for gtk and related libraries
-PKG_CHECK_MODULES(GTK, [glib-2.0 >= 2.12.0
-		       gtk+-3.0 >= 3.10.0
-           libxml-2.0])
+PKG_CHECK_MODULES(GTK, [gtk+-3.0 >= 3.16.0 libxml-2.0])
 dnl		       libglade-2.0 >= 2.6.0])
 AC_SUBST(GTK_CFLAGS)
 AC_SUBST(GTK_LIBS)
