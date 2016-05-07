@@ -9,6 +9,7 @@
 
 /* private data */
 static GtkWindow *dlg_about = NULL;
+static GtkWindow *w_main = NULL;
 
 /* UI callbacks */
 
@@ -77,7 +78,7 @@ void about_display()
 		printf("Error: unable to logo: %s", error->message);
 		g_clear_error(&error);
 	}
-	gtk_show_about_dialog(NULL, "authors", (const gchar **)authors, 
+	gtk_show_about_dialog(w_main, "authors", (const gchar **)authors,
 			"program-name", PACKAGE_NAME,
 			"version", PACKAGE_VERSION,
 			"logo", logo,
@@ -91,5 +92,6 @@ void about_display()
 }
 
 void about_init(GtkBuilder *builder)
-{	
+{
+  	w_main = GTK_WINDOW(gtk_builder_get_object(builder, "w_main"));
 }

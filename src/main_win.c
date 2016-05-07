@@ -26,7 +26,7 @@ enum {
 
 /* widgets */
 static GtkWindow   *w_main        = NULL;
-static GtkNotebook *nb_main       = NULL;
+static GtkStack    *s_mainStack   = NULL;
 static GtkPaned    *p_innerPaned = NULL;
 
 /* prefs variables */
@@ -116,21 +116,19 @@ void mw_init(GtkBuilder *builder)
 	gtk_notebook_set_show_tabs(GTK_NOTEBOOK(gtk_builder_get_object(builder, "nb_vorbis")), FALSE);
 
 	// sets the image of the main notebook pages...
-	GtkImage *img_tab_edit = GTK_IMAGE(gtk_builder_get_object(builder, "img_tab_edit"));
-	gtk_image_set_from_file(img_tab_edit, DATADIR"/tab_edit.png");
-	GtkImage *img_tab_tag = GTK_IMAGE(gtk_builder_get_object(builder, "img_tab_tag"));
-	gtk_image_set_from_file(img_tab_tag, DATADIR"/tab_tag.png");
-	GtkImage *img_tab_clear = GTK_IMAGE(gtk_builder_get_object(builder, "img_tab_clear"));
-	gtk_image_set_from_file(img_tab_clear, DATADIR"/tab_clear.png");
-	GtkImage *img_tab_rename = GTK_IMAGE(gtk_builder_get_object(builder, "img_tab_rename"));
-	gtk_image_set_from_file(img_tab_rename, DATADIR"/tab_rename.png");
-	GtkImage *img_tab_playlist = GTK_IMAGE(gtk_builder_get_object(builder, "img_tab_playlist"));
-	gtk_image_set_from_file(img_tab_playlist, DATADIR"/tab_playlist.png");
+	//GtkImage *img_tab_edit = GTK_IMAGE(gtk_builder_get_object(builder, "img_tab_edit"));
+	//gtk_image_set_from_file(img_tab_edit, DATADIR"/tab_edit.png");
+	//GtkImage *img_tab_tag = GTK_IMAGE(gtk_builder_get_object(builder, "img_tab_tag"));
+	//gtk_image_set_from_file(img_tab_tag, DATADIR"/tab_tag.png");
+	//GtkImage *img_tab_clear = GTK_IMAGE(gtk_builder_get_object(builder, "img_tab_clear"));
+	//gtk_image_set_from_file(img_tab_clear, DATADIR"/tab_clear.png");
+	//GtkImage *img_tab_rename = GTK_IMAGE(gtk_builder_get_object(builder, "img_tab_rename"));
+	//gtk_image_set_from_file(img_tab_rename, DATADIR"/tab_rename.png");
+	//GtkImage *img_tab_playlist = GTK_IMAGE(gtk_builder_get_object(builder, "img_tab_playlist"));
+	//gtk_image_set_from_file(img_tab_playlist, DATADIR"/tab_playlist.png");
 
-
-
-	/* 
-	 * Hide the MP3 and Vorbis menus.  This has to be done here because 
+	/*
+	 * Hide the MP3 and Vorbis menus.  This has to be done here because
 	 * the MP3/Vorbis specific code may not be compiled.
 	 */
 	gtk_widget_hide(GTK_WIDGET(gtk_builder_get_object(builder, "m_id3")));
@@ -141,9 +139,10 @@ void mw_init(GtkBuilder *builder)
 	 * Get the widgets from glade and setup the interface
 	 */
 	w_main = GTK_WINDOW(gtk_builder_get_object(builder, "w_main"));
-	nb_main = GTK_NOTEBOOK(gtk_builder_get_object(builder, "nb_main"));
+	s_mainStack = GTK_STACK(gtk_builder_get_object(builder, "s_mainStack"));
   	p_innerPaned = GTK_PANED(gtk_builder_get_object(builder, "p_innerPaned"));
 
+  	gtk_window_set_titlebar(w_main, GTK_WIDGET(gtk_builder_get_object(builder, "b_mainTitle")));
 
 	/*
 	 * get the preference values, or set them to defaults

@@ -17,7 +17,7 @@
 /* widgets */
 static GtkWidget *w_no_file = NULL;
 static GtkWidget *box_file = NULL;
-static GtkNotebook *nb_edit = NULL;
+static GtkStack  *s_mainStack = NULL;
 static GtkLabel *lab_info_names = NULL;
 static GtkLabel *lab_info_values = NULL;
 static GtkWidget *align_create_tag = NULL;
@@ -29,24 +29,6 @@ static audio_file *af = NULL;
 
 /*** UI callbacks ***********************************************************/
 
-void cb_notebook_switch(GtkNotebook *nb, GtkWidget *page, guint page_num, gpointer user_data)
-{
-	static guint last = 0;
-
-	if (last == 0 && page_num != 0) {
-		/* when leaving edit tab */
-		et_unload_file();
-	}
-	else if (last != 0 && page_num == 0) {
-		/* when entering edit tab */
-		if (fl_count_selected() == 1)
-			et_load_file(fl_get_selected_file());
-	}
-
-	last = page_num;
-}
-
-
 /*** public functions *******************************************************/
 
 void et_init(GtkBuilder *builder)
@@ -54,7 +36,7 @@ void et_init(GtkBuilder *builder)
 	/* widgets and icons */
 	w_no_file = GTK_WIDGET(gtk_builder_get_object(builder, "w_no_file"));
 	box_file = GTK_WIDGET(gtk_builder_get_object(builder, "box_tag_file"));
-	nb_edit = GTK_NOTEBOOK(gtk_builder_get_object(builder, "nb_edit"));
+	s_mainStack = GTK_STACK(gtk_builder_get_object(builder, "s_mainStack"));
 	align_create_tag = GTK_WIDGET(gtk_builder_get_object(builder, "align_create_tag"));
 	align_remove_tag = GTK_WIDGET(gtk_builder_get_object(builder, "align_remove_tag"));
 	lab_info_names = GTK_LABEL(gtk_builder_get_object(builder, "lab_info_names"));
