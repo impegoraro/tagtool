@@ -361,9 +361,9 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-EXTRA_DIST = tagtool.glade preferences.dtd
+EXTRA_DIST = tagtool.glade appmenu.ui preferences.dtd
 resourcedir = $(pkgdatadir)
-resource_DATA = tagtool.glade preferences.dtd
+resource_DATA = tagtool.glade appmenu.ui preferences.dtd
 @ENABLE_MP3_FALSE@mp3_sources = 
 @ENABLE_MP3_TRUE@mp3_sources = mpeg_file.c mpeg_file.h mpeg_edit.c mpeg_edit.h 		\
 @ENABLE_MP3_TRUE@	mpeg_edit_field.c mpeg_edit_field.h aux_id3lib.c

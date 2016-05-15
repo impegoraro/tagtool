@@ -282,14 +282,16 @@ static void rename_file(const char *old_path, const char *new_name, gboolean sho
 	free(dir);
 
 	if (fu_exists(new_path)) {
-		int button;
+		free(new_path);
+	  	return;
+		/*int button;
 		button = message_box(w_main, _("File Exists"), 
 				     _("A file with this name already exists.\nDo you want to overwrite it?"), 
 				     GTK_BUTTONS_YES_NO, GTK_RESPONSE_NO);
 		if (button == GTK_RESPONSE_NO) {
 			free(new_path);
 			return;
-		}
+		}*/
 	}
 
 	res = rename(old_path, new_path);

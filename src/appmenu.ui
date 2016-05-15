@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<interface>
+  <menu id="appmenu">
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">_Character conversions</attribute>
+        <attribute name="action">app.charconvert</attribute>
+        <!-- <attribute name="accel">&lt;Primary&gt;n</attribute> -->
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">_Open directory</attribute>
+        <attribute name="action">app.open</attribute>
+        <attribute name="accel">&lt;Primary&gt;o</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">_Refresh</attribute>
+        <attribute name="action">app.refresh</attribute>
+        <attribute name="accel">&lt;Primary&gt;r</attribute>
+      </item>
+    </section>
+    <section>
+	  <item>
+        <attribute name="label" translatable="yes">_About</attribute>
+        <attribute name="action">app.about</attribute>
+        <attribute name="accel">&lt;Primary&gt;q</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">_Quit</attribute>
+        <attribute name="action">app.quit</attribute>
+        <attribute name="accel">&lt;Primary&gt;q</attribute>
+      </item>
+    </section>
+  </menu>
+</interface>
+

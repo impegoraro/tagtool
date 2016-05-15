@@ -1,7 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 
 
-EXTRA_DIST = tagtool.glade preferences.dtd
+EXTRA_DIST = tagtool.glade appmenu.ui preferences.dtd
 
 bin_PROGRAMS = tagtool
 
@@ -9,7 +9,7 @@ bin_PROGRAMS = tagtool
 ## resource files
 
 resourcedir = $(pkgdatadir)
-resource_DATA = tagtool.glade preferences.dtd
+resource_DATA = tagtool.glade appmenu.ui preferences.dtd
 
 
 ## tagtool binary
