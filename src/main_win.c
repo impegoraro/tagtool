@@ -27,7 +27,8 @@ enum {
 /* widgets */
 static GtkWindow   *w_main        = NULL;
 static GtkStack    *s_mainStack   = NULL;
-static GtkPaned    *p_innerPaned = NULL;
+static GtkPaned    *p_innerPaned  = NULL;
+static GtkLabel    *l_version     = NULL;
 
 /* prefs variables */
 static int *width;
@@ -141,9 +142,14 @@ void mw_init(GtkBuilder *builder)
 	w_main = GTK_WINDOW(gtk_builder_get_object(builder, "w_main"));
 	s_mainStack = GTK_STACK(gtk_builder_get_object(builder, "s_mainStack"));
   	p_innerPaned = GTK_PANED(gtk_builder_get_object(builder, "p_innerPaned"));
+	l_version = GTK_LABEL(gtk_builder_get_object(builder, "l_version"));
 
   	gtk_window_set_titlebar(w_main, GTK_WIDGET(gtk_builder_get_object(builder, "b_mainTitle")));
-
+	{
+	  	char versionStr[100];
+	  	sprintf(versionStr, "<span size=\"small\">%s</span>", PACKAGE_VERSION);
+	  	gtk_label_set_markup(l_version, versionStr);
+	}
 	/*
 	 * get the preference values, or set them to defaults
 	 */

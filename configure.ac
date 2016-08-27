@@ -1,7 +1,7 @@
 dnl Process this file with autoconf to produce a configure script.
 
 
-AC_INIT(tagtool, 0.14.1)
+AC_INIT(tagtool, 0.14.2)
 AM_INIT_AUTOMAKE
 
 AC_CONFIG_SRCDIR([src/main.c])
