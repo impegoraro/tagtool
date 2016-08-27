@@ -132,7 +132,7 @@
   <object class="GtkImage" id="image3">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="icon_name">media-playlist-shuffle-symbolic</property>
+    <property name="icon_name">media-playlist-repeat</property>
   </object>
   <object class="GtkImage" id="img_files_refrehs">
     <property name="visible">True</property>
@@ -781,7 +781,7 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="halign">start</property>
-                                    <property name="label" translatable="yes">&lt;span size="large" weight="bold"&gt;Edit Tag&lt;/span&gt;</property>
+                                    <property name="label" translatable="yes">&lt;span size="x-large" weight="bold"&gt;Edit Tag&lt;/span&gt;</property>
                                     <property name="use_markup">True</property>
                                     <property name="ellipsize">end</property>
                                   </object>
@@ -887,11 +887,10 @@
                                                       <object class="GtkGrid" id="grid4id3v12">
                                                         <property name="visible">True</property>
                                                         <property name="can_focus">False</property>
-                                                        <property name="margin_top">2</property>
                                                         <property name="vexpand">True</property>
                                                         <property name="border_width">8</property>
                                                         <property name="row_spacing">8</property>
-                                                        <property name="column_spacing">4</property>
+                                                        <property name="column_spacing">5</property>
                                                         <child>
                                                           <object class="GtkLabel" id="lab_id3v1_title">
                                                             <property name="visible">True</property>
@@ -988,19 +987,6 @@
                                                           <packing>
                                                             <property name="left_attach">0</property>
                                                             <property name="top_attach">5</property>
-                                                          </packing>
-                                                        </child>
-                                                        <child>
-                                                          <object class="GtkEntry" id="ent_id3v1_artist">
-                                                            <property name="visible">True</property>
-                                                            <property name="can_focus">True</property>
-                                                            <signal name="changed" handler="cb_id3_tag_changed" swapped="no"/>
-                                                            <signal name="key-press-event" handler="cb_id3_tag_changed" swapped="no"/>
-                                                          </object>
-                                                          <packing>
-                                                            <property name="left_attach">1</property>
-                                                            <property name="top_attach">1</property>
-                                                            <property name="width">2</property>
                                                           </packing>
                                                         </child>
                                                         <child>
@@ -1105,6 +1091,20 @@
                                                           <packing>
                                                             <property name="left_attach">1</property>
                                                             <property name="top_attach">5</property>
+                                                            <property name="width">2</property>
+                                                          </packing>
+                                                        </child>
+                                                        <child>
+                                                          <object class="GtkEntry" id="ent_id3v1_artist">
+                                                            <property name="visible">True</property>
+                                                            <property name="can_focus">True</property>
+                                                            <property name="max_length">30</property>
+                                                            <signal name="changed" handler="cb_id3_tag_changed" swapped="no"/>
+                                                            <signal name="key-press-event" handler="cb_id3_keypress" swapped="no"/>
+                                                          </object>
+                                                          <packing>
+                                                            <property name="left_attach">1</property>
+                                                            <property name="top_attach">1</property>
                                                             <property name="width">2</property>
                                                           </packing>
                                                         </child>
@@ -2432,7 +2432,7 @@ value6</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="halign">start</property>
-                                <property name="label" translatable="yes">&lt;span size="large" weight="bold"&gt;Tag Multiple Files&lt;/span&gt;</property>
+                                <property name="label" translatable="yes">&lt;span size="x-large" weight="bold"&gt;Tag Multiple Files&lt;/span&gt;</property>
                                 <property name="use_markup">True</property>
                                 <property name="ellipsize">end</property>
                               </object>
@@ -2935,7 +2935,7 @@ value6</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="halign">start</property>
-                                <property name="label" translatable="yes">&lt;span size="large" weight="bold"&gt;Clear Tags&lt;/span&gt;</property>
+                                <property name="label" translatable="yes">&lt;span size="x-large" weight="bold"&gt;Clear Tags&lt;/span&gt;</property>
                                 <property name="use_markup">True</property>
                                 <property name="ellipsize">end</property>
                               </object>
@@ -3098,7 +3098,7 @@ value6</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="halign">start</property>
-                                <property name="label" translatable="yes">&lt;span size="large" weight="bold"&gt;Rename Multiple Files&lt;/span&gt;</property>
+                                <property name="label" translatable="yes">&lt;span size="x-large" weight="bold"&gt;Rename Multiple Files&lt;/span&gt;</property>
                                 <property name="use_markup">True</property>
                                 <property name="ellipsize">end</property>
                               </object>
@@ -3296,7 +3296,7 @@ value6</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="halign">start</property>
-                                <property name="label" translatable="yes">&lt;span size="large" weight="bold"&gt;Create Playlists&lt;/span&gt;</property>
+                                <property name="label" translatable="yes">&lt;span size="x-large" weight="bold"&gt;Create Playlists&lt;/span&gt;</property>
                                 <property name="use_markup">True</property>
                                 <property name="ellipsize">end</property>
                               </object>
