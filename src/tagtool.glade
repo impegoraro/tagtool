@@ -110,6 +110,9 @@
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
             <property name="use_stock">True</property>
+            <style>
+              <class name="suggested-action"/>
+            </style>
           </object>
           <packing>
             <property name="pack_type">end</property>
@@ -566,8 +569,6 @@
                       <object class="GtkBox" id="box44">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="margin_left">4</property>
-                        <property name="margin_right">4</property>
                         <property name="orientation">vertical</property>
                         <child>
                           <object class="GtkLabel" id="label2">
@@ -630,7 +631,6 @@
                           <object class="GtkScrolledWindow" id="scrolledwindow1">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
-                            <property name="margin_left">4</property>
                             <property name="hexpand">True</property>
                             <property name="vexpand">True</property>
                             <property name="shadow_type">in</property>
@@ -723,9 +723,9 @@
                                   <object class="GtkImage">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="pixel_size">64</property>
+                                    <property name="pixel_size">128</property>
                                     <property name="icon_name">folder-music-symbolic</property>
-                                    <property name="icon_size">3</property>
+                                    <property name="icon_size">6</property>
                                   </object>
                                   <packing>
                                     <property name="expand">False</property>
@@ -1752,6 +1752,9 @@
                                                     <property name="receives_default">True</property>
                                                     <property name="image">img_vor_cleartag1</property>
                                                     <signal name="clicked" handler="cb_id3_remove_tag" swapped="no"/>
+                                                    <style>
+                                                      <class name="destructive-action"/>
+                                                    </style>
                                                   </object>
                                                   <packing>
                                                     <property name="expand">False</property>
@@ -1767,6 +1770,9 @@
                                                     <property name="receives_default">True</property>
                                                     <property name="image">img_vor_savechanges1</property>
                                                     <signal name="clicked" handler="cb_id3_write_changes" swapped="no"/>
+                                                    <style>
+                                                      <class name="suggested-action"/>
+                                                    </style>
                                                   </object>
                                                   <packing>
                                                     <property name="expand">False</property>
@@ -2275,6 +2281,9 @@
                                                     <property name="receives_default">True</property>
                                                     <property name="image">img_vor_cleartag</property>
                                                     <signal name="clicked" handler="cb_vor_clear" swapped="no"/>
+                                                    <style>
+                                                      <class name="destructive-action"/>
+                                                    </style>
                                                   </object>
                                                   <packing>
                                                     <property name="expand">False</property>
@@ -2290,6 +2299,9 @@
                                                     <property name="receives_default">True</property>
                                                     <property name="image">img_vor_savechanges</property>
                                                     <signal name="clicked" handler="cb_vor_write" swapped="no"/>
+                                                    <style>
+                                                      <class name="suggested-action"/>
+                                                    </style>
                                                   </object>
                                                   <packing>
                                                     <property name="expand">False</property>
@@ -2558,8 +2570,8 @@ value6</property>
                               <object class="GtkGrid" id="grid7">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="row_spacing">4</property>
-                                <property name="column_spacing">4</property>
+                                <property name="row_spacing">8</property>
+                                <property name="column_spacing">5</property>
                                 <child>
                                   <object class="GtkLabel" id="label28">
                                     <property name="visible">True</property>
@@ -2581,6 +2593,7 @@ value6</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">False</property>
+                                    <property name="halign">start</property>
                                     <property name="draw_indicator">True</property>
                                     <signal name="toggled" handler="cb_update_filename" swapped="no"/>
                                   </object>
@@ -4396,6 +4409,9 @@ Files found:</property>
             <property name="use_stock">True</property>
             <signal name="clicked" handler="cb_chconv_save" swapped="no"/>
             <signal name="clicked" handler="gtk_widget_hide" object="dlg_char_conv" swapped="yes"/>
+            <style>
+              <class name="suggested-action"/>
+            </style>
           </object>
           <packing>
             <property name="pack_type">end</property>
@@ -4508,6 +4524,9 @@ Files found:</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
             <property name="use_stock">True</property>
+            <style>
+              <class name="suggested-action"/>
+            </style>
           </object>
           <packing>
             <property name="pack_type">end</property>
@@ -4723,6 +4742,9 @@ Files found:</property>
             <property name="use_stock">True</property>
             <signal name="clicked" handler="cb_prefs_save" swapped="no"/>
             <signal name="clicked" handler="gtk_widget_hide" object="dlg_prefs" swapped="yes"/>
+            <style>
+              <class name="suggested-action"/>
+            </style>
           </object>
           <packing>
             <property name="pack_type">end</property>

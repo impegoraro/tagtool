@@ -686,8 +686,19 @@ void fl_init(GtkBuilder *builder)
 	/*
 	 * load file list icons
 	 */
-	pix_file = gdk_pixbuf_new_from_file(DATADIR"/file.png", NULL);
-	pix_folder = gdk_pixbuf_new_from_file(DATADIR"/folder.png", NULL);
+	GtkIconTheme *iconTheme;
+  	iconTheme = gtk_icon_theme_get_default();
+  	pix_file = gtk_icon_theme_load_icon(iconTheme, "folder-music-symbolic", 16, GTK_ICON_LOOKUP_FORCE_SYMBOLIC, NULL);
+  	if(pix_file == NULL) {
+	  	g_print(_("Error loading symbolic file, loading built-in file.\n"));
+	  	pix_file = gdk_pixbuf_new_from_file(DATADIR"/file.png", NULL);
+  	}
+  	pix_folder = gtk_icon_theme_load_icon(iconTheme, "folder-symbolic", 16, GTK_ICON_LOOKUP_FORCE_SYMBOLIC, NULL);
+  	if(pix_folder == NULL) {
+	  	g_print(_("Error loading symbolic file, loading built-in file.\n"));
+	  	pix_folder = gdk_pixbuf_new_from_file(DATADIR"/folder.png", NULL);
+  	}
+	g_object_unref(iconTheme);
 
 	/*
 	 * setup the file list treeview
