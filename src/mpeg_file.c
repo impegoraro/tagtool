@@ -502,7 +502,7 @@ int mpeg_file_new(mpeg_file **f, const char *filename, gboolean editable)
 {
 	int v2_disk_size;
 	gboolean res;
-	*f = malloc(sizeof(mpeg_file));
+	*f = calloc(1, sizeof(mpeg_file));
 	
 	(*f)->file = fopen(filename, (editable ? "r+" : "r"));
 	if (!(*f)->file) {
@@ -516,12 +516,18 @@ int mpeg_file_new(mpeg_file **f, const char *filename, gboolean editable)
 	ID3Tag_LinkWithFlags((*f)->v1_tag, filename, ID3TT_ID3V1);
 	(*f)->has_v1_tag = ID3Tag_HasTagType((*f)->v1_tag, ID3TT_ID3V1);
 	(*f)->orig_v1_tag = (*f)->has_v1_tag;
+	if(ID3Tag_NumFrames((*f)->v1_tag) <= 0) {
+		 (*f)->has_v1_tag = FALSE;
+	}
 
 	/* read v2 tag */
 	(*f)->v2_tag = ID3Tag_New();
 	v2_disk_size = ID3Tag_LinkWithFlags((*f)->v2_tag, filename, ID3TT_ID3V2);
-	(*f)->has_v2_tag = ID3Tag_HasTagType((*f)->v2_tag, ID3TT_ID3V2);;
+ 	(*f)->has_v2_tag = ID3Tag_HasTagType((*f)->v2_tag, ID3TT_ID3V2);;
 	(*f)->orig_v2_tag = (*f)->has_v2_tag;
+	if(ID3Tag_NumFrames((*f)->v2_tag) <= 0) {
+		 (*f)->has_v2_tag = FALSE;
+	}
 
 	/* read 1st frame header */
 	res = read_header((*f)->file, v2_disk_size, &(*f)->header);
@@ -592,7 +598,7 @@ const char *mpeg_file_get_info(mpeg_file *f)
 		   "Channel Mode\n%s\n"
 		   "Copyrighted\n%s\n"
 		   "Original\n%s\n"),
-		 f->header.bit_rate, f->header.sample_rate, f->header.channel_mode, 
+		 f->header.bit_rate, f->header.sample_rate, f->header.channel_mode,
 		 (f->header.copyright ? _("Yes") : _("No")), 
 		 (f->header.original ? _("Yes") : _("No")));
 	return buf;
