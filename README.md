@@ -6,4 +6,4 @@ of the application, in favor of modern design following the GNOME 3 applications
 
 Screenshot
 ----------
-[screenshot](https://raw.githubusercontent.com/impegoraro/tagtool/master/raw/screenshot.png)
+![screenshot](https://raw.githubusercontent.com/impegoraro/tagtool/master/raw/screenshot.png)
