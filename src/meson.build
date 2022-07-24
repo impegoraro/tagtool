@@ -5,18 +5,18 @@ vorbis_dep       = dependency('vorbis', required: false)
 vorbisfiles_dep  = dependency('vorbisfile', required: false)
 ogg_dep          = dependency('ogg', required: false)
 
-id3_dep          = cc.find_library('id3', required: false)
 stdcpp_dep       = cc.find_library('stdc++')
 z_dep            = cc.find_library('z')
 m_dep            = cc.find_library('m')
+id3_dep          = cc.find_library('libid3', required: false)
 
 # checking for id3 header and lib /usr/include/id3.h
-if cc.has_header('id3.h') and  id3_dep.found()
+if cc.has_header('id3.h')
   config_h.set_quoted('ENABLE_MP3', '1')
 endif
 
 if ogg_dep.found() and vorbis_dep.found() and vorbisfiles_dep.found()
-	config_h.set_quoted('ENABLE_VORBIS', '1')
+  config_h.set_quoted('ENABLE_VORBIS', '1')
 endif
 
 sources = files(
