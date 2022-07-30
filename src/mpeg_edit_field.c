@@ -4,6 +4,8 @@
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
 
+#include <id3.h>
+
 #include "gtk_util.h"
 #include "elist.h"
 #include "glib_util.h"
