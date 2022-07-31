@@ -98,11 +98,6 @@ void cb_main_win_size_changed(GtkWidget *widget, GtkAllocation *alloc, gpointer 
 	*height = alloc->height;
 }
 
-void cb_innerPane_files(GtkPaned *widget, GtkScrollType scroll_type, gpointer user_data)
-{
-
-}
-
 /*** public functions *******************************************************/
 
 void mw_init(GtkBuilder *builder)
@@ -187,20 +182,16 @@ void mw_init(GtkBuilder *builder)
 		  gtk_paned_set_position(p_innerPaned, *panedPos);
 
   /* Load css if exists */
-  GtkBox *b_file_list = GTK_BOX(gtk_builder_get_object(builder, "b_file_list"));
   GError *error = NULL;
   GtkCssProvider *themeProvider = gtk_css_provider_new();
   GdkDisplay *display = gdk_display_get_default();
   GdkScreen *screen = gdk_display_get_default_screen (display);
   if (!gtk_css_provider_load_from_path(themeProvider, DATADIR "/basic.css", &error) && error != NULL) {
     g_print("Error loading theme: %s\n", error->message);
+    g_error_free(error);
   }
-  /*GtkStyleContext *context = gtk_widget_get_style_context(GTK_WIDGET(b_file_list));
-  gtk_style_context_add_provider (context,
-                                  GTK_STYLE_PROVIDER(themeProvider),
-                                  GTK_STYLE_PROVIDER_PRIORITY_USER);*/
-  gtk_style_context_add_provider_for_screen (screen, GTK_STYLE_PROVIDER(themeProvider), GTK_STYLE_PROVIDER_PRIORITY_USER);
 
+  gtk_style_context_add_provider_for_screen (screen, GTK_STYLE_PROVIDER(themeProvider), GTK_STYLE_PROVIDER_PRIORITY_USER);
 
 	gtk_widget_show(GTK_WIDGET(w_main));
 }

@@ -1172,7 +1172,6 @@
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="double-buffered">False</property>
-                <signal name="move-handle" handler="cb_innerPane_files" swapped="no"/>
                 <child>
                   <object class="GtkBox" id="b_file_list">
                     <property name="name">paned_files</property>
@@ -1188,11 +1187,13 @@
                           <object class="GtkLabel" id="label2">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
+                            <property name="double-buffered">False</property>
                             <property name="halign">start</property>
-                            <property name="margin-left">10</property>
                             <property name="margin-start">10</property>
-                            <property name="label" translatable="yes">&lt;span size="large" weight="bold"&gt;Files&lt;/span&gt;</property>
-                            <property name="use-markup">True</property>
+                            <property name="label" translatable="yes">Files</property>
+                            <style>
+                              <class name="title"/>
+                            </style>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -1204,8 +1205,8 @@
                           <object class="GtkLabel" id="lab_file_count">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
+                            <property name="double-buffered">False</property>
                             <property name="halign">start</property>
-                            <property name="valign">center</property>
                             <property name="margin-start">6</property>
                             <property name="hexpand">True</property>
                             <property name="label" translatable="yes">n files found (n selected)</property>
@@ -1213,6 +1214,9 @@
                               <attribute name="style" value="italic"/>
                               <attribute name="foreground" value="#9a9a99999696"/>
                             </attributes>
+                            <style>
+                              <class name="dim-label"/>
+                            </style>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -1225,9 +1229,16 @@
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
                             <property name="receives-default">True</property>
+                            <property name="double-buffered">False</property>
+                            <property name="margin-end">4</property>
                             <property name="image">img_files_refrehs</property>
                             <property name="relief">none</property>
                             <signal name="clicked" handler="cb_file_refresh" swapped="no"/>
+                            <style>
+                              <class name="image-button"/>
+                              <class name="flat"/>
+                              <class name="circular"/>
+                            </style>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -1325,8 +1336,11 @@
                                     <property name="visible">True</property>
                                     <property name="can-focus">False</property>
                                     <property name="valign">center</property>
-                                    <property name="label" translatable="yes">&lt;span size="xx-large"&gt;No file selected&lt;/span&gt;</property>
+                                    <property name="label" translatable="yes">No file selected</property>
                                     <property name="use-markup">True</property>
+                                    <style>
+                                      <class name="title"/>
+                                    </style>
                                   </object>
                                   <packing>
                                     <property name="expand">False</property>
@@ -1339,8 +1353,12 @@
                                     <property name="visible">True</property>
                                     <property name="can-focus">False</property>
                                     <property name="valign">center</property>
-                                    <property name="label" translatable="yes">&lt;span size="small"&gt;Select a file from the list.&lt;/span&gt;</property>
+                                    <property name="label" translatable="yes">Select a file from the list</property>
                                     <property name="use-markup">True</property>
+                                    <style>
+                                      <class name="subtitle"/>
+                                      <class name="dim-label"/>
+                                    </style>
                                   </object>
                                   <packing>
                                     <property name="expand">True</property>
@@ -1368,9 +1386,12 @@
                                     <property name="visible">True</property>
                                     <property name="can-focus">False</property>
                                     <property name="halign">start</property>
-                                    <property name="label" translatable="yes">&lt;span size="x-large" weight="bold"&gt;Edit Tag&lt;/span&gt;</property>
+                                    <property name="label" translatable="yes">Edit Tag</property>
                                     <property name="use-markup">True</property>
                                     <property name="ellipsize">end</property>
+                                    <style>
+                                      <class name="title"/>
+                                    </style>
                                   </object>
                                   <packing>
                                     <property name="expand">False</property>
@@ -1389,8 +1410,11 @@
                                         <property name="visible">True</property>
                                         <property name="can-focus">False</property>
                                         <property name="halign">start</property>
-                                        <property name="label" translatable="yes">&lt;b&gt;Tag&lt;/b&gt;</property>
+                                        <property name="label" translatable="yes">Tag</property>
                                         <property name="use-markup">True</property>
+                                        <style>
+                                          <class name="subtitle"/>
+                                        </style>
                                       </object>
                                       <packing>
                                         <property name="expand">False</property>
@@ -1434,6 +1458,10 @@
                                                             <property name="visible">True</property>
                                                             <property name="can-focus">False</property>
                                                             <property name="label" translatable="yes">File has no ID3v1 Tag</property>
+                                                            <style>
+                                                            <class name="subtitle"/>
+                                                            <class name="dim-label"/>
+                                                            </style>
                                                             </object>
                                                             <packing>
                                                             <property name="expand">False</property>
@@ -2473,6 +2501,7 @@
                                                         <property name="can-focus">False</property>
                                                         <property name="label" translatable="yes">_Year:</property>
                                                         <property name="use-underline">True</property>
+                                                        <property name="mnemonic-widget">ent_vor_year</property>
                                                         <property name="ellipsize">start</property>
                                                       </object>
                                                       <packing>
@@ -2500,6 +2529,7 @@
                                                         <property name="can-focus">False</property>
                                                         <property name="label" translatable="yes">_Track:</property>
                                                         <property name="use-underline">True</property>
+                                                        <property name="mnemonic-widget">ent_vor_track</property>
                                                         <property name="ellipsize">start</property>
                                                       </object>
                                                       <packing>
@@ -2559,6 +2589,7 @@
                                                             <property name="margin-left">15</property>
                                                             <property name="label" translatable="yes">_Genre:</property>
                                                             <property name="use-underline">True</property>
+                                                            <property name="mnemonic-widget">combo_vor_genre</property>
                                                           </object>
                                                           <packing>
                                                             <property name="expand">False</property>
@@ -3070,10 +3101,11 @@ value6</property>
                               </packing>
                             </child>
                             <child>
-                              <!-- n-columns=4 n-rows=3 -->
+                              <!-- n-columns=4 n-rows=2 -->
                               <object class="GtkGrid" id="grid6">
                                 <property name="visible">True</property>
                                 <property name="can-focus">False</property>
+                                <property name="margin-bottom">20</property>
                                 <property name="row-spacing">4</property>
                                 <property name="column-spacing">4</property>
                                 <child>
@@ -3096,9 +3128,15 @@ value6</property>
                                     <property name="visible">True</property>
                                     <property name="can-focus">True</property>
                                     <property name="receives-default">True</property>
+                                    <property name="double-buffered">False</property>
                                     <property name="image">img_tag_help</property>
                                     <property name="relief">none</property>
                                     <signal name="clicked" handler="cb_tag_help" swapped="no"/>
+                                    <style>
+                                      <class name="image-button"/>
+                                      <class name="flat"/>
+                                      <class name="circular"/>
+                                    </style>
                                   </object>
                                   <packing>
                                     <property name="left-attach">3</property>
@@ -3124,18 +3162,6 @@ value6</property>
                                     <property name="top-attach">1</property>
                                     <property name="width">3</property>
                                   </packing>
-                                </child>
-                                <child>
-                                  <placeholder/>
-                                </child>
-                                <child>
-                                  <placeholder/>
-                                </child>
-                                <child>
-                                  <placeholder/>
-                                </child>
-                                <child>
-                                  <placeholder/>
                                 </child>
                               </object>
                               <packing>
