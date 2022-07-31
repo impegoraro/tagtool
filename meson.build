@@ -24,7 +24,11 @@ set_defines = [
   ['PACKAGE_TARNAME', tagtool_name],
   ['PACKAGE_VERSION', tagtool_version],
   ['VERSION', tagtool_version],
-  ['GETTEXT_PACKAGE', tagtool_name]
+  ['GETTEXT_PACKAGE', tagtool_name],
+  ['PACKAGE_PREFIX', tagtool_prefix],
+  ['PACKAGE_BIN_DIR', tagtool_bindir],
+  ['PACKAGE_DATA_DIR', tagtool_datadir],
+  ['PACKAGE_LOCALE_DIR', tagtool_localedir]
 ]
 
 foreach define: set_defines

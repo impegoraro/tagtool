@@ -87,15 +87,16 @@ static void setup_tree_view()
 	gtk_tree_view_append_column(tv_files, col);
 
 	renderer = gtk_cell_renderer_pixbuf_new();
-	g_object_set(renderer, "ypad", 0, NULL);
-	g_object_set(renderer, "xpad", 4, NULL);
+	g_object_set(renderer, "ypad", 2, NULL);
+	g_object_set(renderer, "xpad", 6, NULL);
 	gtk_tree_view_column_pack_start(col, renderer, FALSE);
 	gtk_tree_view_column_add_attribute(col, renderer, "pixbuf", 0);
 	gtk_tree_view_column_add_attribute(col, renderer, "cell-background", 2);
 	gtk_tree_view_column_add_attribute(col, renderer, "cell-background-set", 3);
 
 	renderer = gtk_cell_renderer_text_new();
-	g_object_set(renderer, "ypad", 0, NULL);
+	g_object_set(renderer, "ypad", 2, NULL);
+  g_object_set(renderer, "xpad", 8, NULL);
 	gtk_tree_view_column_pack_start(col, renderer, FALSE);
 	gtk_tree_view_column_add_attribute(col, renderer, "text", 1);
 	gtk_tree_view_column_add_attribute(col, renderer, "cell-background", 2);
@@ -156,14 +157,13 @@ static void update_tree_view(const GEList *file_list)
 	GList *i;
 	//GtkStyleContext *style;
 
-  	//style = gtk_widget_get_style_context(GTK_WIDGET(tv_files));
+  //style = gtk_widget_get_style_context(GTK_WIDGET(tv_files));
 	//if (style == NULL)
 	///	g_error("Couldn't get style context for widget tv_files");
 
 	//gtk_style_context_get_background_color(style, GTK_STATE_FLAG_INSENSITIVE, &outColor);
 	//gtk_style_context_get_property(style, GTK_STYLE_PROPERTY_BACKGROUND_COLOR, GTK_STATE_FLAG_INSENSITIVE, &value);
 	//strColor = gdk_rgba_to_string(&outColor);
-
 
 	gtk_tree_view_set_model(tv_files, NULL);
 
@@ -172,12 +172,10 @@ static void update_tree_view(const GEList *file_list)
 	i = g_elist_first(file_list);
 	while (i) {
 		if (!fu_compare_file_paths(last_file, i->data)) {
-			char *dirname = g_dirname(i->data);
-			aux = str_filename_to_utf8(dirname,
-						   _("(dir name could not be converted to UTF8)"));
-			gtk_list_store_append(store_files, &tree_iter);
+			char *dirname = g_path_get_dirname(i->data);
+			aux = str_filename_to_utf8(dirname, _("(dir name could not be converted to UTF8)"));
 
-
+      gtk_list_store_append(store_files, &tree_iter);
 			gtk_list_store_set(store_files, &tree_iter, 
 					   0, pix_folder,
 					   1, aux,
@@ -185,12 +183,13 @@ static void update_tree_view(const GEList *file_list)
 					   3, TRUE,
 					   4, NULL,
 					   5, FALSE,
-					   -1);
+					   -1
+      );
 			g_free(dirname);
 			g_free(aux);
 		}
-		aux = str_filename_to_utf8(fu_last_n_path_components(i->data, 1),
-					   _("(file name could not be converted to UTF8)"));
+
+		aux = str_filename_to_utf8(fu_last_n_path_components(i->data, 1),_("(file name could not be converted to UTF8)"));
 		gtk_list_store_append(store_files, &tree_iter);
 		gtk_list_store_set(store_files, &tree_iter, 
 				   0, pix_file,
@@ -199,7 +198,8 @@ static void update_tree_view(const GEList *file_list)
 				   3, FALSE,
 				   4, i->data,
 				   5, TRUE,
-				   -1);
+				   -1
+    );
 		g_free(aux);
 
 		last_file = i->data;
@@ -277,7 +277,7 @@ static void rename_file(const char *old_path, const char *new_name, gboolean sho
 	char *dir;
 	int res;
 
-	dir = g_dirname(old_path);
+	dir = g_path_get_dirname(old_path);
 	new_path = fu_join_path(dir, new_name);
 	free(dir);
 
@@ -634,14 +634,10 @@ void cb_wd_changed(GObject *obj, gpointer user_data)
 	}
 }
 
-gboolean cb_wd_keypress(GtkWidget *widget, GdkEventKey *event, gpointer user_data)
+//gboolean cb_wd_keypress(GtkWidget *widget, GdkEventKey *event, gpointer user_data)
+void cb_wd_keypress(GtkEntry *entry, gpointer  user_data)
 {
-	if (event->keyval == GDK_Return) {
-		fl_refresh(FALSE);
-		return TRUE;
-	}
-
-	return FALSE;
+	fl_refresh(FALSE);
 }
 
 void cb_toggle_recurse(GtkToggleButton *widget, gpointer data)
@@ -671,8 +667,9 @@ void fl_init(GtkBuilder *builder)
 	m_ctx_delete = GTK_MENU_ITEM(gtk_builder_get_object(builder, "m_ctx_delete"));
 	m_ctx_unselect_all = GTK_MENU_ITEM(gtk_builder_get_object(builder, "m_ctx_unselect_all"));
 	l_help_title = GTK_LABEL(gtk_builder_get_object(builder, "l_help_title"));
-  	l_help_secondary = GTK_LABEL(gtk_builder_get_object(builder, "l_help_secondary"));
-	/* 
+	l_help_secondary = GTK_LABEL(gtk_builder_get_object(builder, "l_help_secondary"));
+
+	/*
 	 * create the file chooser
 	 */
 	dlg_wd_select = GTK_DIALOG(gtk_file_chooser_dialog_new(
@@ -686,28 +683,25 @@ void fl_init(GtkBuilder *builder)
 	/*
 	 * load file list icons
 	 */
-	GtkIconTheme *iconTheme;
-  	iconTheme = gtk_icon_theme_get_default();
-  	pix_file = gtk_icon_theme_load_icon(iconTheme, "folder-music-symbolic", 16, GTK_ICON_LOOKUP_FORCE_SYMBOLIC, NULL);
-  	if(pix_file == NULL) {
-	  	g_print(_("Error loading symbolic file, loading built-in file.\n"));
-	  	pix_file = gdk_pixbuf_new_from_file(DATADIR"/file.png", NULL);
-  	}
-  	pix_folder = gtk_icon_theme_load_icon(iconTheme, "folder-symbolic", 16, GTK_ICON_LOOKUP_FORCE_SYMBOLIC, NULL);
-  	if(pix_folder == NULL) {
-	  	g_print(_("Error loading symbolic file, loading built-in file.\n"));
-	  	pix_folder = gdk_pixbuf_new_from_file(DATADIR"/folder.png", NULL);
-  	}
+	GtkIconTheme *iconTheme = gtk_icon_theme_get_default();
+	pix_file = gtk_icon_theme_load_icon(iconTheme, "folder-music-symbolic", 24, GTK_ICON_LOOKUP_FORCE_SYMBOLIC, NULL);
+	if(pix_file == NULL) {
+  	g_print(_("Error loading symbolic file, loading built-in file.\n"));
+  	pix_file = gdk_pixbuf_new_from_file(DATADIR"/file.png", NULL);
+	}
+	pix_folder = gtk_icon_theme_load_icon(iconTheme, "folder-open-symbolic", 24, GTK_ICON_LOOKUP_FORCE_SYMBOLIC, NULL);
+	if(pix_folder == NULL) {
+  	g_print(_("Error loading symbolic file, loading built-in file.\n"));
+  	pix_folder = gdk_pixbuf_new_from_file(DATADIR"/folder.png", NULL);
+	}
 	g_object_unref(iconTheme);
 
 	/*
 	 * setup the file list treeview
 	 */
 	setup_tree_view();
-	g_signal_connect(gtk_tree_view_get_selection(tv_files), "changed", 
-			 G_CALLBACK(cb_file_selection_changed), NULL);
-	gtk_tree_selection_set_select_function(gtk_tree_view_get_selection(tv_files),
-					       cb_file_selection_changing, NULL, NULL);
+	g_signal_connect(gtk_tree_view_get_selection(tv_files), "changed", G_CALLBACK(cb_file_selection_changed), NULL);
+	gtk_tree_selection_set_select_function(gtk_tree_view_get_selection(tv_files),cb_file_selection_changing, NULL, NULL);
 
 	/*
 	 * get the preference values, or set them to defaults

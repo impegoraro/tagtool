@@ -77,6 +77,6 @@ executable('tagtool', sources, dependencies: [
 	#id3_dep,
 	ogg_dep,
 	vorbis_dep,
-	vorbisfiles_dep
-])
+	vorbisfiles_dep],
+	link_args : '-rdynamic')
 
