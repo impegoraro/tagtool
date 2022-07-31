@@ -66,6 +66,7 @@ configure_file(
   output: 'config.h',
   configuration: config_h
 )
+configuration_inc = include_directories('.')
 
 executable('tagtool', sources, dependencies: [
 	glib_dep,
@@ -78,5 +79,7 @@ executable('tagtool', sources, dependencies: [
 	ogg_dep,
 	vorbis_dep,
 	vorbisfiles_dep],
-	link_args : '-rdynamic')
+	include_directories: configuration_inc,
+	link_args : '-rdynamic'
+)
 

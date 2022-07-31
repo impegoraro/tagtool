@@ -26,9 +26,6 @@ set_defines = [
   ['VERSION', tagtool_version],
   ['GETTEXT_PACKAGE', tagtool_name],
   ['PACKAGE_PREFIX', tagtool_prefix],
-  ['PACKAGE_BIN_DIR', tagtool_bindir],
-  ['PACKAGE_DATA_DIR', tagtool_datadir],
-  ['PACKAGE_LOCALE_DIR', tagtool_localedir]
 ]
 
 foreach define: set_defines

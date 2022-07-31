@@ -1172,8 +1172,6 @@
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="double-buffered">False</property>
-                <property name="position">340</property>
-                <property name="position-set">True</property>
                 <signal name="move-handle" handler="cb_innerPane_files" swapped="no"/>
                 <child>
                   <object class="GtkBox" id="b_file_list">
@@ -1182,39 +1180,44 @@
                     <property name="can-focus">False</property>
                     <property name="orientation">vertical</property>
                     <child>
-                      <object class="GtkLabel" id="label2">
+                      <object class="GtkBox">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
-                        <property name="halign">start</property>
-                        <property name="margin-start">10</property>
                         <property name="margin-top">20</property>
-                        <property name="label" translatable="yes">&lt;span size="large" weight="bold"&gt;Files&lt;/span&gt;</property>
-                        <property name="use-markup">True</property>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkBox" id="box3">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="margin-top">6</property>
                         <child>
-                          <object class="GtkLabel" id="lab_file_count">
+                          <object class="GtkLabel" id="label2">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
                             <property name="halign">start</property>
-                            <property name="margin-start">14</property>
-                            <property name="hexpand">True</property>
-                            <property name="label" translatable="yes">n files found (n selected)</property>
+                            <property name="margin-left">10</property>
+                            <property name="margin-start">10</property>
+                            <property name="label" translatable="yes">&lt;span size="large" weight="bold"&gt;Files&lt;/span&gt;</property>
+                            <property name="use-markup">True</property>
                           </object>
                           <packing>
                             <property name="expand">False</property>
                             <property name="fill">True</property>
                             <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="lab_file_count">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="halign">start</property>
+                            <property name="valign">center</property>
+                            <property name="margin-start">6</property>
+                            <property name="hexpand">True</property>
+                            <property name="label" translatable="yes">n files found (n selected)</property>
+                            <attributes>
+                              <attribute name="style" value="italic"/>
+                              <attribute name="foreground" value="#9a9a99999696"/>
+                            </attributes>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">1</property>
                           </packing>
                         </child>
                         <child>
@@ -1229,14 +1232,14 @@
                           <packing>
                             <property name="expand">False</property>
                             <property name="fill">True</property>
-                            <property name="position">1</property>
+                            <property name="position">2</property>
                           </packing>
                         </child>
                       </object>
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
-                        <property name="position">1</property>
+                        <property name="position">0</property>
                       </packing>
                     </child>
                     <child>
@@ -1336,7 +1339,7 @@
                                     <property name="visible">True</property>
                                     <property name="can-focus">False</property>
                                     <property name="valign">center</property>
-                                    <property name="label" translatable="yes">&lt;span size="small"&gt;Try selecting a file from the list.&lt;/span&gt;</property>
+                                    <property name="label" translatable="yes">&lt;span size="small"&gt;Select a file from the list.&lt;/span&gt;</property>
                                     <property name="use-markup">True</property>
                                   </object>
                                   <packing>
@@ -2942,64 +2945,87 @@
                                   <object class="GtkFrame" id="frame1">
                                     <property name="visible">True</property>
                                     <property name="can-focus">False</property>
-                                    <property name="margin-top">10</property>
                                     <property name="label-xalign">0</property>
-                                    <property name="shadow-type">none</property>
                                     <child>
-                                      <object class="GtkAlignment" id="alignment4">
+                                      <object class="GtkBox">
+                                        <property name="name">frame_code_info</property>
                                         <property name="visible">True</property>
                                         <property name="can-focus">False</property>
-                                        <property name="left-padding">12</property>
+                                        <property name="orientation">vertical</property>
                                         <child>
-                                          <object class="GtkBox" id="box6">
+                                          <object class="GtkLabel">
                                             <property name="visible">True</property>
                                             <property name="can-focus">False</property>
-                                            <property name="spacing">10</property>
+                                            <property name="double-buffered">False</property>
+                                            <property name="halign">start</property>
+                                            <property name="margin-start">4</property>
+                                            <property name="margin-bottom">6</property>
+                                            <property name="label" translatable="yes">&lt;span size="medium" weight="bold" color="grey"&gt;Codec Information&lt;/span&gt;</property>
+                                            <property name="use-markup">True</property>
+                                          </object>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">True</property>
+                                            <property name="position">0</property>
+                                          </packing>
+                                        </child>
+                                        <child>
+                                          <object class="GtkAlignment" id="alignment4">
+                                            <property name="visible">True</property>
+                                            <property name="can-focus">False</property>
+                                            <property name="left-padding">12</property>
                                             <child>
-                                              <object class="GtkLabel" id="lab_info_names">
+                                              <object class="GtkBox" id="box6">
                                                 <property name="visible">True</property>
                                                 <property name="can-focus">False</property>
-                                                <property name="label" translatable="yes">name1:
+                                                <property name="spacing">10</property>
+                                                <child>
+                                                  <object class="GtkLabel" id="lab_info_names">
+                                                    <property name="visible">True</property>
+                                                    <property name="can-focus">False</property>
+                                                    <property name="label" translatable="yes">name1:
 name2:
 name3:
 name4:
 name5:
 name6:</property>
-                                              </object>
-                                              <packing>
-                                                <property name="expand">False</property>
-                                                <property name="fill">True</property>
-                                                <property name="position">0</property>
-                                              </packing>
-                                            </child>
-                                            <child>
-                                              <object class="GtkLabel" id="lab_info_values">
-                                                <property name="visible">True</property>
-                                                <property name="can-focus">False</property>
-                                                <property name="label" translatable="yes">value1
+                                                  </object>
+                                                  <packing>
+                                                    <property name="expand">False</property>
+                                                    <property name="fill">True</property>
+                                                    <property name="position">0</property>
+                                                  </packing>
+                                                </child>
+                                                <child>
+                                                  <object class="GtkLabel" id="lab_info_values">
+                                                    <property name="visible">True</property>
+                                                    <property name="can-focus">False</property>
+                                                    <property name="label" translatable="yes">value1
 value2
 value3
 value4
 value5
 value6</property>
+                                                  </object>
+                                                  <packing>
+                                                    <property name="expand">False</property>
+                                                    <property name="fill">True</property>
+                                                    <property name="position">1</property>
+                                                  </packing>
+                                                </child>
                                               </object>
-                                              <packing>
-                                                <property name="expand">False</property>
-                                                <property name="fill">True</property>
-                                                <property name="position">1</property>
-                                              </packing>
                                             </child>
                                           </object>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">True</property>
+                                            <property name="position">1</property>
+                                          </packing>
                                         </child>
                                       </object>
                                     </child>
-                                    <child type="label">
-                                      <object class="GtkLabel" id="label3">
-                                        <property name="visible">True</property>
-                                        <property name="can-focus">False</property>
-                                        <property name="label" translatable="yes">&lt;b&gt;File Info&lt;/b&gt;</property>
-                                        <property name="use-markup">True</property>
-                                      </object>
+                                    <child type="label_item">
+                                      <placeholder/>
                                     </child>
                                   </object>
                                   <packing>

@@ -122,7 +122,7 @@ static void update_file_count()
 	str = g_string_sized_new(60);
 
 	if (total == 0) {
-		g_string_assign(str, _("No files found"));
+		g_string_assign(str, _("none found"));
 	} else if (total == 1)
 		g_string_assign(str, _("1 file found"));
 	else
