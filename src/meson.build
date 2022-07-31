@@ -68,6 +68,11 @@ configure_file(
 )
 configuration_inc = include_directories('.')
 
+data_files = files('tagtool.glade',
+  'basic.css'
+)
+install_data(data_files, install_dir: tagtool_datadir)
+
 executable('tagtool', sources, dependencies: [
 	glib_dep,
 	gtk_dep,
@@ -80,6 +85,7 @@ executable('tagtool', sources, dependencies: [
 	vorbis_dep,
 	vorbisfiles_dep],
 	include_directories: configuration_inc,
+	install: true,
 	link_args : '-rdynamic'
 )
 

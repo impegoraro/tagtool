@@ -8,6 +8,7 @@ tagtool_name    = meson.project_name()
 tagtool_version = meson.project_version()
 
 tagtool_prefix    = get_option('prefix')
+prefix_datadir    = join_paths(tagtool_prefix, get_option('datadir'))
 tagtool_bindir    = join_paths(tagtool_prefix, get_option('bindir'))
 tagtool_datadir   = join_paths(tagtool_prefix, get_option('datadir'), 'tagtool')
 tagtool_localedir = join_paths(tagtool_prefix, get_option('localedir'), 'tagtool')
@@ -33,4 +34,6 @@ foreach define: set_defines
 endforeach
 
 subdir('src')
+subdir('data')
+subdir('pixmaps')
 

@@ -1187,7 +1187,6 @@
                           <object class="GtkLabel" id="label2">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
-                            <property name="double-buffered">False</property>
                             <property name="halign">start</property>
                             <property name="margin-start">10</property>
                             <property name="label" translatable="yes">Files</property>
@@ -4661,7 +4660,7 @@ Files found:</property>
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="halign">center</property>
-            <property name="homogeneous">True</property>
+            <property name="icon-size">0</property>
             <property name="stack">s_mainStack</property>
           </object>
         </child>
