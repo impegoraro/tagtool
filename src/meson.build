@@ -68,8 +68,10 @@ configure_file(
 )
 configuration_inc = include_directories('.')
 
-data_files = files('tagtool.glade',
-  'basic.css'
+data_files = files(
+  'tagtool.glade',
+  'basic.css',
+  'preferences.dtd'
 )
 install_data(data_files, install_dir: tagtool_datadir)
 
