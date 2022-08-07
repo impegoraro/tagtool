@@ -833,6 +833,11 @@
     <property name="can-focus">False</property>
     <property name="icon-name">media-playlist-repeat-symbolic</property>
   </object>
+  <object class="GtkImage" id="image4">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="icon-name">edit-symbolic</property>
+  </object>
   <object class="GtkImage" id="img_files_refrehs">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
@@ -3187,7 +3192,7 @@ value6</property>
                               <object class="GtkBox" id="box25">
                                 <property name="visible">True</property>
                                 <property name="can-focus">False</property>
-                                <property name="orientation">vertical</property>
+                                <property name="spacing">10</property>
                                 <child>
                                   <object class="GtkLabel" id="label26">
                                     <property name="visible">True</property>
@@ -3203,25 +3208,19 @@ value6</property>
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkAlignment" id="alignment1">
+                                  <object class="GtkButton" id="b_show_tag_chconv">
                                     <property name="visible">True</property>
-                                    <property name="can-focus">False</property>
-                                    <property name="left-padding">15</property>
-                                    <child>
-                                      <object class="GtkButton" id="b_show_tag_chconv">
-                                        <property name="label" translatable="yes">Configure</property>
-                                        <property name="width-request">120</property>
-                                        <property name="visible">True</property>
-                                        <property name="can-focus">True</property>
-                                        <property name="receives-default">True</property>
-                                        <property name="halign">start</property>
-                                        <signal name="clicked" handler="cb_show_tag_chconv" swapped="no"/>
-                                      </object>
-                                    </child>
+                                    <property name="can-focus">True</property>
+                                    <property name="receives-default">True</property>
+                                    <property name="image">image4</property>
+                                    <signal name="clicked" handler="cb_show_tag_chconv" swapped="no"/>
+                                    <style>
+                                      <class name="circular"/>
+                                    </style>
                                   </object>
                                   <packing>
                                     <property name="expand">False</property>
-                                    <property name="fill">True</property>
+                                    <property name="fill">False</property>
                                     <property name="position">1</property>
                                   </packing>
                                 </child>
@@ -4648,11 +4647,11 @@ Files found:</property>
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkButton" id="btn_messages">
+                  <object class="GtkToggleButton" id="btn_messages">
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="receives-default">True</property>
-                    <signal name="clicked" handler="cb_messages_clicked" swapped="no"/>
+                    <signal name="toggled" handler="cb_messages_toggled" swapped="no"/>
                     <child>
                       <object class="GtkBox">
                         <property name="visible">True</property>
@@ -4719,6 +4718,7 @@ Files found:</property>
     <property name="can-focus">False</property>
     <property name="relative-to">btn_messages</property>
     <property name="position">bottom</property>
+    <signal name="closed" handler="cb_messages_popover_closed" swapped="no"/>
     <child>
       <object class="GtkBox">
         <property name="width-request">500</property>

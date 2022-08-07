@@ -71,13 +71,19 @@ void cb_main_paned_resize(GtkWidget *widget, GdkRectangle *allocation, gpointer 
 	*panedPos = gtk_paned_get_position(p_mainPaned);
 }
 
-void cb_messages_clicked(GtkButton *btn, gpointer data)
+void cb_messages_toggled(GtkToggleButton *btn, gpointer data)
 {
   g_assert(message_new_indicator);
   g_assert(message_popover);
 
   gtk_widget_hide(GTK_WIDGET(message_new_indicator));
   gtk_widget_show_all(GTK_WIDGET(message_popover));
+
+}
+
+void cb_messages_popover_closed(GtkPopover *popover, gpointer data)
+{
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(gtk_popover_get_relative_to(popover)), FALSE);
 }
 
 
