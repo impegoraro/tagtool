@@ -1,3 +1,14 @@
 #paned_files, #frame_code_info {
-	background-color: #ffffff;
+    color: grey;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 10;
+    border-color: lightgrey;
+    background-color: white;
+}
+
+#label_codec_info {
+  color: white;
+  background-color: lightgrey;
+  border-radius: 5px;
 }

@@ -79,8 +79,8 @@ static void setup_tree_view()
 	GtkCellRenderer *renderer;
 
 	/* model */
-	store_files = gtk_list_store_new(6, GDK_TYPE_PIXBUF, G_TYPE_STRING, 
-					 G_TYPE_STRING, G_TYPE_BOOLEAN, G_TYPE_POINTER, G_TYPE_BOOLEAN);
+	store_files = gtk_list_store_new(7, GDK_TYPE_PIXBUF, G_TYPE_STRING,
+					 G_TYPE_STRING, G_TYPE_BOOLEAN, G_TYPE_POINTER, G_TYPE_BOOLEAN, G_TYPE_INT);
 
 	/* columns and renderers */
 	col = gtk_tree_view_column_new();
@@ -93,6 +93,7 @@ static void setup_tree_view()
 	gtk_tree_view_column_add_attribute(col, renderer, "pixbuf", 0);
 	gtk_tree_view_column_add_attribute(col, renderer, "cell-background", 2);
 	gtk_tree_view_column_add_attribute(col, renderer, "cell-background-set", 3);
+  gtk_tree_view_column_add_attribute(col, renderer, "weight", 6);
 
 	renderer = gtk_cell_renderer_text_new();
 	g_object_set(renderer, "ypad", 2, NULL);
@@ -102,6 +103,7 @@ static void setup_tree_view()
 	gtk_tree_view_column_add_attribute(col, renderer, "cell-background", 2);
 	gtk_tree_view_column_add_attribute(col, renderer, "cell-background-set", 3);
 	gtk_tree_view_column_add_attribute(col, renderer, "editable", 5);
+  gtk_tree_view_column_add_attribute(col, renderer, "weight", 6);
 
 	g_signal_connect(renderer, "edited", G_CALLBACK(cb_file_edited), NULL);
 	
@@ -122,7 +124,7 @@ static void update_file_count()
 	str = g_string_sized_new(60);
 
 	if (total == 0) {
-		g_string_assign(str, _("n found"));
+		g_string_assign(str, _("none found"));
 	} else if (total == 1)
 		g_string_assign(str, _("1 file found"));
 	else
@@ -183,6 +185,7 @@ static void update_tree_view(const GEList *file_list)
 					   3, TRUE,
 					   4, NULL,
 					   5, FALSE,
+             6, PANGO_WEIGHT_BOLD,
 					   -1
       );
 			g_free(dirname);
@@ -198,6 +201,7 @@ static void update_tree_view(const GEList *file_list)
 				   3, FALSE,
 				   4, i->data,
 				   5, TRUE,
+           6, PANGO_WEIGHT_NORMAL,
 				   -1
     );
 		g_free(aux);

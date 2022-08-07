@@ -1177,22 +1177,24 @@
                     <property name="name">paned_files</property>
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
+                    <property name="margin-start">10</property>
+                    <property name="margin-end">10</property>
+                    <property name="margin-top">10</property>
+                    <property name="margin-bottom">10</property>
                     <property name="orientation">vertical</property>
                     <child>
                       <object class="GtkBox">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
-                        <property name="margin-top">20</property>
+                        <property name="margin-top">2</property>
                         <child>
                           <object class="GtkLabel" id="label2">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
                             <property name="halign">start</property>
                             <property name="margin-start">10</property>
-                            <property name="label" translatable="yes">Files</property>
-                            <style>
-                              <class name="title"/>
-                            </style>
+                            <property name="label" translatable="yes">&lt;span size="large" weight="bold"&gt;Files&lt;/span&gt;</property>
+                            <property name="use-markup">True</property>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -1335,7 +1337,7 @@
                                     <property name="visible">True</property>
                                     <property name="can-focus">False</property>
                                     <property name="valign">center</property>
-                                    <property name="label" translatable="yes">No file selected</property>
+                                    <property name="label" translatable="yes">&lt;span size="large" weight="bold"&gt;No file selected&lt;/span&gt;</property>
                                     <property name="use-markup">True</property>
                                     <style>
                                       <class name="title"/>
@@ -1385,7 +1387,7 @@
                                     <property name="visible">True</property>
                                     <property name="can-focus">False</property>
                                     <property name="halign">start</property>
-                                    <property name="label" translatable="yes">Edit Tag</property>
+                                    <property name="label" translatable="yes">&lt;span size="xx-large" weight="bold"&gt;Edit Tag&lt;/span&gt;</property>
                                     <property name="use-markup">True</property>
                                     <property name="ellipsize">end</property>
                                     <style>
@@ -1409,7 +1411,7 @@
                                         <property name="visible">True</property>
                                         <property name="can-focus">False</property>
                                         <property name="halign">start</property>
-                                        <property name="label" translatable="yes">Tag</property>
+                                        <property name="label" translatable="yes">&lt;span size="large"&gt;Tag&lt;/span&gt;</property>
                                         <property name="use-markup">True</property>
                                         <style>
                                           <class name="subtitle"/>
@@ -1514,6 +1516,7 @@
                                                             <property name="use-underline">True</property>
                                                             <property name="mnemonic-widget">ent_id3v1_title</property>
                                                             <property name="ellipsize">end</property>
+                                                            <property name="xalign">0</property>
                                                           </object>
                                                           <packing>
                                                             <property name="left-attach">0</property>
@@ -1542,6 +1545,7 @@
                                                             <property name="use-underline">True</property>
                                                             <property name="mnemonic-widget">ent_id3v1_artist</property>
                                                             <property name="ellipsize">start</property>
+                                                            <property name="xalign">0</property>
                                                           </object>
                                                           <packing>
                                                             <property name="left-attach">0</property>
@@ -1556,6 +1560,7 @@
                                                             <property name="use-underline">True</property>
                                                             <property name="mnemonic-widget">ent_id3v1_album</property>
                                                             <property name="ellipsize">start</property>
+                                                            <property name="xalign">0</property>
                                                           </object>
                                                           <packing>
                                                             <property name="left-attach">0</property>
@@ -1569,6 +1574,7 @@
                                                             <property name="label" translatable="yes">_Year:</property>
                                                             <property name="use-underline">True</property>
                                                             <property name="ellipsize">start</property>
+                                                            <property name="xalign">0</property>
                                                           </object>
                                                           <packing>
                                                             <property name="left-attach">0</property>
@@ -1583,6 +1589,7 @@
                                                             <property name="use-underline">True</property>
                                                             <property name="mnemonic-widget">ent_id3v1_comment</property>
                                                             <property name="ellipsize">start</property>
+                                                            <property name="xalign">0</property>
                                                           </object>
                                                           <packing>
                                                             <property name="left-attach">0</property>
@@ -1598,6 +1605,7 @@
                                                             <property name="use-underline">True</property>
                                                             <property name="mnemonic-widget">spin_id3v1_track</property>
                                                             <property name="ellipsize">start</property>
+                                                            <property name="xalign">0</property>
                                                           </object>
                                                           <packing>
                                                             <property name="left-attach">0</property>
@@ -1643,6 +1651,7 @@
                                                             <property name="margin-left">15</property>
                                                             <property name="label" translatable="yes">_Genre:</property>
                                                             <property name="use-underline">True</property>
+                                                            <property name="xalign">0</property>
                                                             </object>
                                                             <packing>
                                                             <property name="expand">False</property>
@@ -1846,12 +1855,12 @@
                                                           <object class="GtkLabel" id="lab_id3v2_title">
                                                             <property name="visible">True</property>
                                                             <property name="can-focus">False</property>
-                                                            <property name="halign">center</property>
                                                             <property name="valign">center</property>
                                                             <property name="label" translatable="yes">_Title:</property>
                                                             <property name="use-underline">True</property>
                                                             <property name="mnemonic-widget">ent_id3v2_title</property>
                                                             <property name="ellipsize">start</property>
+                                                            <property name="xalign">0</property>
                                                           </object>
                                                           <packing>
                                                             <property name="left-attach">0</property>
@@ -1876,12 +1885,12 @@
                                                           <object class="GtkLabel" id="lab_id3v2_artist">
                                                             <property name="visible">True</property>
                                                             <property name="can-focus">False</property>
-                                                            <property name="halign">center</property>
                                                             <property name="valign">center</property>
                                                             <property name="label" translatable="yes">_Artist:</property>
                                                             <property name="use-underline">True</property>
                                                             <property name="mnemonic-widget">ent_id3v2_artist</property>
                                                             <property name="ellipsize">start</property>
+                                                            <property name="xalign">0</property>
                                                           </object>
                                                           <packing>
                                                             <property name="left-attach">0</property>
@@ -1892,12 +1901,12 @@
                                                           <object class="GtkLabel" id="lab_id3v2_album">
                                                             <property name="visible">True</property>
                                                             <property name="can-focus">False</property>
-                                                            <property name="halign">center</property>
                                                             <property name="valign">center</property>
                                                             <property name="label" translatable="yes">A_lbum:</property>
                                                             <property name="use-underline">True</property>
                                                             <property name="mnemonic-widget">ent_id3v2_album</property>
                                                             <property name="ellipsize">start</property>
+                                                            <property name="xalign">0</property>
                                                           </object>
                                                           <packing>
                                                             <property name="left-attach">0</property>
@@ -1908,11 +1917,11 @@
                                                           <object class="GtkLabel" id="lab_id3v2_year">
                                                             <property name="visible">True</property>
                                                             <property name="can-focus">False</property>
-                                                            <property name="halign">center</property>
                                                             <property name="valign">center</property>
                                                             <property name="label" translatable="yes">_Year:</property>
                                                             <property name="use-underline">True</property>
                                                             <property name="ellipsize">start</property>
+                                                            <property name="xalign">0</property>
                                                           </object>
                                                           <packing>
                                                             <property name="left-attach">0</property>
@@ -1923,12 +1932,12 @@
                                                           <object class="GtkLabel" id="lab_id3v2_comment">
                                                             <property name="visible">True</property>
                                                             <property name="can-focus">False</property>
-                                                            <property name="halign">center</property>
                                                             <property name="valign">center</property>
                                                             <property name="label" translatable="yes">_Commnt:</property>
                                                             <property name="use-underline">True</property>
                                                             <property name="mnemonic-widget">text_id3v2_comment</property>
                                                             <property name="ellipsize">start</property>
+                                                            <property name="xalign">0</property>
                                                           </object>
                                                           <packing>
                                                             <property name="left-attach">0</property>
@@ -1939,12 +1948,12 @@
                                                           <object class="GtkLabel" id="lab_id3v2_track">
                                                             <property name="visible">True</property>
                                                             <property name="can-focus">False</property>
-                                                            <property name="halign">center</property>
                                                             <property name="valign">center</property>
                                                             <property name="label" translatable="yes">_Track:</property>
                                                             <property name="use-underline">True</property>
                                                             <property name="mnemonic-widget">spin_id3v1_track</property>
                                                             <property name="ellipsize">start</property>
+                                                            <property name="xalign">0</property>
                                                           </object>
                                                           <packing>
                                                             <property name="left-attach">0</property>
@@ -2000,12 +2009,12 @@
                                                             <object class="GtkLabel" id="lab_id3v2_genre">
                                                             <property name="visible">True</property>
                                                             <property name="can-focus">False</property>
-                                                            <property name="halign">center</property>
                                                             <property name="valign">center</property>
                                                             <property name="margin-left">15</property>
                                                             <property name="label" translatable="yes">_Genre:</property>
                                                             <property name="use-underline">True</property>
                                                             <property name="ellipsize">start</property>
+                                                            <property name="xalign">0</property>
                                                             </object>
                                                             <packing>
                                                             <property name="expand">False</property>
@@ -2445,7 +2454,8 @@
                                                         <property name="label" translatable="yes">_Title:</property>
                                                         <property name="use-underline">True</property>
                                                         <property name="mnemonic-widget">ent_vor_title</property>
-                                                        <property name="ellipsize">start</property>
+                                                        <property name="ellipsize">end</property>
+                                                        <property name="xalign">0</property>
                                                       </object>
                                                       <packing>
                                                         <property name="left-attach">0</property>
@@ -2473,7 +2483,8 @@
                                                         <property name="label" translatable="yes">_Artist:</property>
                                                         <property name="use-underline">True</property>
                                                         <property name="mnemonic-widget">ent_vor_artist</property>
-                                                        <property name="ellipsize">start</property>
+                                                        <property name="ellipsize">end</property>
+                                                        <property name="xalign">0</property>
                                                       </object>
                                                       <packing>
                                                         <property name="left-attach">0</property>
@@ -2487,7 +2498,8 @@
                                                         <property name="label" translatable="yes">A_lbum:</property>
                                                         <property name="use-underline">True</property>
                                                         <property name="mnemonic-widget">ent_vor_album</property>
-                                                        <property name="ellipsize">start</property>
+                                                        <property name="ellipsize">end</property>
+                                                        <property name="xalign">0</property>
                                                       </object>
                                                       <packing>
                                                         <property name="left-attach">0</property>
@@ -2501,7 +2513,8 @@
                                                         <property name="label" translatable="yes">_Year:</property>
                                                         <property name="use-underline">True</property>
                                                         <property name="mnemonic-widget">ent_vor_year</property>
-                                                        <property name="ellipsize">start</property>
+                                                        <property name="ellipsize">end</property>
+                                                        <property name="xalign">0</property>
                                                       </object>
                                                       <packing>
                                                         <property name="left-attach">0</property>
@@ -2515,7 +2528,8 @@
                                                         <property name="label" translatable="yes">_Commnt:</property>
                                                         <property name="use-underline">True</property>
                                                         <property name="mnemonic-widget">ent_vor_comment</property>
-                                                        <property name="ellipsize">start</property>
+                                                        <property name="ellipsize">end</property>
+                                                        <property name="xalign">0</property>
                                                       </object>
                                                       <packing>
                                                         <property name="left-attach">0</property>
@@ -2530,6 +2544,7 @@
                                                         <property name="use-underline">True</property>
                                                         <property name="mnemonic-widget">ent_vor_track</property>
                                                         <property name="ellipsize">start</property>
+                                                        <property name="xalign">0</property>
                                                       </object>
                                                       <packing>
                                                         <property name="left-attach">0</property>
@@ -2589,6 +2604,7 @@
                                                             <property name="label" translatable="yes">_Genre:</property>
                                                             <property name="use-underline">True</property>
                                                             <property name="mnemonic-widget">combo_vor_genre</property>
+                                                            <property name="xalign">0</property>
                                                           </object>
                                                           <packing>
                                                             <property name="expand">False</property>
@@ -2892,7 +2908,8 @@
                                               <object class="GtkButtonBox" id="buttonbox1">
                                                 <property name="visible">True</property>
                                                 <property name="can-focus">False</property>
-                                                <property name="margin-top">4</property>
+                                                <property name="margin-top">10</property>
+                                                <property name="margin-bottom">10</property>
                                                 <property name="layout-style">center</property>
                                                 <child>
                                                   <object class="GtkButton" id="b_vor_clear">
@@ -2972,90 +2989,88 @@
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkFrame" id="frame1">
+                                  <object class="GtkBox">
+                                    <property name="name">frame_code_info</property>
                                     <property name="visible">True</property>
                                     <property name="can-focus">False</property>
-                                    <property name="label-xalign">0</property>
+                                    <property name="orientation">vertical</property>
                                     <child>
-                                      <object class="GtkBox">
-                                        <property name="name">frame_code_info</property>
+                                      <object class="GtkLabel">
+                                        <property name="name">label_codec_info</property>
                                         <property name="visible">True</property>
                                         <property name="can-focus">False</property>
-                                        <property name="orientation">vertical</property>
+                                        <property name="double-buffered">False</property>
+                                        <property name="halign">center</property>
+                                        <property name="margin-left">4</property>
+                                        <property name="xpad">15</property>
+                                        <property name="ypad">10</property>
+                                        <property name="label" translatable="yes">&lt;span size="medium" weight="bold"&gt;Codec Information&lt;/span&gt;</property>
+                                        <property name="use-markup">True</property>
+                                        <property name="width-chars">0</property>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="padding">10</property>
+                                        <property name="position">0</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkAlignment" id="alignment4">
+                                        <property name="visible">True</property>
+                                        <property name="can-focus">False</property>
+                                        <property name="left-padding">12</property>
                                         <child>
-                                          <object class="GtkLabel">
+                                          <object class="GtkBox" id="box6">
                                             <property name="visible">True</property>
                                             <property name="can-focus">False</property>
-                                            <property name="double-buffered">False</property>
-                                            <property name="halign">start</property>
-                                            <property name="margin-start">4</property>
-                                            <property name="margin-bottom">6</property>
-                                            <property name="label" translatable="yes">&lt;span size="medium" weight="bold" color="grey"&gt;Codec Information&lt;/span&gt;</property>
-                                            <property name="use-markup">True</property>
-                                          </object>
-                                          <packing>
-                                            <property name="expand">False</property>
-                                            <property name="fill">True</property>
-                                            <property name="position">0</property>
-                                          </packing>
-                                        </child>
-                                        <child>
-                                          <object class="GtkAlignment" id="alignment4">
-                                            <property name="visible">True</property>
-                                            <property name="can-focus">False</property>
-                                            <property name="left-padding">12</property>
+                                            <property name="margin-start">8</property>
+                                            <property name="margin-end">8</property>
+                                            <property name="margin-top">8</property>
+                                            <property name="margin-bottom">8</property>
+                                            <property name="spacing">10</property>
                                             <child>
-                                              <object class="GtkBox" id="box6">
+                                              <object class="GtkLabel" id="lab_info_names">
                                                 <property name="visible">True</property>
                                                 <property name="can-focus">False</property>
-                                                <property name="spacing">10</property>
-                                                <child>
-                                                  <object class="GtkLabel" id="lab_info_names">
-                                                    <property name="visible">True</property>
-                                                    <property name="can-focus">False</property>
-                                                    <property name="label" translatable="yes">name1:
+                                                <property name="label" translatable="yes">name1:
 name2:
 name3:
 name4:
 name5:
 name6:</property>
-                                                  </object>
-                                                  <packing>
-                                                    <property name="expand">False</property>
-                                                    <property name="fill">True</property>
-                                                    <property name="position">0</property>
-                                                  </packing>
-                                                </child>
-                                                <child>
-                                                  <object class="GtkLabel" id="lab_info_values">
-                                                    <property name="visible">True</property>
-                                                    <property name="can-focus">False</property>
-                                                    <property name="label" translatable="yes">value1
+                                              </object>
+                                              <packing>
+                                                <property name="expand">False</property>
+                                                <property name="fill">True</property>
+                                                <property name="position">0</property>
+                                              </packing>
+                                            </child>
+                                            <child>
+                                              <object class="GtkLabel" id="lab_info_values">
+                                                <property name="visible">True</property>
+                                                <property name="can-focus">False</property>
+                                                <property name="label" translatable="yes">value1
 value2
 value3
 value4
 value5
 value6</property>
-                                                  </object>
-                                                  <packing>
-                                                    <property name="expand">False</property>
-                                                    <property name="fill">True</property>
-                                                    <property name="position">1</property>
-                                                  </packing>
-                                                </child>
                                               </object>
+                                              <packing>
+                                                <property name="expand">False</property>
+                                                <property name="fill">True</property>
+                                                <property name="position">1</property>
+                                              </packing>
                                             </child>
                                           </object>
-                                          <packing>
-                                            <property name="expand">False</property>
-                                            <property name="fill">True</property>
-                                            <property name="position">1</property>
-                                          </packing>
                                         </child>
                                       </object>
-                                    </child>
-                                    <child type="label_item">
-                                      <placeholder/>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">1</property>
+                                      </packing>
                                     </child>
                                   </object>
                                   <packing>
@@ -3089,7 +3104,7 @@ value6</property>
                                 <property name="visible">True</property>
                                 <property name="can-focus">False</property>
                                 <property name="halign">start</property>
-                                <property name="label" translatable="yes">&lt;span size="x-large" weight="bold"&gt;Tag Multiple Files&lt;/span&gt;</property>
+                                <property name="label" translatable="yes">&lt;span size="xx-large" weight="bold"&gt;Tag Multiple Files&lt;/span&gt;</property>
                                 <property name="use-markup">True</property>
                                 <property name="ellipsize">end</property>
                               </object>
@@ -3602,7 +3617,7 @@ value6</property>
                                 <property name="visible">True</property>
                                 <property name="can-focus">False</property>
                                 <property name="halign">start</property>
-                                <property name="label" translatable="yes">&lt;span size="x-large" weight="bold"&gt;Clear Tags&lt;/span&gt;</property>
+                                <property name="label" translatable="yes">&lt;span size="xx-large" weight="bold"&gt;Clear Tags&lt;/span&gt;</property>
                                 <property name="use-markup">True</property>
                                 <property name="ellipsize">end</property>
                               </object>
@@ -3765,7 +3780,7 @@ value6</property>
                                 <property name="visible">True</property>
                                 <property name="can-focus">False</property>
                                 <property name="halign">start</property>
-                                <property name="label" translatable="yes">&lt;span size="x-large" weight="bold"&gt;Rename Multiple Files&lt;/span&gt;</property>
+                                <property name="label" translatable="yes">&lt;span size="xx-large" weight="bold"&gt;Rename Multiple Files&lt;/span&gt;</property>
                                 <property name="use-markup">True</property>
                                 <property name="ellipsize">end</property>
                               </object>
@@ -3866,6 +3881,11 @@ value6</property>
                                         <property name="image">img_rename_format_help</property>
                                         <property name="relief">none</property>
                                         <signal name="clicked" handler="cb_rename_help" swapped="no"/>
+                                        <style>
+                                          <class name="image"/>
+                                          <class name="button"/>
+                                          <class name="circular"/>
+                                        </style>
                                       </object>
                                       <packing>
                                         <property name="expand">False</property>
@@ -3964,7 +3984,7 @@ value6</property>
                                 <property name="visible">True</property>
                                 <property name="can-focus">False</property>
                                 <property name="halign">start</property>
-                                <property name="label" translatable="yes">&lt;span size="x-large" weight="bold"&gt;Create Playlists&lt;/span&gt;</property>
+                                <property name="label" translatable="yes">&lt;span size="xx-large" weight="bold"&gt;Create Playlists&lt;/span&gt;</property>
                                 <property name="use-markup">True</property>
                                 <property name="ellipsize">end</property>
                               </object>
@@ -4660,6 +4680,7 @@ Files found:</property>
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="halign">center</property>
+            <property name="homogeneous">True</property>
             <property name="icon-size">0</property>
             <property name="stack">s_mainStack</property>
           </object>
