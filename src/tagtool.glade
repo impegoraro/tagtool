@@ -1270,6 +1270,7 @@
                         <property name="margin-bottom">10</property>
                         <property name="hexpand">True</property>
                         <property name="vexpand">True</property>
+                        <signal name="size-allocate" handler="cb_innerPaned_resize" swapped="no"/>
                         <child>
                           <object class="GtkTreeView" id="tv_files">
                             <property name="visible">True</property>

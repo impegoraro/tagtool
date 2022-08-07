@@ -15,16 +15,12 @@
 /* widgets */
 static GtkWidget *w_main = NULL;
 static GtkWidget *b_stop = NULL;
-static GtkPaned  *p_mainPaned = NULL;
 static GtkTreeView *tv_progress = NULL;
 static GtkListStore *store_progress = NULL;
 static GtkSeparator *message_new_indicator = NULL;
 static GtkPopover *message_popover = NULL;
 /* icons */
 static GdkPixbuf *pix_table[4];
-
-/* prefs */
-static int *panedPos;
 
 /* private data */
 static gboolean stop_requested = FALSE;
@@ -66,11 +62,6 @@ void cb_dlg_progress_stop(GtkButton *button, gpointer user_data)
 	stop_requested = TRUE;
 }
 
-void cb_main_paned_resize(GtkWidget *widget, GdkRectangle *allocation, gpointer user_data)
-{
-	*panedPos = gtk_paned_get_position(p_mainPaned);
-}
-
 void cb_messages_toggled(GtkToggleButton *btn, gpointer data)
 {
   g_assert(message_new_indicator);
@@ -90,12 +81,9 @@ void cb_messages_popover_closed(GtkPopover *popover, gpointer data)
 /* public functions */
 void pd_init(GtkBuilder *builder)
 {
-	gint temp = 100;
-
 	/* widgets and icons */
 	w_main = GTK_WIDGET(gtk_builder_get_object(builder, "w_main"));
 	b_stop = GTK_WIDGET(gtk_builder_get_object(builder, "b_stop"));
-	p_mainPaned = GTK_PANED(gtk_builder_get_object(builder, "p_mainPaned"));
 	tv_progress = GTK_TREE_VIEW(gtk_builder_get_object(builder, "tv_progress"));
   message_popover = GTK_POPOVER(gtk_builder_get_object(builder, "message_popover"));
   message_new_indicator = GTK_SEPARATOR(gtk_builder_get_object(builder, "message_new_indicator"));
@@ -104,13 +92,6 @@ void pd_init(GtkBuilder *builder)
 	pix_table[PD_ICON_OK]   = gdk_pixbuf_new_from_file(DATADIR"/ok.png", NULL);
 	pix_table[PD_ICON_FAIL] = gdk_pixbuf_new_from_file(DATADIR"/fail.png", NULL);
 	pix_table[PD_ICON_WARN] = gdk_pixbuf_new_from_file(DATADIR"/warn.png", NULL);
-
-	/* preferences */
-	panedPos = pref_get_ref("prog:panedPos");
-	if (!panedPos)
-		panedPos = pref_set("prog:panedPos", PREF_INT, &temp);
-	if (*panedPos)
-		gtk_paned_set_position(p_mainPaned, *panedPos);
 
   gtk_widget_hide(GTK_WIDGET(message_new_indicator));
 	gtk_widget_hide(b_stop);
