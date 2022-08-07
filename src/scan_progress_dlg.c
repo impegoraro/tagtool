@@ -27,7 +27,7 @@ void spd_init(GtkBuilder *builder)
 	revealer_scan_progress = GTK_REVEALER(gtk_builder_get_object(builder, "revealer_scan_progress"));
 	lab_scan_progress = GTK_LABEL(gtk_builder_get_object(builder, "lab_scan_progress"));
 	scanningSpinner = GTK_SPINNER(gtk_builder_get_object(builder, "scanningSpinner"));
-  	p_innerPaned = GTK_PANED(gtk_builder_get_object(builder, "p_innerPaned")) ;
+  p_innerPaned = GTK_PANED(gtk_builder_get_object(builder, "p_innerPaned")) ;
 }
 
 void spd_display()
@@ -35,7 +35,7 @@ void spd_display()
 	gtk_spinner_start(scanningSpinner);
 	gtk_label_set_text(lab_scan_progress, "0\n0");
 	gtk_revealer_set_reveal_child(revealer_scan_progress, TRUE);
-  	gtk_widget_set_sensitive(GTK_WIDGET(p_innerPaned), FALSE);
+	gtk_widget_set_sensitive(GTK_WIDGET(p_innerPaned), FALSE);
 }
 
 void spd_hide()

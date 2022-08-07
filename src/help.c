@@ -87,8 +87,8 @@ static GtkPopover *p_help = NULL;
 void help_init()
 {
 	p_help = GTK_POPOVER(gtk_popover_new(NULL));
-  	lab_help = GTK_LABEL(gtk_label_new(NULL));
-  	gtk_container_add(GTK_CONTAINER(p_help), GTK_WIDGET(lab_help));
+	lab_help = GTK_LABEL(gtk_label_new(NULL));
+	gtk_container_add(GTK_CONTAINER(p_help), GTK_WIDGET(lab_help));
 }
 
 
@@ -96,6 +96,6 @@ void help_display(GtkWidget* parent, int topic)
 {
 	gtk_label_set_text(lab_help, _(help_strings[topic]));
 	gtk_popover_set_relative_to(p_help, parent);
-  	gtk_widget_show_all(GTK_WIDGET(p_help));
+	gtk_widget_show_all(GTK_WIDGET(p_help));
 }
 

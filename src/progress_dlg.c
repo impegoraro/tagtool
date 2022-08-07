@@ -18,7 +18,8 @@ static GtkWidget *b_stop = NULL;
 static GtkPaned  *p_mainPaned = NULL;
 static GtkTreeView *tv_progress = NULL;
 static GtkListStore *store_progress = NULL;
-
+static GtkSeparator *message_new_indicator = NULL;
+static GtkPopover *message_popover = NULL;
 /* icons */
 static GdkPixbuf *pix_table[4];
 
@@ -70,6 +71,15 @@ void cb_main_paned_resize(GtkWidget *widget, GdkRectangle *allocation, gpointer 
 	*panedPos = gtk_paned_get_position(p_mainPaned);
 }
 
+void cb_messages_clicked(GtkButton *btn, gpointer data)
+{
+  g_assert(message_new_indicator);
+  g_assert(message_popover);
+
+  gtk_widget_hide(GTK_WIDGET(message_new_indicator));
+  gtk_widget_show_all(GTK_WIDGET(message_popover));
+}
+
 
 /* public functions */
 void pd_init(GtkBuilder *builder)
@@ -81,6 +91,8 @@ void pd_init(GtkBuilder *builder)
 	b_stop = GTK_WIDGET(gtk_builder_get_object(builder, "b_stop"));
 	p_mainPaned = GTK_PANED(gtk_builder_get_object(builder, "p_mainPaned"));
 	tv_progress = GTK_TREE_VIEW(gtk_builder_get_object(builder, "tv_progress"));
+  message_popover = GTK_POPOVER(gtk_builder_get_object(builder, "message_popover"));
+  message_new_indicator = GTK_SEPARATOR(gtk_builder_get_object(builder, "message_new_indicator"));
 
 	pix_table[PD_ICON_INFO] = gdk_pixbuf_new_from_file(DATADIR"/info.png", NULL);
 	pix_table[PD_ICON_OK]   = gdk_pixbuf_new_from_file(DATADIR"/ok.png", NULL);
@@ -94,8 +106,10 @@ void pd_init(GtkBuilder *builder)
 	if (*panedPos)
 		gtk_paned_set_position(p_mainPaned, *panedPos);
 
-  	gtk_widget_hide(b_stop);
-	/* set up the tree view */
+  gtk_widget_hide(GTK_WIDGET(message_new_indicator));
+	gtk_widget_hide(b_stop);
+
+  /* set up the tree view */
 	tree_view_setup();
 }
 
@@ -136,6 +150,7 @@ void pd_printf(int icon, const char *format, ...)
 			   0, (icon == PD_ICON_NONE ? NULL : pix_table[icon]),
 			   1, text,
 			   -1);
+  gtk_widget_show(GTK_WIDGET(message_new_indicator));
 }
 
 void pd_scroll_to_bottom()

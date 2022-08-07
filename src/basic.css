@@ -2,13 +2,21 @@
     color: grey;
     border-style: solid;
     border-width: 1px;
-    border-radius: 10;
+    border-radius: 10px;
     border-color: lightgrey;
     background-color: white;
 }
 
-#label_codec_info {
+#label_title {
   color: white;
+  padding: 10px 15px;
   background-color: lightgrey;
   border-radius: 5px;
+}
+
+
+#message_new_indicator {
+  padding: 0px 0px;
+  margin: 0px 0px 0px 0px;
+  background-color: orange;
 }

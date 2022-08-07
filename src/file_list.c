@@ -141,9 +141,14 @@ static void update_file_count()
 	  	gtk_label_set_markup(l_help_secondary, _("<span size='small'>use the next tab to edit multiple files.</span>"));
   		g_string_free(str2, TRUE);
 	} else {
-		gtk_label_set_markup(l_help_title, _("<span size='xx-large'>No file selected</span>"));
-	  	gtk_label_set_markup(l_help_secondary, _("<span size='small'>try selecting a file from the list.</span>"));
-  	}
+    if (total == 0) {
+      gtk_label_set_markup(l_help_title, _("<span size='xx-large'>No files found</span>"));
+	    gtk_label_set_markup(l_help_secondary, _("<span>try selecting a new directory to look for files, or click on the recursive button.</span>"));
+    } else {
+      gtk_label_set_markup(l_help_title, _("<span size='xx-large'>No file selected</span>"));
+	    gtk_label_set_markup(l_help_secondary, _("<span>try selecting a file from the list.</span>"));
+    }
+  }
 
 	gtk_label_set_text(lab_file_count, str->str);
 
