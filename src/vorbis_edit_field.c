@@ -93,7 +93,6 @@ static void set_ui(int mode, vorbis_file *file, const char *name)
 static void clear_ui()
 {
 	gtk_entry_set_text(entry, "");
-	//gtk_widget_destroy(widget);
 }
 
 
