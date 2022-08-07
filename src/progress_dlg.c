@@ -81,6 +81,8 @@ void cb_messages_popover_closed(GtkPopover *popover, gpointer data)
 /* public functions */
 void pd_init(GtkBuilder *builder)
 {
+  GtkIconTheme *icon_theme = gtk_icon_theme_get_default();
+
 	/* widgets and icons */
 	w_main = GTK_WIDGET(gtk_builder_get_object(builder, "w_main"));
 	b_stop = GTK_WIDGET(gtk_builder_get_object(builder, "b_stop"));
@@ -88,10 +90,10 @@ void pd_init(GtkBuilder *builder)
   message_popover = GTK_POPOVER(gtk_builder_get_object(builder, "message_popover"));
   message_new_indicator = GTK_SEPARATOR(gtk_builder_get_object(builder, "message_new_indicator"));
 
-	pix_table[PD_ICON_INFO] = gdk_pixbuf_new_from_file(DATADIR"/info.png", NULL);
-	pix_table[PD_ICON_OK]   = gdk_pixbuf_new_from_file(DATADIR"/ok.png", NULL);
-	pix_table[PD_ICON_FAIL] = gdk_pixbuf_new_from_file(DATADIR"/fail.png", NULL);
-	pix_table[PD_ICON_WARN] = gdk_pixbuf_new_from_file(DATADIR"/warn.png", NULL);
+	pix_table[PD_ICON_INFO] = gtk_icon_theme_load_icon(icon_theme, "info-symbolic", 16, GTK_ICON_LOOKUP_USE_BUILTIN, NULL);
+	pix_table[PD_ICON_OK]   = gtk_icon_theme_load_icon(icon_theme, "checkmark-small-symbolic", 16, GTK_ICON_LOOKUP_USE_BUILTIN, NULL);
+	pix_table[PD_ICON_FAIL] = gtk_icon_theme_load_icon(icon_theme, "computer-fail-symbolic", 16, GTK_ICON_LOOKUP_USE_BUILTIN, NULL);
+	pix_table[PD_ICON_WARN] = gtk_icon_theme_load_icon(icon_theme, "warning-symbolic", 16, GTK_ICON_LOOKUP_USE_BUILTIN, NULL);
 
   gtk_widget_hide(GTK_WIDGET(message_new_indicator));
 	gtk_widget_hide(b_stop);
