@@ -260,7 +260,8 @@ void ct_init(GtkBuilder *builder)
 			 "changed", G_CALLBACK(cb_file_selection_changed), NULL);
 
 #ifndef ENABLE_MP3
-	gtk_widget_hide(gtk_builder_get_object(builder, "tab_clear_options"));
+	gtk_widget_hide(GTK_WIDGET(rb_clear_id3v1));
+  gtk_widget_hide(GTK_WIDGET(rb_clear_id3v2));
 #endif
 
 	// FIXME: Fix Colors for GTK > 3.16

@@ -516,8 +516,7 @@ void vorbis_edit_init(GtkBuilder *builder)
 
 	/* set up the tree view */
 	tree_view_setup();
-	g_signal_connect(gtk_tree_view_get_selection(tv_comments), "changed", 
-			 G_CALLBACK(cb_vor_comment_selection_changed), NULL);
+	g_signal_connect(gtk_tree_view_get_selection(tv_comments), "changed",  G_CALLBACK(cb_vor_comment_selection_changed), NULL);
 
 	/* find out which tab has the Vorbis interface */
 	//tab_edit_vorbis = gtk_notebook_page_num(nb_edit, GTK_WIDGET(gtk_builder_get_object(builder, "nb_vorbis")));

@@ -818,6 +818,7 @@
       </object>
     </child>
   </object>
+  <object class="GtkEntryBuffer" id="entrybuffer1"/>
   <object class="GtkImage" id="image1">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
@@ -1308,6 +1309,10 @@
                       <object class="GtkBox">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
+                        <property name="margin-start">10</property>
+                        <property name="margin-end">10</property>
+                        <property name="margin-top">10</property>
+                        <property name="margin-bottom">10</property>
                         <property name="orientation">vertical</property>
                         <child>
                           <object class="GtkBox" id="w_no_file">
@@ -2597,10 +2602,9 @@
                                                       <object class="GtkLabel" id="lab_vor_genre">
                                                         <property name="visible">True</property>
                                                         <property name="can-focus">False</property>
-                                                        <property name="margin-left">15</property>
+                                                        <property name="margin-start">15</property>
                                                         <property name="label" translatable="yes">_Genre:</property>
                                                         <property name="use-underline">True</property>
-                                                        <property name="mnemonic-widget">combo_vor_genre</property>
                                                         <property name="xalign">0</property>
                                                       </object>
                                                       <packing>
@@ -3090,6 +3094,9 @@ value6</property>
                       <object class="GtkBox" id="tag_multiple_files">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
+                        <property name="margin-start">10</property>
+                        <property name="margin-top">10</property>
+                        <property name="margin-bottom">10</property>
                         <property name="border-width">8</property>
                         <property name="orientation">vertical</property>
                         <property name="spacing">16</property>
@@ -3101,6 +3108,9 @@ value6</property>
                             <property name="label" translatable="yes">&lt;span size="xx-large" weight="bold"&gt;Tag Multiple Files&lt;/span&gt;</property>
                             <property name="use-markup">True</property>
                             <property name="ellipsize">end</property>
+                            <style>
+                              <class name="title"/>
+                            </style>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -3428,7 +3438,7 @@ value6</property>
                                     <property name="visible">True</property>
                                     <property name="can-focus">True</property>
                                     <property name="receives-default">False</property>
-                                    <property name="margin-left">15</property>
+                                    <property name="margin-start">15</property>
                                     <property name="draw-indicator">True</property>
                                     <signal name="toggled" handler="cb_check_changed" swapped="no"/>
                                   </object>
@@ -3595,6 +3605,10 @@ value6</property>
                       <object class="GtkBox" id="clear_tags">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
+                        <property name="margin-start">10</property>
+                        <property name="margin-end">10</property>
+                        <property name="margin-top">10</property>
+                        <property name="margin-bottom">10</property>
                         <property name="border-width">8</property>
                         <property name="orientation">vertical</property>
                         <property name="spacing">16</property>
@@ -3606,6 +3620,9 @@ value6</property>
                             <property name="label" translatable="yes">&lt;span size="xx-large" weight="bold"&gt;Clear Tags&lt;/span&gt;</property>
                             <property name="use-markup">True</property>
                             <property name="ellipsize">end</property>
+                            <style>
+                              <class name="title"/>
+                            </style>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -3666,7 +3683,7 @@ value6</property>
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkRadioButton" id="radiobutton3">
+                              <object class="GtkRadioButton" id="rb_clear_id3v2">
                                 <property name="label" translatable="yes">Only ID3 v2 tags</property>
                                 <property name="visible">True</property>
                                 <property name="can-focus">True</property>
@@ -3758,6 +3775,10 @@ value6</property>
                       <object class="GtkBox" id="rename_multiple_files">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
+                        <property name="margin-start">10</property>
+                        <property name="margin-end">10</property>
+                        <property name="margin-top">10</property>
+                        <property name="margin-bottom">10</property>
                         <property name="border-width">8</property>
                         <property name="orientation">vertical</property>
                         <property name="spacing">16</property>
@@ -3769,6 +3790,9 @@ value6</property>
                             <property name="label" translatable="yes">&lt;span size="xx-large" weight="bold"&gt;Rename Multiple Files&lt;/span&gt;</property>
                             <property name="use-markup">True</property>
                             <property name="ellipsize">end</property>
+                            <style>
+                              <class name="title"/>
+                            </style>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -3962,6 +3986,10 @@ value6</property>
                       <object class="GtkBox" id="create_playlist">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
+                        <property name="margin-start">10</property>
+                        <property name="margin-end">10</property>
+                        <property name="margin-top">10</property>
+                        <property name="margin-bottom">10</property>
                         <property name="border-width">8</property>
                         <property name="orientation">vertical</property>
                         <property name="spacing">16</property>
@@ -3973,6 +4001,9 @@ value6</property>
                             <property name="label" translatable="yes">&lt;span size="xx-large" weight="bold"&gt;Create Playlists&lt;/span&gt;</property>
                             <property name="use-markup">True</property>
                             <property name="ellipsize">end</property>
+                            <style>
+                              <class name="title"/>
+                            </style>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -3997,6 +4028,7 @@ value6</property>
                                     <property name="visible">True</property>
                                     <property name="can-focus">False</property>
                                     <property name="halign">start</property>
+                                    <property name="margin-bottom">5</property>
                                     <property name="label" translatable="yes">&lt;b&gt;Create In&lt;/b&gt;</property>
                                     <property name="use-markup">True</property>
                                   </object>
@@ -4013,6 +4045,7 @@ value6</property>
                                     <property name="can-focus">True</property>
                                     <property name="receives-default">False</property>
                                     <property name="halign">start</property>
+                                    <property name="margin-start">10</property>
                                     <property name="active">True</property>
                                     <property name="draw-indicator">True</property>
                                   </object>
@@ -4029,6 +4062,7 @@ value6</property>
                                     <property name="can-focus">True</property>
                                     <property name="receives-default">False</property>
                                     <property name="halign">start</property>
+                                    <property name="margin-start">10</property>
                                     <property name="draw-indicator">True</property>
                                     <property name="group">rb_create_dir</property>
                                   </object>
@@ -4045,6 +4079,7 @@ value6</property>
                                     <property name="can-focus">True</property>
                                     <property name="receives-default">False</property>
                                     <property name="halign">start</property>
+                                    <property name="margin-start">10</property>
                                     <property name="draw-indicator">True</property>
                                     <property name="group">rb_create_dir</property>
                                   </object>
@@ -4073,6 +4108,7 @@ value6</property>
                                     <property name="visible">True</property>
                                     <property name="can-focus">False</property>
                                     <property name="halign">start</property>
+                                    <property name="margin-bottom">5</property>
                                     <property name="label" translatable="yes">&lt;b&gt;Playlist File Name&lt;/b&gt;</property>
                                     <property name="use-markup">True</property>
                                   </object>
@@ -4089,6 +4125,7 @@ value6</property>
                                     <property name="can-focus">True</property>
                                     <property name="receives-default">False</property>
                                     <property name="halign">start</property>
+                                    <property name="margin-start">10</property>
                                     <property name="active">True</property>
                                     <property name="draw-indicator">True</property>
                                   </object>
@@ -4104,6 +4141,7 @@ value6</property>
                                     <property name="visible">True</property>
                                     <property name="can-focus">True</property>
                                     <property name="receives-default">False</property>
+                                    <property name="margin-start">10</property>
                                     <property name="draw-indicator">True</property>
                                     <property name="group">rb_name_dir</property>
                                     <signal name="toggled" handler="cb_name_set" swapped="no"/>
@@ -4118,6 +4156,7 @@ value6</property>
                                     <property name="visible">True</property>
                                     <property name="can-focus">False</property>
                                     <property name="halign">start</property>
+                                    <property name="margin-start">10</property>
                                     <property name="label" translatable="yes">Extension:</property>
                                   </object>
                                   <packing>
@@ -4178,6 +4217,7 @@ value6</property>
                                     <property name="visible">True</property>
                                     <property name="can-focus">False</property>
                                     <property name="halign">start</property>
+                                    <property name="margin-bottom">5</property>
                                     <property name="label" translatable="yes">&lt;b&gt;Sort Entries&lt;/b&gt;</property>
                                     <property name="use-markup">True</property>
                                   </object>
@@ -4194,6 +4234,7 @@ value6</property>
                                     <property name="can-focus">True</property>
                                     <property name="receives-default">False</property>
                                     <property name="halign">start</property>
+                                    <property name="margin-start">10</property>
                                     <property name="active">True</property>
                                     <property name="draw-indicator">True</property>
                                   </object>
@@ -4213,6 +4254,7 @@ value6</property>
                                         <property name="visible">True</property>
                                         <property name="can-focus">True</property>
                                         <property name="receives-default">False</property>
+                                        <property name="margin-start">10</property>
                                         <property name="draw-indicator">True</property>
                                         <property name="group">rb_sort_name</property>
                                         <signal name="toggled" handler="cb_sort_field" swapped="no"/>
@@ -4258,6 +4300,7 @@ value6</property>
                                     <property name="can-focus">True</property>
                                     <property name="receives-default">False</property>
                                     <property name="halign">start</property>
+                                    <property name="margin-start">10</property>
                                     <property name="draw-indicator">True</property>
                                   </object>
                                   <packing>
@@ -4565,7 +4608,7 @@ Files found:</property>
           </object>
         </child>
         <child>
-          <object class="GtkBox" id="box42">
+          <object class="GtkBox" id="box_header_left">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="spacing">2</property>
@@ -4584,8 +4627,8 @@ Files found:</property>
                 </child>
               </object>
               <packing>
-                <property name="expand">False</property>
-                <property name="fill">False</property>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
                 <property name="position">0</property>
               </packing>
             </child>
@@ -4683,6 +4726,7 @@ Files found:</property>
         </child>
         <child>
           <object class="GtkSeparator">
+            <property name="name">sep_header</property>
             <property name="visible">True</property>
             <property name="can-focus">False</property>
           </object>

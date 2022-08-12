@@ -29,6 +29,9 @@ static GtkWindow   *w_main        = NULL;
 static GtkStack    *s_mainStack   = NULL;
 static GtkPaned    *p_innerPaned  = NULL;
 static GtkLabel    *l_version     = NULL;
+static GtkComboBox *combo_wd      = NULL;
+static GtkBox      *b_file_list   = NULL;
+static GtkBox      *box_header_left = NULL;
 
 /* prefs variables */
 static int *width;
@@ -43,6 +46,7 @@ static int *panedPos;
 /*** UI callbacks ***********************************************************/
 
 /* menu callbacks */
+
 void cb_file_refresh(GtkWidget *widget, GdkEvent *event)
 {
 	fl_refresh(TRUE);
@@ -66,6 +70,7 @@ void cb_settings_id3prefs(GtkWidget *widget, GdkEvent *event)
 void cb_innerPaned_resize(GtkWidget *widget, GdkRectangle *allocation, gpointer user_data)
 {
 	*panedPos = gtk_paned_get_position(p_innerPaned);
+  g_object_set(G_OBJECT(box_header_left), "width-request", gtk_widget_get_allocated_width(GTK_WIDGET(b_file_list)) + 10 , NULL);
 }
 
 void cb_help_contents(GtkWidget *widget, GdkEvent *event)
@@ -142,6 +147,9 @@ void mw_init(GtkBuilder *builder)
 	s_mainStack = GTK_STACK(gtk_builder_get_object(builder, "s_mainStack"));
   p_innerPaned = GTK_PANED(gtk_builder_get_object(builder, "p_innerPaned"));
 	l_version = GTK_LABEL(gtk_builder_get_object(builder, "l_version"));
+  combo_wd = GTK_COMBO_BOX(gtk_builder_get_object(builder, "combo_wd"));
+  b_file_list = GTK_BOX(gtk_builder_get_object(builder, "b_file_list"));
+  box_header_left = GTK_BOX(gtk_builder_get_object(builder, "box_header_left"));
 
 	{
 	  	char versionStr[100];
