@@ -656,7 +656,7 @@ void cb_check_changed(GtkToggleButton *widget, gpointer data)
 
 void cb_show_tag_chconv(GtkButton *button, gpointer user_data)
 {
-	chconv_display(CHCONV_TAG);
+	chconv_display(CHCONV_TAG, GTK_WIDGET(button));
 }
 
 void cb_tag_help(GtkButton *button, gpointer user_data)

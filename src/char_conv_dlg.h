@@ -1,6 +1,8 @@
 #ifndef CHAR_CONV_DLG_H
 #define CHAR_CONV_DLG_H
 
+#include <gtk/gtkwidget.h>
+#include <gtk/gtkbuilder.h>
 
 enum {
 	CHCONV_TAG = 0,
@@ -24,7 +26,7 @@ chconv_tag_options chconv_get_tag_options();
 
 chconv_rename_options chconv_get_rename_options();
 
-void chconv_display(int tab);
+void chconv_display(int tab, GtkWidget *parent);
 
 void chconv_init(GtkBuilder *builder);
 

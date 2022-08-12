@@ -20,7 +20,7 @@ static int*      rename_case_conv;
 
 
 /* widgets */
-static GtkWindow *dlg_char_conv = NULL;
+static GtkPopover  *dlg_char_conv = NULL;
 static GtkNotebook *nb_char_conv = NULL;
 
 static GtkRadioButton *rb_t_conv_space_none = NULL;
@@ -145,12 +145,13 @@ chconv_rename_options chconv_get_rename_options()
 }
 
 
-void chconv_display(int tab)
+void chconv_display(int tab, GtkWidget *parent)
 {
 	from_prefs();
 
-	gtk_window_present(dlg_char_conv);
 	gtk_notebook_set_current_page(nb_char_conv, tab);
+  gtk_popover_set_relative_to(dlg_char_conv, parent);
+	gtk_widget_show_all(GTK_WIDGET(dlg_char_conv));
 }
 
 
@@ -163,9 +164,9 @@ void chconv_init(GtkBuilder *builder)
 	/* 
 	 * get the widgets from glade
 	 */
-
-	dlg_char_conv = GTK_WINDOW(gtk_builder_get_object(builder, "dlg_char_conv"));
-	nb_char_conv = GTK_NOTEBOOK(gtk_builder_get_object(builder, "nb_char_conv"));
+	dlg_char_conv = GTK_POPOVER(gtk_builder_get_object(builder, "dlg_char_conv"));
+	nb_char_conv  = GTK_NOTEBOOK(gtk_builder_get_object(builder, "nb_char_conv"));
+  gtk_notebook_set_show_tabs (nb_char_conv, FALSE);
 
 	rb_t_conv_space_none = GTK_RADIO_BUTTON(gtk_builder_get_object(builder, "rb_t_conv_space_none"));
 	rb_t_conv_space_from = GTK_RADIO_BUTTON(gtk_builder_get_object(builder, "rb_t_conv_space_from"));
@@ -179,9 +180,6 @@ void chconv_init(GtkBuilder *builder)
 	ent_r_conv_chars = GTK_ENTRY(gtk_builder_get_object(builder, "ent_r_conv_chars"));
 	ent_r_invalid_chars = GTK_ENTRY(gtk_builder_get_object(builder, "ent_r_invalid_chars"));
 	combo_r_case = GTK_COMBO_BOX_TEXT(gtk_builder_get_object(builder, "combo_r_case"));
-
-	gtk_window_set_transient_for(dlg_char_conv, GTK_WINDOW(gtk_builder_get_object(builder, "w_main")));
-
 
 	/*
 	 * get the preference values, or set them to defaults
@@ -204,4 +202,7 @@ void chconv_init(GtkBuilder *builder)
 	from_prefs();
 }
 
-
+void cb_chconv_popover_closed(GtkPopover *popover, gpointer user_data)
+{
+  to_prefs();
+}

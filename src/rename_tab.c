@@ -366,7 +366,7 @@ void cb_rename_go(GtkButton *button, gpointer user_data)
 
 void cb_show_rename_chconv(GtkButton *button, gpointer user_data)
 {
-	chconv_display(CHCONV_RENAME);
+	chconv_display(CHCONV_RENAME, GTK_WIDGET(button));
 }
 
 void cb_rename_help(GtkButton *button, gpointer user_data)

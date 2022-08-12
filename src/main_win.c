@@ -25,6 +25,7 @@ enum {
 
 
 /* widgets */
+static GtkBuilder *copy_of_builder = NULL;
 static GtkWindow   *w_main        = NULL;
 static GtkStack    *s_mainStack   = NULL;
 static GtkPaned    *p_innerPaned  = NULL;
@@ -59,7 +60,7 @@ void cb_file_quit(GtkWidget *widget, GdkEvent *event)
 
 void cb_settings_charconv(GtkWidget *widget, GdkEvent *event)
 {
-	chconv_display(CHCONV_TAG);
+	chconv_display(CHCONV_TAG, GTK_WIDGET(gtk_builder_get_object(copy_of_builder, "b_show_tag_chconv")));
 }
 
 void cb_settings_id3prefs(GtkWidget *widget, GdkEvent *event)
@@ -107,6 +108,7 @@ void cb_main_win_size_changed(GtkWidget *widget, GtkAllocation *alloc, gpointer 
 
 void mw_init(GtkBuilder *builder)
 {
+  copy_of_builder = builder;
 	/* 
 	 * Tabs are visible by default to make editing in glade easier.
 	 * They must be hidden before showing the window, otherwise they 
