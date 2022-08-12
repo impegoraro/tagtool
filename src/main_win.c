@@ -120,18 +120,6 @@ void mw_init(GtkBuilder *builder)
 	gtk_notebook_set_show_tabs(GTK_NOTEBOOK(gtk_builder_get_object(builder, "nb_id3v2")), FALSE);
 	gtk_notebook_set_show_tabs(GTK_NOTEBOOK(gtk_builder_get_object(builder, "nb_vorbis")), FALSE);
 
-	// sets the image of the main notebook pages...
-	//GtkImage *img_tab_edit = GTK_IMAGE(gtk_builder_get_object(builder, "img_tab_edit"));
-	//gtk_image_set_from_file(img_tab_edit, DATADIR"/tab_edit.png");
-	//GtkImage *img_tab_tag = GTK_IMAGE(gtk_builder_get_object(builder, "img_tab_tag"));
-	//gtk_image_set_from_file(img_tab_tag, DATADIR"/tab_tag.png");
-	//GtkImage *img_tab_clear = GTK_IMAGE(gtk_builder_get_object(builder, "img_tab_clear"));
-	//gtk_image_set_from_file(img_tab_clear, DATADIR"/tab_clear.png");
-	//GtkImage *img_tab_rename = GTK_IMAGE(gtk_builder_get_object(builder, "img_tab_rename"));
-	//gtk_image_set_from_file(img_tab_rename, DATADIR"/tab_rename.png");
-	//GtkImage *img_tab_playlist = GTK_IMAGE(gtk_builder_get_object(builder, "img_tab_playlist"));
-	//gtk_image_set_from_file(img_tab_playlist, DATADIR"/tab_playlist.png");
-
 	/*
 	 * Hide the MP3 and Vorbis menus.  This has to be done here because
 	 * the MP3/Vorbis specific code may not be compiled.
@@ -174,10 +162,10 @@ void mw_init(GtkBuilder *builder)
 		height = pref_set("mw:height", PREF_INT, &temp);
 	}
 
-  	/* Panel position */
-  	panedPos = pref_get_ref("mw:panedPos");
-  	if(!panedPos) {
-	  	guint temp = 120;
+	/* Panel position */
+	panedPos = pref_get_ref("mw:panedPos");
+	if(!panedPos) {
+  	guint temp = 120;
 		panedPos = pref_set("mw:panedPos", PREF_INT, &temp);
 	}
 
@@ -186,8 +174,8 @@ void mw_init(GtkBuilder *builder)
 	 */
 	if (*width && *height)
 		gtk_window_set_default_size(w_main, *width, *height);
-  	if (*panedPos)
-		  gtk_paned_set_position(p_innerPaned, *panedPos);
+	if (*panedPos)
+	  gtk_paned_set_position(p_innerPaned, *panedPos);
 
   /* Load css if exists */
   GError *error = NULL;
@@ -198,7 +186,6 @@ void mw_init(GtkBuilder *builder)
     g_print("Error loading theme: %s\n", error->message);
     g_error_free(error);
   }
-
   gtk_style_context_add_provider_for_screen (screen, GTK_STYLE_PROVIDER(themeProvider), GTK_STYLE_PROVIDER_PRIORITY_USER);
 
 	gtk_widget_show(GTK_WIDGET(w_main));

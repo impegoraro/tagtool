@@ -40,7 +40,7 @@ void spd_display()
 
 void spd_hide()
 {
-  	gtk_widget_set_sensitive(GTK_WIDGET(p_innerPaned), TRUE);
+	gtk_widget_set_sensitive(GTK_WIDGET(p_innerPaned), TRUE);
 	stop_requested = FALSE;
 	gtk_revealer_set_reveal_child(revealer_scan_progress, FALSE);
 	gtk_spinner_stop(scanningSpinner);

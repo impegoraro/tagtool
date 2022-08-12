@@ -186,15 +186,6 @@ static void start_operation()
 {
 	GEList *file_list;
 
-	/*
-	int button;
-	button = message_box(w_main, "Remove all tags", 
-			     "This will remove tags from all selected files. Proceed?", 0, 
-			     GTK_STOCK_CANCEL, GTK_STOCK_YES, NULL);
-	if (button == 0)
-		return;
-	*/
-
 	if (gtk_combo_box_get_active(GTK_COMBO_BOX(combo_clear_apply)) == APPLY_TO_ALL)
 		file_list = fl_get_all_files();
 	else
@@ -263,20 +254,6 @@ void ct_init(GtkBuilder *builder)
 	gtk_widget_hide(GTK_WIDGET(rb_clear_id3v1));
   gtk_widget_hide(GTK_WIDGET(rb_clear_id3v2));
 #endif
-
-	// FIXME: Fix Colors for GTK > 3.16
-	/*
-	 * set the title colors
-	 */
- 	//GdkRGBA rbga;
-	//GtkWidget *w = GTK_WIDGET(gtk_builder_get_object(builder, "lab_clear_title"));
-	//GtkStyleContext *context = gtk_widget_get_style_context(w);
-	
-	//gtk_style_context_get_background_color(context, GTK_STATE_FLAG_SELECTED, &rbga);
-	//gtk_widget_override_background_color(w, GTK_STATE_FLAG_NORMAL, &rbga);
-
-	//gtk_style_context_get_color(context, GTK_STATE_FLAG_SELECTED, &rbga);
-	//gtk_widget_override_color(w, GTK_STATE_FLAG_NORMAL, &rbga);
 
 	/*
 	 * get the preference values, or set them to defaults

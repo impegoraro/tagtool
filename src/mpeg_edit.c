@@ -757,8 +757,7 @@ void mpeg_edit_init(GtkBuilder *builder)
 	gtk_editable_set_max_chars(GTK_EDITABLE(ent_id3v1_comment), 29);
 	gtk_editable_set_max_chars(GTK_EDITABLE(ent_id3v1_year), 4);
 
-	g_signal_connect(G_OBJECT(gtk_text_view_get_buffer(text_id3v2_comment)), 
-			 "changed", G_CALLBACK(cb_id3_tag_changed), NULL);
+	g_signal_connect(G_OBJECT(gtk_text_view_get_buffer(text_id3v2_comment)), "changed", G_CALLBACK(cb_id3_tag_changed), NULL);
 
 	/* load the pixbufs */
 	pix_graydot = gdk_pixbuf_new_from_file(DATADIR"/graydot.png", NULL);
@@ -766,8 +765,7 @@ void mpeg_edit_init(GtkBuilder *builder)
 
 	/* set up the tree view */
 	tree_view_setup();
-	g_signal_connect(gtk_tree_view_get_selection(tv_id3v2_frames), "changed", 
-			 G_CALLBACK(cb_id3v2_frame_selection_changed), NULL);
+	g_signal_connect(gtk_tree_view_get_selection(tv_id3v2_frames), "changed", G_CALLBACK(cb_id3v2_frame_selection_changed), NULL);
 
 	/* find out which tab has the ID3 interface */
 	//tab_edit_id3 = gtk_notebook_page_num(nb_edit, GTK_WIDGET(gtk_builder_get_object(builder, "nb_id3")));
