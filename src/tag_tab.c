@@ -591,6 +591,11 @@ static void update_interface_fname()
 
 /*** UI callbacks ***********************************************************/
 
+void cb_ent_tag_format(GtkEditable *editable, gpointer user_data)
+{
+  update_interface_fname();
+}
+
 void cb_tag_go(GtkButton *button, gpointer user_data)
 {
 	start_operation();

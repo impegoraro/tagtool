@@ -3082,6 +3082,7 @@ value6</property>
                                 <child internal-child="entry">
                                   <object class="GtkEntry" id="ent_tag_format">
                                     <property name="can-focus">False</property>
+                                    <signal name="changed" handler="cb_ent_tag_format" swapped="no"/>
                                   </object>
                                 </child>
                               </object>
