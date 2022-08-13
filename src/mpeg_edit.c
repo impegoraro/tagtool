@@ -29,11 +29,6 @@ static GtkNotebook *nb_edit = NULL;
 static GtkNotebook *nb_id3 = NULL;
 static GtkNotebook *nb_id3v1 = NULL;
 static GtkNotebook *nb_id3v2 = NULL;
-static GtkMenuItem *m_id3 = NULL;
-static GtkCheckMenuItem *m_id3v2_view_simple = NULL;
-static GtkCheckMenuItem *m_id3v2_view_advanced = NULL;
-static GtkMenuItem *m_id3_copyv1tov2 = NULL;
-static GtkMenuItem *m_id3_copyv2tov1 = NULL;
 static GtkButton *b_write_tag = NULL;
 static GtkButton *b_remove_tag = NULL;
 
@@ -375,24 +370,6 @@ static void update_tag()
 
 static void update_tabs(gboolean allow_change)
 {
-	if (mpeg_file_has_tag_v(file, ID3TT_ID3V1)) {
-		gtk_image_set_from_pixbuf(img_id3v1_tab, pix_greendot);
-		gtk_widget_set_sensitive(GTK_WIDGET(m_id3_copyv1tov2), TRUE);
-	}
-	else {
-		gtk_image_set_from_pixbuf(img_id3v1_tab, pix_graydot);
-		gtk_widget_set_sensitive(GTK_WIDGET(m_id3_copyv1tov2), FALSE);
-	}
-
-	if (mpeg_file_has_tag_v(file, ID3TT_ID3V2)) {
-		gtk_image_set_from_pixbuf(img_id3v2_tab, pix_greendot);
-		gtk_widget_set_sensitive(GTK_WIDGET(m_id3_copyv2tov1), TRUE);
-	}
-	else {
-		gtk_image_set_from_pixbuf(img_id3v2_tab, pix_graydot);
-		gtk_widget_set_sensitive(GTK_WIDGET(m_id3_copyv2tov1), FALSE);
-	}
-
 	gtk_notebook_set_current_page(nb_edit, tab_edit_id3);
 	if (allow_change) {
 		if (mpeg_file_has_tag_v(file, ID3TT_ID3V2))
@@ -588,34 +565,19 @@ void cb_id3v2_remove(GtkButton *button, gpointer user_data)
 void cb_id3v2_view_button(GtkButton *button, gpointer user_data)
 {
 	if (*current_tab == TAB_ID3V2_SIMPLE)
-		gtk_check_menu_item_set_active(m_id3v2_view_advanced, TRUE);
-	else if (*current_tab == TAB_ID3V2_ADVANCED)
-		gtk_check_menu_item_set_active(m_id3v2_view_simple, TRUE);
-}
-
-/* menu callbacks */
-void cb_id3v2_view_simple(GtkWidget *widget, GdkEvent *event)
-{
-	if (*current_tab == TAB_ID3V2_ADVANCED) {
-		*current_tab = TAB_ID3V2_SIMPLE;
-		if (gtk_notebook_get_current_page(nb_id3v2) != TAB_ID3V2_NOTAG) {
-			update_form_v2();
-			gtk_notebook_set_current_page(nb_id3v2, TAB_ID3V2_SIMPLE);
-		}
-	}
-}
-
-void cb_id3v2_view_advanced(GtkWidget *widget, GdkEvent *event)
-{
-	if (*current_tab == TAB_ID3V2_SIMPLE) {
 		update_tag_from_form_v2(ID3TT_ID3V2);
-
 		*current_tab = TAB_ID3V2_ADVANCED;
 		if (gtk_notebook_get_current_page(nb_id3v2) != TAB_ID3V2_NOTAG) {
 			update_form_v2();
 			gtk_notebook_set_current_page(nb_id3v2, TAB_ID3V2_ADVANCED);
 		}
-	}
+	else if (*current_tab == TAB_ID3V2_ADVANCED) {
+		*current_tab = TAB_ID3V2_SIMPLE;
+		if (gtk_notebook_get_current_page(nb_id3v2) != TAB_ID3V2_NOTAG) {
+			update_form_v2();
+			gtk_notebook_set_current_page(nb_id3v2, TAB_ID3V2_SIMPLE);
+		}
+  }
 }
 
 void cb_id3_copyv1tov2(GtkWidget *widget, GdkEvent *event)
@@ -657,8 +619,6 @@ void cb_id3_copyv2tov1(GtkWidget *widget, GdkEvent *event)
 
 void mpeg_edit_load(mpeg_file *f)
 {
-	gtk_widget_show(GTK_WIDGET(m_id3));
-
 	file = f;
 	set_changed_flag(FALSE);
 	update_form_v1();
@@ -701,11 +661,6 @@ void mpeg_edit_init(GtkBuilder *builder)
 	nb_id3 = GTK_NOTEBOOK(gtk_builder_get_object(builder, "nb_id3"));
 	nb_id3v1 = GTK_NOTEBOOK(gtk_builder_get_object(builder, "nb_id3v1"));
 	nb_id3v2 = GTK_NOTEBOOK(gtk_builder_get_object(builder, "nb_id3v2"));
-	m_id3 = GTK_MENU_ITEM(gtk_builder_get_object(builder, "m_id3"));
-	m_id3v2_view_simple = GTK_CHECK_MENU_ITEM(gtk_builder_get_object(builder, "m_id3v2_view_simple"));
-	m_id3v2_view_advanced = GTK_CHECK_MENU_ITEM(gtk_builder_get_object(builder, "m_id3v2_view_advanced"));
-	m_id3_copyv1tov2 = GTK_MENU_ITEM(gtk_builder_get_object(builder, "m_id3_copyv1tov2"));
-	m_id3_copyv2tov1 = GTK_MENU_ITEM(gtk_builder_get_object(builder, "m_id3_copyv2tov1"));
 	b_write_tag = GTK_BUTTON(gtk_builder_get_object(builder, "b_id3_write_tag"));
 	b_remove_tag = GTK_BUTTON(gtk_builder_get_object(builder, "b_id3_remove_tag"));
 
@@ -796,4 +751,5 @@ void mpeg_edit_init(GtkBuilder *builder)
 	else if (*current_tab == TAB_ID3V2_ADVANCED)
 		gtk_check_menu_item_set_active(m_id3v2_view_advanced, TRUE);
 }
+
 

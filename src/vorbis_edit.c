@@ -26,9 +26,6 @@
 static GtkWindow *w_main = NULL;
 static GtkNotebook *nb_edit = NULL;
 static GtkNotebook *nb_vorbis = NULL;
-static GtkMenuItem *m_vorbis = NULL;
-static GtkCheckMenuItem *m_vor_view_simple = NULL;
-static GtkCheckMenuItem *m_vor_view_advanced = NULL;
 
 static GtkEntry *ent_title = NULL;
 static GtkEntry *ent_artist = NULL;
@@ -323,32 +320,19 @@ void cb_vor_write(GtkButton *button, gpointer user_data)
 	write_to_file();
 }
 
-void cb_vor_view_simple(GtkWidget *widget, GdkEvent *event)
+void cb_vor_view_button(GtkButton *button, gpointer user_data)
 {
-	if (*current_tab != TAB_SIMPLE) {
+	if (*current_tab == TAB_SIMPLE) {
 		update_tag();
 		*current_tab = TAB_SIMPLE;
 		update_form();
 		gtk_notebook_set_current_page(nb_vorbis, *current_tab);
-	}
-}
-
-void cb_vor_view_advanced(GtkWidget *widget, GdkEvent *event)
-{
-	if (*current_tab != TAB_ADVANCED) {
+  } else if (*current_tab == TAB_ADVANCED) {
 		update_tag();
 		*current_tab = TAB_ADVANCED;
 		update_form();
 		gtk_notebook_set_current_page(nb_vorbis, *current_tab);
-	}
-}
-
-void cb_vor_view_button(GtkButton *button, gpointer user_data)
-{
-	if (*current_tab == TAB_SIMPLE)
-		gtk_check_menu_item_set_active(m_vor_view_advanced, TRUE);
-	else if (*current_tab == TAB_ADVANCED)
-		gtk_check_menu_item_set_active(m_vor_view_simple, TRUE);
+  }
 }
 
 
@@ -437,8 +421,6 @@ void cb_vor_remove(GtkButton *button, gpointer user_data)
 
 void vorbis_edit_load(vorbis_file *f)
 {
-	gtk_widget_show(GTK_WIDGET(m_vorbis));
-
 	file = f;
 	update_form();
 
@@ -466,9 +448,6 @@ void vorbis_edit_unload()
 	}
 
 	file = NULL;
-
-	if (GTK_IS_WIDGET(m_vorbis))
-		gtk_widget_hide(GTK_WIDGET(m_vorbis));
 }
 
 
@@ -485,9 +464,6 @@ void vorbis_edit_init(GtkBuilder *builder)
 	w_main = GTK_WINDOW(gtk_builder_get_object(builder, "w_main"));
 	nb_edit = GTK_NOTEBOOK(gtk_builder_get_object(builder, "nb_edit"));
 	nb_vorbis = GTK_NOTEBOOK(gtk_builder_get_object(builder, "nb_vorbis"));
-	m_vorbis = GTK_MENU_ITEM(gtk_builder_get_object(builder, "m_vorbis"));
-	m_vor_view_simple = GTK_CHECK_MENU_ITEM(gtk_builder_get_object(builder, "m_vor_view_simple"));
-	m_vor_view_advanced = GTK_CHECK_MENU_ITEM(gtk_builder_get_object(builder, "m_vor_view_advanced"));
 
 	ent_title = GTK_ENTRY(gtk_builder_get_object(builder, "ent_vor_title"));
 	ent_artist = GTK_ENTRY(gtk_builder_get_object(builder, "ent_vor_artist"));
@@ -537,10 +513,5 @@ void vorbis_edit_init(GtkBuilder *builder)
 	current_tab = pref_get_or_set("vorbis_edit:current_tab", PREF_INT, &default_tab);
 	if (*current_tab != TAB_SIMPLE && *current_tab != TAB_ADVANCED)
 		*current_tab = default_tab;
-
-	if (*current_tab == TAB_SIMPLE)
-		gtk_check_menu_item_set_active(m_vor_view_simple, TRUE);
-	else
-		gtk_check_menu_item_set_active(m_vor_view_advanced, TRUE);
 }
 

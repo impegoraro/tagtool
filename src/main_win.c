@@ -53,11 +53,6 @@ void cb_file_refresh(GtkWidget *widget, GdkEvent *event)
 	fl_refresh(TRUE);
 }
 
-void cb_file_quit(GtkWidget *widget, GdkEvent *event)
-{
-	gtk_main_quit();
-}
-
 void cb_settings_charconv(GtkWidget *widget, GdkEvent *event)
 {
 	chconv_display(CHCONV_TAG, GTK_WIDGET(gtk_builder_get_object(copy_of_builder, "b_show_tag_chconv")));
@@ -72,17 +67,6 @@ void cb_innerPaned_resize(GtkWidget *widget, GdkRectangle *allocation, gpointer 
 {
 	*panedPos = gtk_paned_get_position(p_innerPaned);
   g_object_set(G_OBJECT(box_header_left), "width-request", gtk_widget_get_allocated_width(GTK_WIDGET(b_file_list)) + 10 , NULL);
-}
-
-void cb_help_contents(GtkWidget *widget, GdkEvent *event)
-{
-/*
-	GError *err = NULL;        
-
-	// XXX - should check with g_find_program_in_path()
-
-	g_spawn_command_line_async ("yelp "HELPDIR"tagtool.xml", &err);
-*/
 }
 
 void cb_help_about(GtkWidget *widget, GdkEvent *event)
@@ -121,14 +105,6 @@ void mw_init(GtkBuilder *builder)
 	gtk_notebook_set_show_tabs(GTK_NOTEBOOK(gtk_builder_get_object(builder, "nb_id3v1")), FALSE);
 	gtk_notebook_set_show_tabs(GTK_NOTEBOOK(gtk_builder_get_object(builder, "nb_id3v2")), FALSE);
 	gtk_notebook_set_show_tabs(GTK_NOTEBOOK(gtk_builder_get_object(builder, "nb_vorbis")), FALSE);
-
-	/*
-	 * Hide the MP3 and Vorbis menus.  This has to be done here because
-	 * the MP3/Vorbis specific code may not be compiled.
-	 */
-	gtk_widget_hide(GTK_WIDGET(gtk_builder_get_object(builder, "m_id3")));
-	gtk_widget_hide(GTK_WIDGET(gtk_builder_get_object(builder, "m_vorbis")));
-
 
 	/*
 	 * Get the widgets from glade and setup the interface
