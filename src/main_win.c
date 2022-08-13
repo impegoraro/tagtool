@@ -92,6 +92,8 @@ void cb_main_win_size_changed(GtkWidget *widget, GtkAllocation *alloc, gpointer 
 
 void mw_init(GtkBuilder *builder)
 {
+  GError *error = NULL;
+
   copy_of_builder = builder;
 	/* 
 	 * Tabs are visible by default to make editing in glade easier.
@@ -105,8 +107,6 @@ void mw_init(GtkBuilder *builder)
 	gtk_notebook_set_show_tabs(GTK_NOTEBOOK(gtk_builder_get_object(builder, "nb_id3v1")), FALSE);
 	gtk_notebook_set_show_tabs(GTK_NOTEBOOK(gtk_builder_get_object(builder, "nb_id3v2")), FALSE);
 	gtk_notebook_set_show_tabs(GTK_NOTEBOOK(gtk_builder_get_object(builder, "nb_vorbis")), FALSE);
-
-  gtk_image_set_from_file(GTK_IMAGE(gtk_builder_get_object(builder, "img_icon")), PREFIX_DATA"/icons/hicolor/scalable/apps/TagTool.svg");
 
 	/*
 	 * Get the widgets from glade and setup the interface
@@ -124,10 +124,14 @@ void mw_init(GtkBuilder *builder)
 	  	sprintf(versionStr, "<span size=\"small\">v%s</span>", PACKAGE_VERSION);
 	  	gtk_label_set_markup(l_version, versionStr);
 	}
+
+  gtk_image_set_from_file(GTK_IMAGE(gtk_builder_get_object(builder, "img_icon")), PREFIX_DATA"/icons/hicolor/scalable/apps/TagTool.svg");
+  gtk_window_set_icon(w_main, gdk_pixbuf_new_from_file(PREFIX_DATA"/icons/hicolor/48x48/apps/TagTool.png", &error));
+  if(error != NULL) {g_print("error while loading icon: %s\n", error->message); g_error_free(error); }
+
 	/*
 	 * get the preference values, or set them to defaults
 	 */
-
 	/* width */
 	width = pref_get_ref("mw:width");
 	if (!width) {
@@ -158,7 +162,6 @@ void mw_init(GtkBuilder *builder)
 	  gtk_paned_set_position(p_innerPaned, *panedPos);
 
   /* Load css if exists */
-  GError *error = NULL;
   GtkCssProvider *themeProvider = gtk_css_provider_new();
   GdkDisplay *display = gdk_display_get_default();
   GdkScreen *screen = gdk_display_get_default_screen (display);
