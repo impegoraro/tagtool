@@ -106,6 +106,8 @@ void mw_init(GtkBuilder *builder)
 	gtk_notebook_set_show_tabs(GTK_NOTEBOOK(gtk_builder_get_object(builder, "nb_id3v2")), FALSE);
 	gtk_notebook_set_show_tabs(GTK_NOTEBOOK(gtk_builder_get_object(builder, "nb_vorbis")), FALSE);
 
+  gtk_image_set_from_file(GTK_IMAGE(gtk_builder_get_object(builder, "img_icon")), PREFIX_DATA"/icons/hicolor/scalable/apps/TagTool.svg");
+
 	/*
 	 * Get the widgets from glade and setup the interface
 	 */
