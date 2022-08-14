@@ -71,12 +71,6 @@ static GtkToolButton *b_id3v2_add = NULL;
 static GtkToolButton *b_id3v2_edit = NULL;
 static GtkToolButton *b_id3v2_remove = NULL;
 
-static GtkImage *img_id3v1_tab = NULL;
-static GtkImage *img_id3v2_tab = NULL;
-static GdkPixbuf *pix_graydot;
-static GdkPixbuf *pix_greendot;
-
-
 /* the various notebook tabs */
 #define TAB_ID3_V1 0
 #define TAB_ID3_V2 1
@@ -164,7 +158,6 @@ static void set_editable_flag(gboolean value)
 	gtk_widget_set_sensitive(GTK_WIDGET(lab_id3v1_genre), value);
 	gtk_widget_set_sensitive(GTK_WIDGET(spin_id3v1_track), value);
 	gtk_widget_set_sensitive(GTK_WIDGET(lab_id3v1_track), value);
-	gtk_widget_set_sensitive(GTK_WIDGET(m_id3_copyv1tov2), value);
 
 	/* v2 simple edit controls */
 	gtk_widget_set_sensitive(GTK_WIDGET(b_id3v2_create_tag), value);
@@ -182,7 +175,6 @@ static void set_editable_flag(gboolean value)
 	gtk_widget_set_sensitive(GTK_WIDGET(lab_id3v2_genre), value);
 	gtk_widget_set_sensitive(GTK_WIDGET(ent_id3v2_track), value);
 	gtk_widget_set_sensitive(GTK_WIDGET(lab_id3v2_track), value);
-	gtk_widget_set_sensitive(GTK_WIDGET(m_id3_copyv2tov1), value);
 
 	/* v2 advanced edit controls */
 	gtk_widget_set_sensitive(GTK_WIDGET(tv_id3v2_frames), value);
@@ -295,7 +287,7 @@ static void update_form_v2()
 
 				mpeg_file_get_frame_info(ID3Frame_GetID(frames[i]), NULL, &desc, NULL, NULL);
 				p = strchr(desc, '/');
-				snprintf(short_desc, sizeof(short_desc), "%.*s", (p ? p-desc : sizeof(short_desc)), desc);
+				snprintf(short_desc, sizeof(short_desc), "%.*s", (int)(p ? p-desc : sizeof(short_desc)), desc);
 				
 				mpeg_file_get_frame_text(file, ID3TT_ID3V2, frames[i], &value);
 				if (value == NULL)
@@ -395,7 +387,7 @@ static void write_to_file()
 	if (res != AF_OK) {
 		char msg[512];
 		snprintf(msg, sizeof(msg), 
-			 _("Error saving file \"%s\":\n%s (%d)"), 
+			 _("Error saving file '%s':\n%s (%d)"),
 			 file->name, strerror(errno), errno);
 		message_box(w_main, _("Error Saving File"), msg, GTK_BUTTONS_OK, 0);
 	}
@@ -564,14 +556,14 @@ void cb_id3v2_remove(GtkButton *button, gpointer user_data)
 
 void cb_id3v2_view_button(GtkButton *button, gpointer user_data)
 {
-	if (*current_tab == TAB_ID3V2_SIMPLE)
+	if (*current_tab == TAB_ID3V2_SIMPLE) {
 		update_tag_from_form_v2(ID3TT_ID3V2);
 		*current_tab = TAB_ID3V2_ADVANCED;
 		if (gtk_notebook_get_current_page(nb_id3v2) != TAB_ID3V2_NOTAG) {
 			update_form_v2();
 			gtk_notebook_set_current_page(nb_id3v2, TAB_ID3V2_ADVANCED);
 		}
-	else if (*current_tab == TAB_ID3V2_ADVANCED) {
+  } else if (*current_tab == TAB_ID3V2_ADVANCED) {
 		*current_tab = TAB_ID3V2_SIMPLE;
 		if (gtk_notebook_get_current_page(nb_id3v2) != TAB_ID3V2_NOTAG) {
 			update_form_v2();
@@ -643,9 +635,6 @@ void mpeg_edit_unload()
 	}
 
 	file = NULL;
-
-	if (GTK_IS_WIDGET(m_id3))
-		gtk_widget_hide(GTK_WIDGET(m_id3));
 }
 
 
@@ -702,9 +691,6 @@ void mpeg_edit_init(GtkBuilder *builder)
 	b_id3v2_edit = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "b_id3v2_edit"));
 	b_id3v2_remove = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "b_id3v2_remove"));
 
-	img_id3v1_tab = GTK_IMAGE(gtk_builder_get_object(builder, "img_id3v1_tab"));
-	img_id3v2_tab = GTK_IMAGE(gtk_builder_get_object(builder, "img_id3v2_tab"));
-
 	/* additional widget setup */
 	gtk_editable_set_max_chars(GTK_EDITABLE(ent_id3v1_title), 30);
 	gtk_editable_set_max_chars(GTK_EDITABLE(ent_id3v1_artist), 30);
@@ -713,10 +699,6 @@ void mpeg_edit_init(GtkBuilder *builder)
 	gtk_editable_set_max_chars(GTK_EDITABLE(ent_id3v1_year), 4);
 
 	g_signal_connect(G_OBJECT(gtk_text_view_get_buffer(text_id3v2_comment)), "changed", G_CALLBACK(cb_id3_tag_changed), NULL);
-
-	/* load the pixbufs */
-	pix_graydot = gdk_pixbuf_new_from_file(DATADIR"/graydot.png", NULL);
-	pix_greendot = gdk_pixbuf_new_from_file(DATADIR"/greendot.png", NULL);
 
 	/* set up the tree view */
 	tree_view_setup();
@@ -745,11 +727,6 @@ void mpeg_edit_init(GtkBuilder *builder)
 	current_tab = pref_get_or_set("id3_edit:current_tab", PREF_INT, &default_tab);
 	if (*current_tab != TAB_ID3V2_SIMPLE && *current_tab != TAB_ID3V2_ADVANCED)
 		*current_tab = default_tab;
-
-	if (*current_tab == TAB_ID3V2_SIMPLE)
-		gtk_check_menu_item_set_active(m_id3v2_view_simple, TRUE);
-	else if (*current_tab == TAB_ID3V2_ADVANCED)
-		gtk_check_menu_item_set_active(m_id3v2_view_advanced, TRUE);
 }
 
 

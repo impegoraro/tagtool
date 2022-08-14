@@ -134,24 +134,24 @@ static void update_file_count()
 		g_string_append(str, _(" (1 selected)"));
 	} else if (selected > 1) {
 		g_string_append_printf(str, _(" (%i selected)"), selected);
-  		GString *str2;
-	  	str2 = g_string_sized_new(60);
-  		g_string_append_printf(str2, _("<span size='xx-large'>%i files selected</span>"), selected);
-  		gtk_label_set_markup(l_help_title, str2->str);
-	  	gtk_label_set_markup(l_help_secondary, _("<span size='small'>use the next tab to edit multiple files.</span>"));
-  		g_string_free(str2, TRUE);
+
+    GString *str2;
+  	str2 = g_string_sized_new(60);
+		g_string_append_printf(str2, _("%i files selected"), selected);
+    gtk_label_set_markup(l_help_title, str2->str);
+  	gtk_label_set_markup(l_help_secondary, _("<span size='small'>use the next tab to edit multiple files.</span>"));
+		g_string_free(str2, TRUE);
 	} else {
     if (total == 0) {
       gtk_label_set_markup(l_help_title, _("<span size='xx-large'>No files found</span>"));
 	    gtk_label_set_markup(l_help_secondary, _("<span>try selecting a new directory to look for files, or click on the recursive button.</span>"));
     } else {
       gtk_label_set_markup(l_help_title, _("<span size='xx-large'>No file selected</span>"));
-	    gtk_label_set_markup(l_help_secondary, _("<span>try selecting a file from the list.</span>"));
+	    gtk_label_set_markup(l_help_secondary, _("<span>Select a file from the list to begin.</span>"));
     }
   }
 
 	gtk_label_set_text(lab_file_count, str->str);
-
 	g_string_free(str, TRUE);
 }
 
@@ -162,18 +162,8 @@ static void update_tree_view(const GEList *file_list)
 	gchar *aux;
 	GtkTreeIter tree_iter;
 	GList *i;
-	//GtkStyleContext *style;
-
-  //style = gtk_widget_get_style_context(GTK_WIDGET(tv_files));
-	//if (style == NULL)
-	///	g_error("Couldn't get style context for widget tv_files");
-
-	//gtk_style_context_get_background_color(style, GTK_STATE_FLAG_INSENSITIVE, &outColor);
-	//gtk_style_context_get_property(style, GTK_STYLE_PROPERTY_BACKGROUND_COLOR, GTK_STATE_FLAG_INSENSITIVE, &value);
-	//strColor = gdk_rgba_to_string(&outColor);
 
 	gtk_tree_view_set_model(tv_files, NULL);
-
 	gtk_list_store_clear(store_files);
 
 	i = g_elist_first(file_list);
@@ -214,8 +204,8 @@ static void update_tree_view(const GEList *file_list)
 		last_file = i->data;
 		i = g_list_next(i);
 	}
-	gtk_tree_view_set_model(tv_files, GTK_TREE_MODEL(store_files));
 
+	gtk_tree_view_set_model(tv_files, GTK_TREE_MODEL(store_files));
 	update_file_count();
 }
 
@@ -292,15 +282,7 @@ static void rename_file(const char *old_path, const char *new_name, gboolean sho
 
 	if (fu_exists(new_path)) {
 		free(new_path);
-	  	return;
-		/*int button;
-		button = message_box(w_main, _("File Exists"), 
-				     _("A file with this name already exists.\nDo you want to overwrite it?"), 
-				     GTK_BUTTONS_YES_NO, GTK_RESPONSE_NO);
-		if (button == GTK_RESPONSE_NO) {
-			free(new_path);
-			return;
-		}*/
+  	return;
 	}
 
 	res = rename(old_path, new_path);
