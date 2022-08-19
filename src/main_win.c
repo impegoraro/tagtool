@@ -29,7 +29,6 @@ static GtkBuilder *copy_of_builder = NULL;
 static GtkWindow   *w_main        = NULL;
 static GtkStack    *s_mainStack   = NULL;
 static GtkPaned    *p_innerPaned  = NULL;
-static GtkLabel    *l_version     = NULL;
 static GtkComboBox *combo_wd      = NULL;
 static GtkBox      *b_file_list   = NULL;
 static GtkBox      *box_header_left = NULL;
@@ -114,18 +113,11 @@ void mw_init(GtkBuilder *builder)
 	w_main = GTK_WINDOW(gtk_builder_get_object(builder, "w_main"));
 	s_mainStack = GTK_STACK(gtk_builder_get_object(builder, "s_mainStack"));
   p_innerPaned = GTK_PANED(gtk_builder_get_object(builder, "p_innerPaned"));
-	l_version = GTK_LABEL(gtk_builder_get_object(builder, "l_version"));
   combo_wd = GTK_COMBO_BOX(gtk_builder_get_object(builder, "combo_wd"));
   b_file_list = GTK_BOX(gtk_builder_get_object(builder, "b_file_list"));
   box_header_left = GTK_BOX(gtk_builder_get_object(builder, "box_header_left"));
 
-	{
-	  	char versionStr[100];
-	  	sprintf(versionStr, "<span size=\"small\">v%s</span>", PACKAGE_VERSION);
-	  	gtk_label_set_markup(l_version, versionStr);
-	}
-
-  gtk_image_set_from_file(GTK_IMAGE(gtk_builder_get_object(builder, "img_icon")), PREFIX_DATA"/icons/hicolor/scalable/apps/TagTool.svg");
+  gtk_image_set_from_file(GTK_IMAGE(gtk_builder_get_object(builder, "img_icon")), PREFIX_DATA"/icons/hicolor/128x128/apps/TagTool.png");
   gtk_window_set_icon(w_main, gdk_pixbuf_new_from_file(PREFIX_DATA"/icons/hicolor/48x48/apps/TagTool.png", &error));
   if(error != NULL) {g_print("error while loading icon: %s\n", error->message); g_error_free(error); }
 

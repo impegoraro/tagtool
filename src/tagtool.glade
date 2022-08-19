@@ -932,7 +932,7 @@
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="is-important">True</property>
-                        <property name="label" translatable="yes">Open new folder...</property>
+                        <property name="label" translatable="yes">Open new folder…</property>
                         <property name="use-underline">True</property>
                         <property name="icon-name">folder-symbolic</property>
                         <signal name="clicked" handler="cb_select_dir" swapped="no"/>
@@ -4041,45 +4041,18 @@ value6</property>
           </packing>
         </child>
         <child>
-          <object class="GtkBox">
+          <object class="GtkStatusbar" id="statusbar">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <child>
-              <object class="GtkStatusbar" id="statusbar">
-                <property name="visible">True</property>
-                <property name="can-focus">False</property>
-                <property name="margin-top">6</property>
-                <property name="margin-bottom">6</property>
-                <property name="orientation">vertical</property>
-                <property name="spacing">2</property>
-              </object>
-              <packing>
-                <property name="expand">True</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel" id="l_version">
-                <property name="visible">True</property>
-                <property name="can-focus">False</property>
-                <property name="halign">end</property>
-                <property name="valign">end</property>
-                <property name="label" translatable="yes">&lt;i&gt;v0.14&lt;/i&gt;</property>
-                <property name="use-markup">True</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="pack-type">end</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
+            <property name="margin-top">6</property>
+            <property name="margin-bottom">6</property>
+            <property name="orientation">vertical</property>
+            <property name="spacing">2</property>
           </object>
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
-            <property name="position">3</property>
+            <property name="position">1</property>
           </packing>
         </child>
         <child>
