@@ -23,14 +23,14 @@ install_data(files('TagTool-72.png'), install_dir: prefix_datadir / 'icons/hicol
 install_data(files('TagTool-96.png'), install_dir: prefix_datadir / 'icons/hicolor/96x96/apps/', rename: ['TagTool.png'])
 
 # 128x128
-install_data(files('TagTool-128.png'), install_dir: prefix_datadir / 'icons/hicolor/128x128/apps/', rename: ['TagTool-.pg',])
+install_data(files('TagTool-128.png'), install_dir: prefix_datadir / 'icons/hicolor/128x128/apps/', rename: ['TagTool.png',])
 
 # 192x192
-install_data(files('TagTool-192.png'), install_dir: prefix_datadir / 'icons/hicolor/192x192/apps/', rename: ['TagTool-.pg',])
+install_data(files('TagTool-192.png'), install_dir: prefix_datadir / 'icons/hicolor/192x192/apps/', rename: ['TagTool.png',])
 
 # 256x256
-install_data(files('TagTool-256.png'), install_dir: prefix_datadir / 'icons/hicolor/256x256/apps/', rename: ['TagTool-.pg',])
+install_data(files('TagTool-256.png'), install_dir: prefix_datadir / 'icons/hicolor/256x256/apps/', rename: ['TagTool.png',])
 
 # 512x512
-install_data(files('TagTool-512.png'), install_dir: prefix_datadir / 'icons/hicolor/512x512/apps/', rename: ['TagTool-.pg',])
+install_data(files('TagTool-512.png'), install_dir: prefix_datadir / 'icons/hicolor/512x512/apps/', rename: ['TagTool.png',])
 
