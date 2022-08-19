@@ -38,7 +38,6 @@ static GtkWindow *w_main = NULL;
 
 static GtkComboBoxText *combo_wd = NULL;
 static GtkEntry *ent_wd = NULL;
-static GtkToggleButton *cb_recurse = NULL;
 static GtkDialog *dlg_wd_select = NULL;
 
 static GtkTreeView *tv_files = NULL;
@@ -48,6 +47,9 @@ static GtkMenu *menu_file_list = NULL;
 static GtkMenuItem *m_ctx_manual_rename = NULL;
 static GtkMenuItem *m_ctx_delete = NULL;
 static GtkMenuItem *m_ctx_unselect_all = NULL;
+static GtkToolButton *menu_toolbar_files = NULL;
+static GtkToolButton *btnMenuRecursive = NULL;
+
 
 /*Help labels */
 static GtkLabel *l_help_title;
@@ -229,6 +231,14 @@ static void popup_tree_view_menu()
 	gtk_menu_popup(menu_file_list, NULL, NULL, NULL, NULL, 3, gtk_get_current_event_time());
 }
 
+static void popup_toolbar_open_menu(GtkWidget *parent)
+{
+  gtk_menu_popup_at_widget(menu_toolbar_files,
+                          parent,
+                          GDK_GRAVITY_STATIC,
+                          GDK_GRAVITY_STATIC,
+                          NULL);
+}
 
 static void delete_files(const GEList *file_list)
 {
@@ -411,7 +421,7 @@ void load_file_list()
 	scan_progress_start();
 	file_list = fu_get_file_list(working_dir->str, patterns, 
 				     scan_progress_callback, 
-				     gtk_toggle_button_get_active(cb_recurse),
+				     gtk_check_menu_item_get_active(btnMenuRecursive),
 				     TRUE);
 	scan_progress_stop();
 
@@ -625,7 +635,6 @@ void cb_wd_changed(GObject *obj, gpointer user_data)
 	}
 }
 
-//gboolean cb_wd_keypress(GtkWidget *widget, GdkEventKey *event, gpointer user_data)
 void cb_wd_keypress(GtkEntry *entry, gpointer  user_data)
 {
 	fl_refresh(FALSE);
@@ -633,10 +642,15 @@ void cb_wd_keypress(GtkEntry *entry, gpointer  user_data)
 
 void cb_toggle_recurse(GtkToggleButton *widget, gpointer data)
 {
-	*recurse = gtk_toggle_button_get_active(cb_recurse);
+	*recurse = gtk_check_menu_item_get_active(btnMenuRecursive);
 	load_file_list();
 }
 
+void cb_menu_recursive(GtkCheckMenuItem *menu, gpointer data)
+{
+  *recurse = gtk_check_menu_item_get_active(btnMenuRecursive);
+	load_file_list();
+}
 
 /*** public functions *******************************************************/
 
@@ -650,7 +664,6 @@ void fl_init(GtkBuilder *builder)
 	w_main = GTK_WINDOW(gtk_builder_get_object(builder, "w_main"));
 	combo_wd = GTK_COMBO_BOX_TEXT(gtk_builder_get_object(builder, "combo_wd"));
 	ent_wd = GTK_ENTRY(gtk_builder_get_object(builder, "ent_wd"));
-	cb_recurse = GTK_TOGGLE_BUTTON(gtk_builder_get_object(builder, "cb_recurse"));
 	tv_files = GTK_TREE_VIEW(gtk_builder_get_object(builder, "tv_files"));
 	lab_file_count = GTK_LABEL(gtk_builder_get_object(builder, "lab_file_count"));
 	menu_file_list = GTK_MENU(gtk_builder_get_object(builder, "menu_file_list"));
@@ -659,6 +672,8 @@ void fl_init(GtkBuilder *builder)
 	m_ctx_unselect_all = GTK_MENU_ITEM(gtk_builder_get_object(builder, "m_ctx_unselect_all"));
 	l_help_title = GTK_LABEL(gtk_builder_get_object(builder, "l_help_title"));
 	l_help_secondary = GTK_LABEL(gtk_builder_get_object(builder, "l_help_secondary"));
+  menu_toolbar_files = GTK_MENU(gtk_builder_get_object(builder, "menu_toolbar_files"));
+  btnMenuRecursive = GTK_CHECK_MENU_ITEM(gtk_builder_get_object(builder, "btnMenuRecursive"));
 
 	/*
 	 * create the file chooser
@@ -704,8 +719,7 @@ void fl_init(GtkBuilder *builder)
 		gboolean temp = FALSE;
 		recurse = pref_set("ds:recurse", PREF_BOOLEAN, &temp);
 	}
-
-	gtk_toggle_button_set_active(cb_recurse, *recurse);
+  gtk_check_menu_item_set_active(btnMenuRecursive, *recurse);
 
 	/* dir_mru */
 	dir_list = pref_get_ref("ds:dir_mru");
@@ -928,3 +942,8 @@ GEList *fl_get_all_files()
 	return g_elist_copy(file_list);
 }
 
+
+void cb_toolbar_more_menus(GtkToolButton *button, gpointer data)
+{
+  popup_toolbar_open_menu(GTK_WIDGET(button));
+}

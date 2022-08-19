@@ -11,7 +11,7 @@ m_dep            = cc.find_library('m')
 #z_dep            = cc.find_library('z')
 #id3_dep          = cc.find_library('libid3', required: false)
 
-# checking for id3 header and lib /usr/include/id3.h
+## checking for id3 header and lib /usr/include/id3.h
 #if cc.has_header('id3.h')
   #config_h.set_quoted('ENABLE_MP3', '0')
 #endif
@@ -26,7 +26,6 @@ sources = files(
   'about.c',
   'str_convert.c',
   'str_util.c',
-  #'mpeg_edit_field.c',
   'main_win.c',
   'vorbis_file.c',
   'vcedit.c',
@@ -45,11 +44,12 @@ sources = files(
   'prefs_dlg.c',
   'prefs.c',
   'char_conv_dlg.c',
-  #'mpeg_edit.c',
   'chrono.c',
   'audio_file.c',
   'mru.c',
   'prefs_versions.c',
+  #'mpeg_edit_field.c',
+  #'mpeg_edit.c',
   #'mpeg_file.c',
   'playlist_tab.c',
   'tag_tab.c',

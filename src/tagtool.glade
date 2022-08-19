@@ -731,11 +731,6 @@
   </object>
   <object class="GtkEntryBuffer" id="entrybuffer1"/>
   <object class="GtkEntryBuffer" id="entrybuffer2"/>
-  <object class="GtkImage" id="image3">
-    <property name="visible">True</property>
-    <property name="can-focus">False</property>
-    <property name="icon-name">media-playlist-repeat-symbolic</property>
-  </object>
   <object class="GtkImage" id="image4">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
@@ -944,6 +939,20 @@
                       </object>
                       <packing>
                         <property name="expand">False</property>
+                        <property name="homogeneous">True</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkToolButton" id="tb_files_more">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="halign">end</property>
+                        <property name="use-underline">True</property>
+                        <property name="icon-name">view-more-symbolic</property>
+                        <signal name="clicked" handler="cb_toolbar_more_menus" swapped="no"/>
+                      </object>
+                      <packing>
+                        <property name="expand">True</property>
                         <property name="homogeneous">True</property>
                       </packing>
                     </child>
@@ -4261,21 +4270,6 @@ Files found:</property>
                 <property name="homogeneous">True</property>
                 <property name="layout-style">expand</property>
                 <child>
-                  <object class="GtkToggleButton" id="cb_recurse">
-                    <property name="visible">True</property>
-                    <property name="can-focus">True</property>
-                    <property name="receives-default">True</property>
-                    <property name="tooltip-text" translatable="yes">Recursive</property>
-                    <property name="image">image3</property>
-                    <signal name="toggled" handler="cb_toggle_recurse" swapped="no"/>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">1</property>
-                  </packing>
-                </child>
-                <child>
                   <object class="GtkToggleButton" id="btn_messages">
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
@@ -4457,6 +4451,19 @@ Files found:</property>
         <property name="label" translatable="yes">Unselect All</property>
         <property name="use-underline">True</property>
         <signal name="activate" handler="cb_ctx_unselect_all" swapped="no"/>
+      </object>
+    </child>
+  </object>
+  <object class="GtkMenu" id="menu_toolbar_files">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <child>
+      <object class="GtkCheckMenuItem" id="btnMenuRecursive">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="label" translatable="yes">Recursive</property>
+        <property name="use-underline">True</property>
+        <signal name="toggled" handler="cb_menu_recursive" swapped="no"/>
       </object>
     </child>
   </object>
