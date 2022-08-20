@@ -1,6 +1,8 @@
 #ifndef MPEG_FILE_H
 #define MPEG_FILE_H
 
+#ifdef ENABLE_MP3
+
 #include <id3.h>
 
 #include "audio_file.h"
@@ -104,5 +106,7 @@ void mpeg_file_get_frame_info(int frame_id, const char **name, const char** desc
  * or freed.  The return value is the number of elements in the array. */
 int mpeg_file_get_editable_frame_ids(int **ids);
 
+
+#endif
 
 #endif

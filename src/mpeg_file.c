@@ -1,3 +1,5 @@
+#ifdef ENABLE_MP3
+
 #include <config.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -1075,3 +1077,4 @@ int mpeg_file_get_editable_frame_ids(int **ids)
 	return sizeof(editable_frame_ids) / sizeof(int);
 }
 
+#endif

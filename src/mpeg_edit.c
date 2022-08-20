@@ -1,3 +1,5 @@
+#ifdef ENABLE_MP3
+
 #include <config.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -729,4 +731,4 @@ void mpeg_edit_init(GtkBuilder *builder)
 		*current_tab = default_tab;
 }
 
-
+#endif
