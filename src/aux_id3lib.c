@@ -607,7 +607,7 @@ static ID3_FieldDef ID3FD_SyncLyrics[] =
 };
 
 
-static  ID3_FrameDef ID3_FrameDefs[] =
+static ID3_FrameDef ID3_FrameDefs[] =
 {
   //                          short  long   tag    file
   // frame id                 id     id     discrd discrd field defs           description
