@@ -47,8 +47,8 @@ static GtkMenu *menu_file_list = NULL;
 static GtkMenuItem *m_ctx_manual_rename = NULL;
 static GtkMenuItem *m_ctx_delete = NULL;
 static GtkMenuItem *m_ctx_unselect_all = NULL;
-static GtkToolButton *menu_toolbar_files = NULL;
-static GtkToolButton *btnMenuRecursive = NULL;
+static GtkMenu     *menu_toolbar_files = NULL;
+static GtkCheckMenuItem *btnMenuRecursive = NULL;
 
 
 /*Help labels */
@@ -228,7 +228,8 @@ static void popup_tree_view_menu()
 	gtk_widget_set_sensitive(GTK_WIDGET(m_ctx_delete),        sel_count > 0);
 	gtk_widget_set_sensitive(GTK_WIDGET(m_ctx_unselect_all),  sel_count > 0);
 	
-	gtk_menu_popup(menu_file_list, NULL, NULL, NULL, NULL, 3, gtk_get_current_event_time());
+
+  gtk_menu_popup_at_pointer(menu_file_list, NULL);
 }
 
 static void popup_toolbar_open_menu(GtkWidget *parent)

@@ -322,12 +322,12 @@ void cb_vor_write(GtkButton *button, gpointer user_data)
 
 void cb_vor_view_button(GtkButton *button, gpointer user_data)
 {
-	if (*current_tab == TAB_SIMPLE) {
+	if (*current_tab == TAB_ADVANCED) {
 		update_tag();
 		*current_tab = TAB_SIMPLE;
 		update_form();
 		gtk_notebook_set_current_page(nb_vorbis, *current_tab);
-  } else if (*current_tab == TAB_ADVANCED) {
+  } else if (*current_tab == TAB_SIMPLE) {
 		update_tag();
 		*current_tab = TAB_ADVANCED;
 		update_form();
