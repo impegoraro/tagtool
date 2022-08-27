@@ -1,5 +1,3 @@
-#ifdef ENABLE_MP3
-
 #include <config.h>
 #include <string.h>
 #include <glib.h>
@@ -190,4 +188,3 @@ void mpeg_editfld_init(GtkBuilder *builder)
 	gtk_window_set_transient_for(GTK_WINDOW(dlg), GTK_WINDOW(gtk_builder_get_object(builder, "w_main")));
 }
 
-#endif

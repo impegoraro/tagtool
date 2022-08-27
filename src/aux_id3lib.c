@@ -14,8 +14,6 @@
 
 #ifdef LIBID3_MISSING_ID3FRAMEINFO
 
-#ifdef ENABLE_MP3
-
 #include <id3.h>
 
 
@@ -783,5 +781,5 @@ flags_t ID3FrameInfo_FieldFlags (ID3_FrameID frameid, int fieldnum)
 		return 0;
 }
 
-#endif /* ENABLE_MP3 */
+
 #endif /* LIBID3_MISSING_ID3FRAMEINFO */
