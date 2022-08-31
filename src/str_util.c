@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 #include <glib.h>
 
 #include "str_util.h"
@@ -8,7 +9,7 @@
 
 
 /*** private functions ******************************************************/
-
+// FIXME: Review this code
 static char *convert_sentence_case(const char *str)
 {
 	int result_size = strlen(str) + 12;
@@ -42,6 +43,7 @@ static char *convert_sentence_case(const char *str)
 	return result;
 }
 
+// FIXME: Review this code
 static char *convert_title_case(const char *str)
 {
 	int result_size = strlen(str) + 12;
@@ -81,7 +83,7 @@ static char *convert_title_case(const char *str)
 
 /*** public functions *******************************************************/
 
-char *str_convert_case(const char *str, int conv)
+char *str_convert_case(const char *str, case_conversion_t conv)
 {
 	switch (conv) {
 		case CASE_CONV_NONE: {
@@ -106,7 +108,7 @@ char *str_convert_case(const char *str, int conv)
 	}
 }
 
-
+// FIXME: Review this code
 char *str_replace_char(const char *str, gunichar orig, gunichar repl)
 {
 	int result_size = strlen(str) + 6;
@@ -140,7 +142,6 @@ char *str_replace_char(const char *str, gunichar orig, gunichar repl)
 	return result;
 }
 
-
 char *str_remove_char(const char *str, gunichar rem)
 {
 	char *result = malloc(strlen(str) + 1);
@@ -164,33 +165,34 @@ char *str_remove_char(const char *str, gunichar rem)
 
 void str_rtrim(char *str)
 {
-	int len = strlen(str);
+  //FIXME: g_utf8_strlen should be used instead since utf8 is assumed
+	size_t len = strlen(str);
 	char *last = str + len;
 	char *curr = last - 1;
 
-	if (len == 0)
-		return;
+	if (len == 0) return;
 	
-	while (*curr == ' ' || *curr == '\t' || *curr == '\r' || *curr == '\n') {
+	while (isspace(*curr)) {
 		last = curr;
 		curr = g_utf8_find_prev_char(str, curr);
 		if (curr == NULL)
 			break;
 	}
 
-	*last = 0;
+	*last = '\0';
 }
 
 void str_ltrim(char *str)
 {
 	char *pos = str;
 
-	while (*pos && (*pos == ' ' || *pos == '\t' || *pos == '\r' || *pos == '\n')) {
-		pos = g_utf8_find_next_char(pos, NULL);
+	while (*pos && isspace(*pos)) {
+	  pos = g_utf8_find_next_char(pos, NULL);
 	}
 
 	if (pos != str) {
 		size_t size = strlen(str) - (pos-str) + 1;
+    //FIXME: g_utf8_strncpy should be used instead since utf8 is assumed
 		memmove(str, pos, size);
 	}
 }
@@ -201,32 +203,34 @@ void str_trim(char *str)
 	str_ltrim(str);
 }
 
-
-char *str_strnchr(const char *s, char c, int n)
+char *str_strnchr(const char *s, char c, size_t n)
 {
-	int p = (int)s;
-	int count = 0;
+	const char *p = s;
+	size_t count = 0;
 
-	while (*(char *)p) {
-		if (*(char *)p == c)
+  if (p == NULL) return NULL;
+
+	while (*p != '\0') {
+		if (*p == c)
 			if (++count == n)
 				return (char *)p;
-		p++;
+		++p;
 	}
 	return NULL;
 }
 
 char *str_strnrchr(const char *s, char c, int n)
 {
-	int p = (int)s + strlen(s);
+	const char *p = &s[strlen(s)];
 	int count = 0;
 
-	while (p >= (int)s) {
-		if (*(char *)p == c)
+	while (p >= s) {
+		if (*p == c)
 			if (++count == n)
 				return (char *)p;
 		p--;
 	}
+
 	return NULL;
 }
 
@@ -234,11 +238,11 @@ char *str_safe_strncpy(char *dest, const char *src, size_t n)
 {
 	char *end;
 
-	if (n <= 0)
+	if (n == 0)
 		return NULL;
 
 	strncpy(dest, src, n);
-	dest[n-1] = 0;
+	dest[n - 1] = '\0';
 
 	/* may have left an incomplete multibyte character at the end */
 	if (!g_utf8_validate(dest, -1, (const char **)&end))
@@ -247,27 +251,22 @@ char *str_safe_strncpy(char *dest, const char *src, size_t n)
 	return dest;
 }
 
-
 void str_ascii_tolower(char *str)
 {
-	char *p;
-	for (p = str; *p ; p++)
-		*p = g_ascii_tolower(*p);
+	for (; *str; str++)
+		*str = g_ascii_tolower(*str);
 }
 
 void str_ascii_toupper(char *str)
 {
-	char *p;
-	for (p = str; *p ; p++)
-		*p = g_ascii_toupper(*p);
+	for (; *str; str++)
+		*str = g_ascii_toupper(*str);
 }
-
 
 void str_ascii_replace_char(char *str, char orig, char repl)
 {
-	char *p;
-	for (p = str; *p; p++)
-		if (*p == orig)
-			*p = repl;
+	for (; *str; str++)
+		if (*str == orig)
+			*str = repl;
 }
 

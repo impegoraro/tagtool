@@ -1,6 +1,7 @@
 #ifndef STR_UTIL_H
 #define STR_UTIL_H
 
+#include <sys/types.h>
 
 /*
  * IMPORTANT NOTES:
@@ -15,20 +16,20 @@
 
 
 /* types of case conversion for str_convert_case() */
-enum {
+typedef enum {
 	CASE_CONV_NONE     = 0,
 	CASE_CONV_LOWER    = 1,
 	CASE_CONV_UPPER    = 2,
 	CASE_CONV_SENTENCE = 3,
 	CASE_CONV_TITLE    = 4
-};
+} case_conversion_t;
 
 
 /*
  * Converts a string to the requested case.
  * The result is returned in a newly allocated string.
  */
-char *str_convert_case(const char *str, int conv);
+char *str_convert_case(const char *str, case_conversion_t conv);
 
 /*
  * Replaces all occurrences of the character <orig> with <repl>
@@ -62,7 +63,7 @@ void str_trim(char *str);
  * the beginning.
  * Similar to strchr(3)
  */
-char *str_strnchr(const char *s, char c, int n);
+char *str_strnchr(const char *s, char c, size_t n);
 
 /*
  * Returns a pointer to the <n>th occurrence of <c> in <s>, counting from 
