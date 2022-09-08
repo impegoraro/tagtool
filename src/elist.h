@@ -1,11 +1,11 @@
 #ifndef ELIST_H
 #define ELIST_H
 
+#include <gmodule.h>
+#include <sys/types.h>
+
 /****************************************************************************
  *	Crude wrapper for glib lists (GList).
- *	Keeps track of the list length and last element so that common
- *	operations like append and concat don't take O(n). This is how the
- *	glib lists should have worked in the first place... sheesh!
  *	Also adds macros that let you treat the list as a stack or a queue.
  ****************************************************************************/
 
@@ -13,7 +13,7 @@
 typedef struct {
   GList *first;
   GList *last;
-  gulong length;
+  size_t length;
 } GEList;
 
 
@@ -29,7 +29,7 @@ void	 g_elist_prepend	(GEList		*list,
 				 gpointer	 data);
 void	 g_elist_insert		(GEList		*list,
 				 gpointer	 data,
-				 gint		 position);
+				 size_t 	 position);
 void	 g_elist_insert_sorted	(GEList		*list,
 				 gpointer	 data,
 				 GCompareFunc	 func);

@@ -47,8 +47,6 @@ static void set_ui(int mode, mpeg_file *file, int tag_version, ID3Frame *frame)
 
 		title = _("New ID3 Field");
 		widget = gtk_combo_box_text_new_with_entry();
-		//gtk_combo_set_value_in_list(GTK_COMBO_BOX(widget), TRUE, FALSE);
-		//gtk_entry_set_editable(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(widget))), FALSE);
 		gtk_editable_set_editable(GTK_EDITABLE(gtk_bin_get_child(GTK_BIN(widget))), FALSE);
 
 		frame_id_table = g_hash_table_new(g_str_hash, g_str_equal);
@@ -62,7 +60,7 @@ static void set_ui(int mode, mpeg_file *file, int tag_version, ID3Frame *frame)
 			mpeg_file_get_frame_info(ids[i], &name, &desc, NULL, NULL);
 			
 			snprintf(buffer, sizeof(buffer), "%s  (%s)", desc, name);
-			display_name = strdup(buffer);
+			display_name = g_strdup(buffer);
 			g_hash_table_insert(frame_id_table, display_name, (gpointer)ids[i]);
 			g_elist_append(strings, display_name);
 		}

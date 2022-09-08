@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <errno.h>
 #include <string.h>
+
 #include <glib.h>
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
@@ -73,8 +74,8 @@ static gint compare_audio_file(file_info *a, file_info *b)
 		/* if sort_across_dirs is FALSE the file's directory takes 
 		   precedence over the tag contents */
 		if (!fu_compare_file_paths(a->name, b->name)) {
-			char *dir_a = g_dirname(a->name);
-			char *dir_b = g_dirname(b->name);
+			char *dir_a = g_path_get_dirname(a->name);
+			char *dir_b = g_path_get_dirname(b->name);
 			result = strcoll(dir_a, dir_b);
 			free(dir_a);
 			free(dir_b);
@@ -83,7 +84,6 @@ static gint compare_audio_file(file_info *a, file_info *b)
 	}
 
 	have_a = (audio_file_get_field(a->af, *sort_field, &field_a) == AF_OK);
-	if (have_a) field_a = strdup(field_a);
 	have_b = (audio_file_get_field(b->af, *sort_field, &field_b) == AF_OK);
 
 	if (have_a ^ have_b) {
@@ -120,9 +120,6 @@ static gint compare_audio_file(file_info *a, file_info *b)
 	if (result == 0)
 		result = strcoll(a->name, b->name);
 
-	if (have_a)
-		free((char*)field_a);
-	
 	return result;
 }
 
@@ -200,9 +197,9 @@ static gchar *playlist_name(gchar *base_dir)
 	temp_ext = str_filename_from_utf8(extension, "utf8_conversion_error");
 
 	if (*base_dir)
-		g_string_sprintf(full_name, "%s/%s.%s", base_dir, temp_name, temp_ext);
+		g_string_printf(full_name, "%s/%s.%s", base_dir, temp_name, temp_ext);
 	else
-		g_string_sprintf(full_name, "%s.%s", temp_name, temp_ext);
+		g_string_printf(full_name, "%s.%s", temp_name, temp_ext);
 
 	free(temp_name);
 	free(temp_ext);
@@ -226,7 +223,7 @@ static gint write_playlist(gchar *base_dir, gchar *file_name, GEList *file_list)
 
 	/* the list comes sorted by file name... */
 	if (gtk_toggle_button_get_active(rb_sort_field)) {
-		/* ...sort it by tag field if requested */
+		/* ...sort it by tag field if requested  */
 		sort_by_field(file_list);
 	}
 
@@ -339,7 +336,7 @@ static void create_playlists(GEList *file_list)
 				}
 
 				p = strrchr(full_name, '/');
-				g_string_sprintf(path, "%.*s", (gint)(p-full_name), full_name);
+				g_string_printf(path, "%.*s", (gint)(p-full_name), full_name);
 				g_elist_clear(aux_list);
 
 				temp_utf8 = str_filename_to_utf8(path->str, _("(UTF8 conversion error)"));

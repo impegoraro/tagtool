@@ -34,25 +34,13 @@ static audio_file *af = NULL;
 void et_init(GtkBuilder *builder)
 {
 	/* widgets and icons */
-	w_no_file = GTK_WIDGET(gtk_builder_get_object(builder, "w_no_file"));
-	box_file = GTK_WIDGET(gtk_builder_get_object(builder, "box_tag_file"));
-	s_mainStack = GTK_STACK(gtk_builder_get_object(builder, "s_mainStack"));
+	w_no_file        = GTK_WIDGET(gtk_builder_get_object(builder, "w_no_file"));
+	box_file         = GTK_WIDGET(gtk_builder_get_object(builder, "box_tag_file"));
+	s_mainStack      = GTK_STACK(gtk_builder_get_object(builder, "s_mainStack"));
 	align_create_tag = GTK_WIDGET(gtk_builder_get_object(builder, "align_create_tag"));
 	align_remove_tag = GTK_WIDGET(gtk_builder_get_object(builder, "align_remove_tag"));
-	lab_info_names = GTK_LABEL(gtk_builder_get_object(builder, "lab_info_names"));
-	lab_info_values = GTK_LABEL(gtk_builder_get_object(builder, "lab_info_values"));
-
-  	// FIXME color for gtk > 3.16
-	/* set the title colors */
-	//GdkRGBA rbga;
-	//GtkWidget *w = GTK_WIDGET(gtk_builder_get_object(builder, "lab_edit_title"));
-	//GtkStyleContext *context = gtk_widget_get_style_context(w);
-
-	//gtk_style_context_get_background_color(context, GTK_STATE_FLAG_SELECTED, &rbga);
-	//gtk_widget_override_background_color(w, GTK_STATE_FLAG_NORMAL, &rbga);
-
-	//gtk_style_context_get_color(context, GTK_STATE_FLAG_SELECTED, &rbga);
-	//gtk_widget_override_color(w, GTK_STATE_FLAG_NORMAL, &rbga);
+	lab_info_names   = GTK_LABEL(gtk_builder_get_object(builder, "lab_info_names"));
+	lab_info_values  = GTK_LABEL(gtk_builder_get_object(builder, "lab_info_values"));
 }
 
 
@@ -105,17 +93,17 @@ void et_load_file(const gchar *name)
 	g_string_append(info_names, _("File Type:"));
 	g_string_append(info_values, audio_file_get_desc(af));
 
-	buf = strdup(audio_file_get_info(af));
+	buf = g_strdup(audio_file_get_info(af));
 	aux = buf;
 	while(1) {
 		tok = strtok(aux, "\n");
 		if (!tok) break;
-		g_string_sprintfa(info_names, "\n%s:", tok);
+		g_string_append_printf(info_names, "\n%s:", tok);
 		if (aux) aux = NULL;
 
 		tok = strtok(aux, "\n");
 		if (!tok) break;
-		g_string_sprintfa(info_values, "\n%s", tok);
+		g_string_append_printf(info_values, "\n%s", tok);
 	}
 
 	gtk_label_set_text(lab_info_names, info_names->str);
@@ -124,7 +112,6 @@ void et_load_file(const gchar *name)
 	free(buf);
 	g_string_free(info_names, TRUE);
 	g_string_free(info_values, TRUE);
-
 
 	/* display the appropriate edit interface */
 	audio_file_edit_load(af);

@@ -15,7 +15,8 @@ static GtkWindow *w_main = NULL;
 
 void cb_about_close(GtkButton *button, gpointer user_data)
 {
-	gtk_widget_hide(GTK_WIDGET(dlg_about));
+  (void)button; (void)user_data;
+  gtk_widget_hide(GTK_WIDGET(dlg_about));
 }
 
 
@@ -23,9 +24,6 @@ void cb_about_close(GtkButton *button, gpointer user_data)
 
 void about_display()
 {
-	//gtk_widget_show(GTK_WIDGET(dlg_about));
-	//gtk_show_about_dialog(GTK_ABOUT_DIALOG(dlg_about), NULL);
-	//gtk_widget_show(GTK_WIDGET(dlg_about));
 	GdkPixbuf *logo;
 	GError *error = NULL;
 	char buffer[200];
@@ -36,7 +34,7 @@ void about_display()
 	};
 
 	const gchar* copyright = "Copyright \xc2\xa9 2008 Pedro Lopes.\n" \
-                             "Copyright \xc2\xa9 2013 Ilan Pegoraro.\n";
+                           "Copyright \xc2\xa9 2013 Ilan Pegoraro.\n";
 
 	const gchar *translators = 
 		"Rafael Bermúdez (es) <rafaelber@yahoo.com.mx>\n" \

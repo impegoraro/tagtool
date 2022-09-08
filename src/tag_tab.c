@@ -99,9 +99,9 @@ static MRUList *format_mru;
 static parse_info *build_parse_info(const gchar *format)
 {
 	parse_info *info = calloc(1, sizeof(parse_info));
-	gchar *aux_str = calloc(1, 2 + 2*strlen(format));
-	gchar *expr_str = calloc(1, 2 + 2*strlen(format));
-	gint i, j, span, pos;
+	gchar *aux_str = calloc(1, 2 + 2 * strlen(format));
+	gchar *expr_str = calloc(1, 2 + 2 * strlen(format));
+	size_t i, j, span, pos;
 	gchar *p;
 	gint res;
 
@@ -129,48 +129,48 @@ static parse_info *build_parse_info(const gchar *format)
 	while (TRUE) {
 		p = strchr(&aux_str[i], '<');
 		if (p != NULL) {
-			span = (gint)(p - &aux_str[i]);
+			span = (p - &aux_str[i]);
 			if (span > 0) {
 				strncpy(&expr_str[j], &aux_str[i], span);
 				i += span;
 				j += span;
-			} else if (strncmp(&aux_str[i], "<title>", 7) == 0) {
-				strncpy(&expr_str[j], "(.*)", 4);
+			} else if (strcmp(&aux_str[i], "<title>") == 0) {
+				strcpy(&expr_str[j], "(.*)");
 				info->title = pos++;
 				i += 7;
 				j += 4;
-			} else if (strncmp(&aux_str[i], "<artist>", 8) == 0) {
-				strncpy(&expr_str[j], "(.*)", 4);
+			} else if (strcmp(&aux_str[i], "<artist>") == 0) {
+				strcpy(&expr_str[j], "(.*)");
 				info->artist = pos++;
 				i += 8;
 				j += 4;
-			} else if (strncmp(&aux_str[i], "<album>", 7) == 0) {
-				strncpy(&expr_str[j], "(.*)", 4);
+			} else if (strcmp(&aux_str[i], "<album>") == 0) {
+				strcpy(&expr_str[j], "(.*)");
 				info->album = pos++;
 				i += 7;
 				j += 4;
-			} else if (strncmp(&aux_str[i], "<year>", 6) == 0) {
-				strncpy(&expr_str[j], "(.*)", 4);
+			} else if (strcmp(&aux_str[i], "<year>") == 0) {
+				strcpy(&expr_str[j], "(.*)");
 				info->year = pos++;
 				i += 6;
 				j += 4;
-			} else if (strncmp(&aux_str[i], "<comment>", 9) == 0) {
-				strncpy(&expr_str[j], "(.*)", 4);
+			} else if (strcmp(&aux_str[i], "<comment>") == 0) {
+				strcpy(&expr_str[j], "(.*)");
 				info->comment = pos++;
 				i += 9;
 				j += 4;
-			} else if (strncmp(&aux_str[i], "<track>", 7) == 0) {
-				strncpy(&expr_str[j], "([^ ]*)", 7);
+			} else if (strcmp(&aux_str[i], "<track>") == 0) {
+				strcpy(&expr_str[j], "([^ ]*)");
 				info->track = pos++;
 				i += 7;
 				j += 7;
-			} else if (strncmp(&aux_str[i], "<genre>", 7) == 0) {
-				strncpy(&expr_str[j], "(.*)", 4);
+			} else if (strcmp(&aux_str[i], "<genre>") == 0) {
+				strcpy(&expr_str[j], "(.*)");
 				info->genre = pos++;
 				i += 7;
 				j += 4;
-			} else if (strncmp(&aux_str[i], "<\\*>", 4) == 0) {
-				strncpy(&expr_str[j], ".*", 2);
+			} else if (strcmp(&aux_str[i], "<\\*>") == 0) {
+				strcpy(&expr_str[j], ".*");
 				i += 4;
 				j += 2;
 			} else {

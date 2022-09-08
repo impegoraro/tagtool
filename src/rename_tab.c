@@ -88,7 +88,7 @@ static gboolean append_field(GString *gstr, audio_file *af, int field)
 		char *endptr;
 		track = strtol(value, &endptr, 10);
 		if (*endptr == 0)
-			g_string_sprintfa(gstr, "%02li", track);
+			g_string_append_printf(gstr, "%02li", track);
 		else
 			g_string_append(gstr, value);
 	}
@@ -113,7 +113,7 @@ static gboolean build_file_name(const gchar *format, audio_file *af, GString *ne
 		if (p != NULL) {
 			span = (gint)(p - &format[i]);
 			if (span > 0) {
-				g_string_sprintfa(new_name, "%.*s", span, &format[i]);
+				g_string_append_printf(new_name, "%.*s", span, &format[i]);
 				i += span;
 			} else if (strncmp(&format[i], "<title>", 7) == 0) {
 				if (!append_field(new_name, af, AF_TITLE))
@@ -236,7 +236,7 @@ static void rename_files(GEList *file_list)
 		/* build the new file name (with path) */
 		g_string_truncate(new_full_name, 0);
 		if (format[0] != '/' && (p = strrchr(orig_full_name, '/'))) 
-			g_string_sprintfa(new_full_name, "%.*s/", (gint)(p-orig_full_name), orig_full_name);
+			g_string_append_printf(new_full_name, "%.*s/", (gint)(p-orig_full_name), orig_full_name);
 
 		if (!build_file_name(format, af, new_full_name)) {
 			pd_printf(PD_ICON_FAIL, _("Error renaming \"%s\""), orig_name_utf8);
@@ -263,7 +263,7 @@ static void rename_files(GEList *file_list)
 		p = strrchr(new_full_name->str, '/');
 		if (moving && p) {
 			new_dirs = 0;
-			g_string_sprintf(new_path, "%.*s/", (gint)(p-new_full_name->str), new_full_name->str);
+			g_string_printf(new_path, "%.*s/", (gint)(p-new_full_name->str), new_full_name->str);
 			res = fu_make_dir_tree(new_path->str, &new_dirs);
 			if (!res) {
 				save_errno = errno;

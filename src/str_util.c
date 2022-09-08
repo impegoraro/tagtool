@@ -87,7 +87,7 @@ char *str_convert_case(const char *str, case_conversion_t conv)
 {
 	switch (conv) {
 		case CASE_CONV_NONE: {
-			return strdup(str);
+			return g_strdup(str);
 		}
 		case CASE_CONV_LOWER: {
 			return g_utf8_strdown(str, -1);

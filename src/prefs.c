@@ -401,7 +401,7 @@ static void *table_insert(const char *name, int type, void *data, gboolean copy)
 	entry = (pref_entry *)g_hash_table_lookup(prefs, name);
 	if (!entry) {
 		entry = malloc(sizeof(pref_entry));
-		g_hash_table_insert(prefs, strdup(name), entry);
+		g_hash_table_insert(prefs, g_strdup(name), entry);
 	} else {
 		free_value(entry->type, entry->data);
 	}

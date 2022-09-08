@@ -60,7 +60,7 @@ static void table_insert_or_replace(GHashTable *table, const char *key, const ch
 	found = g_hash_table_lookup_extended(table, key, &old_key, &old_val);
 
 	if (strcmp(val, "") != 0) {
-		g_hash_table_insert(table, found ? old_key : strdup(key), strdup(val));
+		g_hash_table_insert(table, found ? old_key : g_strdup(key), g_strdup(val));
 
 		/* Word of warning: contrary to what the glib documentation says,
 		   only the old value must be freed, *not* the key. */
@@ -87,7 +87,7 @@ static void table_insert_or_append(GHashTable *table, const char *key, const cha
 		g_hash_table_insert(table, old_key, new_val);
 		free(old_val);
 	} else {
-		g_hash_table_insert(table, strdup(key), strdup(val));
+		g_hash_table_insert(table, g_strdup(key), g_strdup(val));
 	}
 }
 
@@ -120,7 +120,7 @@ static void vorbis_comment_to_table(vorbis_comment *vc, GHashTable *table)
 		str_safe_strncpy(key, vc->user_comments[i], count);
 		str_ascii_tolower(key);
 
-		val = strdup(p+1);
+		val = g_strdup(p+1);
 
 		table_insert_or_append(table, key, val);
 		free(key);
@@ -164,7 +164,7 @@ int vorbis_file_new(vorbis_file **f, const char *filename, gboolean editable)
 
 
 	(*f)->type = AF_VORBIS;
-	(*f)->name = strdup(filename);
+	(*f)->name = g_strdup(filename);
 	/* XXX - editable flag is meaningless, write will fail if dir is read-only */
 	(*f)->editable = editable;
 	(*f)->changed = FALSE;

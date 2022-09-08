@@ -10,7 +10,7 @@ void glist_2_combo(gpointer data, gpointer widget)
 static void cb_enforce_max_chars(GtkEditable *editable, gchar *insert_text, gint insert_text_len, gint *insert_pos, gpointer data)
 {
 	/* The maximum number of charaters is passed in the signal's user data */
-	guint max_len = (guint)data;
+	size_t max_len = (size_t)data;
 	gchar *text = gtk_editable_get_chars(editable, 0, -1);
 
 	if (g_utf8_strlen(text, -1) > max_len)

@@ -49,33 +49,39 @@ static int *panedPos;
 
 void cb_file_refresh(GtkWidget *widget, GdkEvent *event)
 {
+  (void)widget; (void)event;
 	fl_refresh(TRUE);
 }
 
 void cb_settings_charconv(GtkWidget *widget, GdkEvent *event)
 {
+  (void)widget; (void)event;
 	chconv_display(CHCONV_TAG, GTK_WIDGET(gtk_builder_get_object(copy_of_builder, "b_show_tag_chconv")));
 }
 
 void cb_settings_id3prefs(GtkWidget *widget, GdkEvent *event)
 {
+  (void)widget; (void)event;
 	prefs_display();
 }
 
 void cb_innerPaned_resize(GtkWidget *widget, GdkRectangle *allocation, gpointer user_data)
 {
+  (void)widget; (void)allocation; (void)user_data;
 	*panedPos = gtk_paned_get_position(p_innerPaned);
   g_object_set(G_OBJECT(box_header_left), "width-request", gtk_widget_get_allocated_width(GTK_WIDGET(b_file_list)) + 10 , NULL);
 }
 
 void cb_help_about(GtkWidget *widget, GdkEvent *event)
 {
-	about_display();
+  (void)widget; (void)event;
+  about_display();
 }
 
 /* other UI callbacks */
 gboolean cb_main_win_delete(GtkWidget *widget, GdkEvent *event, gpointer data)
 {
+  (void)widget; (void)event; (void)data;
 	/* this will prompt to save changes, if necessary */
 	et_unload_file();
 	return FALSE;
@@ -83,6 +89,7 @@ gboolean cb_main_win_delete(GtkWidget *widget, GdkEvent *event, gpointer data)
 
 void cb_main_win_size_changed(GtkWidget *widget, GtkAllocation *alloc, gpointer data)
 {
+  (void)widget; (void)data;
 	*width = alloc->width;
 	*height = alloc->height;
 }

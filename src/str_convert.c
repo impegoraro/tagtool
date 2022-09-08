@@ -40,9 +40,9 @@ static const char *encoding_name(int enc)
  */
 static int bytes_per_char(int enc)
 {
-	if (strncasecmp(encoding_name(enc), "UTF-16", 6) == 0)
+	if (strcasecmp(encoding_name(enc), "UTF-16") == 0)
 		return 2;
-	else if (strncasecmp(encoding_name(enc), "UTF-32", 6) == 0)
+	else if (strcasecmp(encoding_name(enc), "UTF-32") == 0)
 		return 4;
 	else
 		return 1;
@@ -161,8 +161,8 @@ char *str_convert_encoding(int from, int to, const char *str)
 				/* Invalid or inconvertible char, skip it
 				   Seems better than aborting the conversion... */
 
-				fprintf(stderr, "convert_encoding: conversion error at offset %i\n", 
-					inbytes-inbytesleft);
+				fprintf(stderr, "convert_encoding: conversion error at offset %lu\n",
+                inbytes-inbytesleft);
 
 				inbuf += inbpc;
 				inbytesleft = max(inbytesleft - inbpc, 0);
@@ -191,7 +191,7 @@ char *str_filename_to_utf8(const char *str, const char *onerror)
 	if (result == NULL) {
 		g_warning("File name could not be converted to UTF8: %s", str);
 		if (onerror != NULL)
-			result = strdup(onerror);
+			result = g_strdup(onerror);
 		else
 			result = NULL;
 	}
@@ -207,7 +207,7 @@ char *str_filename_from_utf8(const char *str, const char *onerror)
 	if (result == NULL) {
 		g_warning("File name could not be converted from UTF8: %s", str);
 		if (onerror != NULL)
-			result = strdup(onerror);
+			result = g_strdup(onerror);
 		else
 			result = NULL;
 	}

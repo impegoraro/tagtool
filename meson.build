@@ -1,5 +1,6 @@
 project('tagtool', 'c',
-	version: '0.14.5'
+	version: '0.14.5',
+	default_options : ['c_std=c11', 'warning_level=3']
 )
 
 cc = meson.get_compiler('c')

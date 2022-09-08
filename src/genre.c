@@ -1,6 +1,8 @@
 #include <string.h>
 #include <glib.h>
 
+#include <string.h>
+
 #include "genre.h"
 
 
@@ -177,9 +179,7 @@ GEList *genre_create_list(gboolean sort)
 
 gint genre_get_id(const gchar *name)
 {
-	int i;
-
-	for (i = 0; id3_genres[i]; i++)
+	for (size_t i = 0; id3_genres[i]; i++)
 		if (strcasecmp(name, id3_genres[i]) == 0)
 			return i;
 

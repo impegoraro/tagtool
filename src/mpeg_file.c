@@ -346,12 +346,11 @@ static const char *encode_v2_content_type(const char *text)
 {
 	static char buf[10];
 	
-	int id = genre_get_id(text);
+	gint id = genre_get_id(text);
 	if (id < 0) {
 		return "";
-	}
-	else {
-		snprintf(buf, 10, "(%i)", id);
+	} else {
+		snprintf(buf, 10, "(%hu)", (unsigned short) (id & 0xffff));
 		return buf;
 	}
 }
@@ -543,7 +542,7 @@ int mpeg_file_new(mpeg_file **f, const char *filename, gboolean editable)
 
 
 	(*f)->type = AF_MPEG;
-	(*f)->name = strdup(filename);
+	(*f)->name = g_strdup(filename);
 	(*f)->editable = editable;
 	(*f)->changed = FALSE;
 

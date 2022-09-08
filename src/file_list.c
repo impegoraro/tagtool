@@ -464,6 +464,8 @@ void cb_ctx_manual_rename(GtkWidget *widget, GdkEvent *event)
 	char *old_path;
 	char *new_name;
 
+  (void)widget; (void)event;
+
 	gtk_tree_view_get_first_selected(tv_files, &model, &iter);
 	gtk_tree_model_get(model, &iter, 1, &old_path, -1);
 	new_name = rename_prompt_new_name(g_path_get_basename(old_path));
@@ -480,6 +482,8 @@ void cb_ctx_delete(GtkWidget *widget, GdkEvent *event)
 	int count;
 	int button;
 	GEList *files;
+
+  (void)widget; (void)event;
 
 	count = gtk_tree_selection_count_selected_rows(gtk_tree_view_get_selection(tv_files));
 	if (count == 0)
@@ -500,6 +504,7 @@ void cb_ctx_unselect_all(GtkWidget *widget, GdkEvent *event)
 {
 	GtkTreeSelection *selection = gtk_tree_view_get_selection(tv_files);
 	gtk_tree_selection_unselect_all(selection);
+  (void)widget; (void)event;
 }
 
 
@@ -511,13 +516,14 @@ static void cb_file_edited (GtkCellRendererText *renderer, gchar *strPath, gchar
 	GtkTreeModel *model = gtk_tree_view_get_model(tv_files);
 	GtkTreePath *path = gtk_tree_path_new_from_string(strPath);
 
+  (void)renderer; (void)user_data;
+
 	if(path != NULL && gtk_tree_model_get_iter(model, &iter, path)) {
 		gchar* old_path;
 		gtk_tree_model_get(model, &iter, 4, &old_path, -1);
 		
 		if(g_strcmp0(old_path, new_path)) {
 			rename_file(old_path, new_path, FALSE);
-			//gtk_list_store_set(GTK_LIST_STORE(model), &iter, 4, new_path, -1);
 		}
 
 		gtk_tree_path_free(path);
@@ -530,6 +536,8 @@ static gboolean cb_file_selection_changing(GtkTreeSelection *selection, GtkTreeM
 {
 	GtkTreeIter iter;
 	gpointer p;
+
+  (void)selection; (void)path; (void)data;
 
 	/* always allow deselection */
 	if (path_currently_selected)
@@ -550,6 +558,8 @@ static void cb_file_selection_changed(GtkTreeSelection *selection, gpointer data
 	GtkTreeModel *model;
 	GtkTreeIter iter;
 	gchar *new_name;
+
+  (void)data;
 
 	update_file_count();
 
@@ -573,8 +583,9 @@ static void cb_file_selection_changed(GtkTreeSelection *selection, gpointer data
 
 gboolean cb_files_button_press(GtkWidget *widget, GdkEventButton *event, gpointer data)
 {
-	/* catch right-clicks to popup the context menu */
+  (void)widget; (void)event; (void)data;
 
+	/* catch right-clicks to popup the context menu */
 	if (event->type == GDK_BUTTON_PRESS && event->button == 3) {
 		GtkTreePath *path;
 		GtkTreeSelection *selection = gtk_tree_view_get_selection(tv_files);
@@ -595,6 +606,7 @@ gboolean cb_files_button_press(GtkWidget *widget, GdkEventButton *event, gpointe
 
 gboolean cb_files_popup_menu(GtkWidget *widget, gpointer data)
 {
+  (void)widget; (void)data;
 	popup_tree_view_menu();
 	return TRUE;
 }
@@ -602,6 +614,8 @@ gboolean cb_files_popup_menu(GtkWidget *widget, gpointer data)
 /* dir selection UI callbacks */
 void cb_select_dir(GtkButton *button, gpointer data)
 {
+  (void)button; (void)data;
+
 	gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(dlg_wd_select), working_dir->str);
 	gtk_widget_show(GTK_WIDGET(dlg_wd_select));
 
@@ -619,6 +633,7 @@ void cb_wd_changed(GObject *obj, gpointer user_data)
 	GList *iter;
 	const char *new_text = gtk_entry_get_text(ent_wd);
 
+  (void)obj; (void)user_data;
 	/* 
 	   Problem: GtkCombo doesn't have a signal to indicate the user has
 	   selected something, and the underlying GtkList's "selection-changed" 
@@ -638,17 +653,22 @@ void cb_wd_changed(GObject *obj, gpointer user_data)
 
 void cb_wd_keypress(GtkEntry *entry, gpointer  user_data)
 {
+  (void)entry; (void)user_data;
 	fl_refresh(FALSE);
 }
 
 void cb_toggle_recurse(GtkToggleButton *widget, gpointer data)
 {
+  (void)widget; (void)data;
+
 	*recurse = gtk_check_menu_item_get_active(btnMenuRecursive);
 	load_file_list();
 }
 
 void cb_menu_recursive(GtkCheckMenuItem *menu, gpointer data)
 {
+  (void)menu; (void)data;
+
   *recurse = gtk_check_menu_item_get_active(btnMenuRecursive);
 	load_file_list();
 }
@@ -896,7 +916,7 @@ int fl_count_selected()
 }
 
 
-const gchar *fl_get_selected_file()
+const gchar* fl_get_selected_file()
 {
 	GtkTreeModel *model;
 	GtkTreeIter iter;
@@ -909,7 +929,7 @@ const gchar *fl_get_selected_file()
 }
 
 
-GEList *fl_get_selected_files()
+GEList* fl_get_selected_files()
 {
 	GEList *result = g_elist_new();
 
@@ -938,7 +958,7 @@ GEList *fl_get_selected_files()
 }
 
 
-GEList *fl_get_all_files()
+GEList* fl_get_all_files()
 {
 	return g_elist_copy(file_list);
 }
@@ -946,5 +966,7 @@ GEList *fl_get_all_files()
 
 void cb_toolbar_more_menus(GtkToolButton *button, gpointer data)
 {
+  (void)data;
   popup_toolbar_open_menu(GTK_WIDGET(button));
 }
+

@@ -24,7 +24,7 @@ void cursor_set_wait()
 {
 	static GdkCursor *cur = NULL;
 	if (!cur)
-		cur = gdk_cursor_new(GDK_WATCH);
+		cur = gdk_cursor_new_for_display(gdk_display_get_default(), GDK_WATCH);
 
 	set_cursor(w_main, cur);
 }
@@ -33,7 +33,7 @@ void cursor_set_normal()
 {
 	static GdkCursor *cur = NULL;
 	if (!cur)
-		cur = gdk_cursor_new(GDK_LEFT_PTR);
+    cur = gdk_cursor_new_for_display(gdk_display_get_default(), GDK_LEFT_PTR);
 
 	set_cursor(w_main, cur);
 }

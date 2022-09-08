@@ -40,7 +40,7 @@ void mru_add (MRUList *mru, const gchar *entry)
 		g_elist_prepend(mru->list, found->data);
 		g_list_free_1(found);
 	} else {
-		g_elist_prepend(mru->list, strdup(entry));
+		g_elist_prepend(mru->list, g_strdup(entry));
 		if (g_elist_length(mru->list) > mru->max) {
 			GList *last = g_elist_last(mru->list);
 			g_elist_remove_link(mru->list, last);
